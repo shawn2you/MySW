@@ -12,13 +12,13 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 /*
- * À§»óÁ¤·Ä
- * ¹®Á¦ : https://www.acmicpc.net/problem/2252
+ * ìœ„ìƒì •ë ¬/ìš°ì„ ìˆœìœ„í
+ * ì¤„ ì„¸ìš°ê¸° : https://www.acmicpc.net/problem/2252
  */
 public class BJ2252 {
 	
 	static int N, M;
-	static int[] inDegree; // °£¼±ÀÇ ÁøÀÔ Â÷¼ö
+	static int[] inDegree; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 	public static void main(String[] args) throws Exception{
 		FileInputStream fi = new FileInputStream(new File(BJ2252.class.getResource("").getPath() + "BJ2252.txt"));

@@ -10,8 +10,8 @@ import java.util.Comparator;
 import java.util.StringTokenizer;
 
 /*
- * ÃÖ¼Ò½ÅÀåÆ®¸®(MST)
- * ¹®Á¦ : https://www.acmicpc.net/problem/1922
+ * ìµœì†Œ ìŠ¤íŒ¨ë‹ íŠ¸ë¦¬(MST)
+ * ë„¤íŠ¸ì›Œí¬ ì—°ê²° : https://www.acmicpc.net/problem/1922
  */
 
 class Computer{
