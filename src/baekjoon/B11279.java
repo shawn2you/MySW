@@ -5,6 +5,10 @@ import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/*
+ * 힙
+ * 최대힙 : https://www.acmicpc.net/problem/11279
+ */
 public class B11279 {
 
 	public static void main(String[] args) throws Exception{
@@ -42,6 +46,6 @@ public class B11279 {
 			
 		}
 		
-		System.out.print(sb);		
+		System.out.print(sb);
 	}
 }
