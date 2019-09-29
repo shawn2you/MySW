@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+ 
+class Solution
+{
+    static int T, N, M;
+    static ArrayList<Integer>[] map;
+    static int[][] dist;
+    public static void main(String[] args) throws Exception 
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+        for(int tc=1; tc<=T; tc++)
+        {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+            map = new ArrayList[N+1];
+            for(int i=1; i<=N; i++)
+                map[i] = new ArrayList<Integer>();
+            for(int i=1; i<=M; i++)
+            {
+                st = new StringTokenizer(br.readLine());
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+                map[a].add(b);
+                map[b].add(a);
+            }
+             
+            dist = new int[N+1][2]; // 홀짝 최대 2개만 가능
+            for(int i=1; i<=N; i++)
+                dist[i][0] = dist[i][1] = -1;
+ 
+            int odd = 0, even = 1;
+            Queue<Integer> v = new LinkedList<Integer>();
+            Queue<Integer> d = new LinkedList<Integer>();
+            v.add(1);
+            d.add(0);
+            dist[1][0] = 0; 
+            while(!v.isEmpty())
+            {
+                int here = v.poll();
+                int depth = d.poll();
+                for(int i=0; i<map[here].size(); i++)
+                {
+                    int there = map[here].get(i);
+                    if(dist[there][1] != -1) // 이미 홀짝 전부 채워졌으면 이후 탐색 필요 없음
+                        continue;
+                    if(dist[there][0] == -1 || dist[there][0] == depth) // 최초로 발견했거나 거리 차이가 1인 경우
+                    {
+                        v.add(there);
+                        d.add(depth+1);
+                        if(dist[there][0] == -1) 
+                            dist[there][0] = depth+1; // 처음으로 발견한 정점의 최단거리 갱신
+                        else
+                            dist[there][1] = depth+1; // 거리 차이가 1인 경우 두번째 최단거리 갱신   
+                        if(depth%2 == 0)
+                            odd++;
+                        else
+                            even++;
+                    }
+                }
+            }
+            System.out.println("#" + tc + " " + odd + " " + even);
+        }
+    }   
+}

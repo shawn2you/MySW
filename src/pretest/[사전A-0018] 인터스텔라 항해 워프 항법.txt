@@ -1,0 +1,139 @@
+import java.io.*;
+import java.util.*;
+ 
+// [사전A-0018] [10월 PRO 검정 사전 테스트] 인터스텔라 항해 : 워프 항법 
+public class Solution {
+    static int T, X, Y, M, W;
+    static final int INF = Integer.MAX_VALUE;
+    static int[][] map;
+    static int[][] mapCnt;
+    static int[][] dp;
+    static int[][] wp;
+    static int[][] mv = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // 상하좌우
+    static Queue<int[]> que = new LinkedList<int[]>();
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            X = Integer.parseInt(st.nextToken());
+            Y = Integer.parseInt(st.nextToken());
+            map = new int[X + 2][Y + 2];
+            mapCnt = new int[X + 2][Y + 2];
+            dp = new int[X + 2][Y + 2];
+            wp = new int[X * Y + 1][3];
+            que.clear();
+             
+            for(int i = 0; i <= X + 1; i++) {
+                for(int j = 0; j <= Y + 1; j++) {
+                    if(i == 0 || i == X + 1 || j == 0 || j == Y + 1) {
+                        map[i][j] = -1;
+                    }
+                     
+                    dp[i][j] = INF;
+                }
+            }
+             
+            dp[1][1] = 0; // 시작점
+             
+            M = Integer.parseInt(br.readLine());
+             
+            int r, c, nr, nc, t;
+             
+            for(int i = 0; i < M; i++) {
+                st = new StringTokenizer(br.readLine());
+                r = Integer.parseInt(st.nextToken()) + 1;
+                c = Integer.parseInt(st.nextToken()) + 1;
+                 
+                map[r][c] = -1;
+            }
+             
+            W = Integer.parseInt(br.readLine());
+             
+            for(int i = 1; i <= W; i++) {
+                st = new StringTokenizer(br.readLine());
+                r = Integer.parseInt(st.nextToken()) + 1;
+                c = Integer.parseInt(st.nextToken()) + 1;
+                nr = Integer.parseInt(st.nextToken()) + 1;
+                nc = Integer.parseInt(st.nextToken()) + 1;
+                t = Integer.parseInt(st.nextToken());
+                 
+                map[r][c] = i;
+                wp[i][0] = nr;
+                wp[i][1] = nc;
+                wp[i][2] = t;
+            }
+             
+            int now, next;
+            boolean mininf = false;
+            que.add(new int[] {1, 1, 0});
+             
+            while(!que.isEmpty()) {
+                int[] tmp = que.poll();
+                r = tmp[0];
+                c = tmp[1];
+                now = tmp[2];
+                mapCnt[r][c]++; // 해당 지점 몇번째 방문인가
+                 
+                if(r == X && c == Y) {
+                    continue;
+                }
+                 
+                if(mapCnt[r][c] > X * Y) {
+                    mininf = true;
+                    break;
+                }
+                 
+                if(map[r][c] > 0) { // 워프지점이면
+                    int idx = map[r][c];
+                    nr = wp[idx][0];
+                    nc = wp[idx][1];
+                    next = now + wp[idx][2];
+                     
+                    if(dp[nr][nc] <= next) {
+                        continue;
+                    }
+                     
+                    dp[nr][nc] = next;
+                    que.add(new int[] {nr, nc, next});                  
+                    continue;
+                }
+                 
+                next = now + 1;
+                 
+                for(int i = 0; i < 4; i++) {
+                    nr = r + mv[i][0];
+                    nc = c + mv[i][1];
+                     
+                    if(map[nr][nc] == -1) {
+                        continue;
+                    }
+                     
+                    if(dp[nr][nc] <= next) {
+                        continue;
+                    }
+                     
+                    dp[nr][nc] = next;
+                    que.add(new int[] {nr, nc, next});
+                }
+            }
+             
+            System.out.print("#" + tc + " ");
+             
+            if(mininf) {
+                System.out.println("mininf");
+                continue;
+            }
+                     
+            if(dp[X][Y] == INF) {
+                System.out.println("noway");
+                continue;
+            }
+             
+            System.out.println(dp[X][Y]);
+        }
+    }
+}

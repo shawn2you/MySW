@@ -1,0 +1,149 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+ 
+//class Edge {
+//  int to;
+//  int from;
+//  int line;
+//  
+//  public Edge(int to, int from, int line){
+//      this.to = to;
+//      this.from = from;
+//      this.line = line;
+//  
+//  }
+//}
+ 
+public class Solution {
+    static int T;
+    static int N, M; // 마을수 , 길수
+     
+    static int order[]; // 간선 순서
+     
+    static String update;
+    static String ans;
+    static int ze,cnt;
+    static int[] tns;
+ 
+ 
+ 
+     
+     
+//  static ArrayList<Edge> edge = new ArrayList<Edge>(); // 위프 간선비용
+    static int INF =Integer.MAX_VALUE;
+     
+    static int vertexMap[][]; 
+    static int vertexVisit[]; // 체크
+     
+     
+    public static void main(String[] args) throws IOException {
+        //System.setIn(new FileInputStream("input_sample.txt"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        T = Integer.parseInt(st.nextToken());
+     
+         
+        for (int t=1; t<=T; t++){
+            st = new StringTokenizer(br.readLine()," ");
+            N= Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+             
+         
+             
+            ze= 0;
+//          tns= new Edge[M+1];
+            vertexMap= new int[N+1][N+1];
+            vertexVisit = new int[N+1];
+             
+            int X;
+            int Y;
+            tns = new int[M+1];
+            order = new int[N+1];
+            for(int i=1; i<=M; i++){
+                st = new StringTokenizer(br.readLine()," ");
+                X= Integer.parseInt(st.nextToken());
+                Y= Integer.parseInt(st.nextToken());
+                 
+//              tns[i]= new Edge(X,Y, i);
+//              
+                 
+                vertexMap[X][Y]=i;
+                vertexMap[Y][X]=i;
+                 
+             
+                 
+            }
+             
+             
+         
+         
+            dfs(1,0);
+            cnt =0;
+            ans="";
+         
+            for(int i=1; i<=M; i++){
+                if(tns[i]==1){
+                    cnt ++;
+                    ans= ans +" "+i;
+                }
+            }
+             
+             
+            ans = cnt+ans;
+//          if("true".equals(update)){
+            System.out.println("#"+t+" "+ans);
+//          }else if(dist[X-1][Y-1]==INF)
+//          {
+//              System.out.println("#"+t+" "+"noway");
+//          }else{
+//              System.out.println("#"+t+" "+dist[X-1][Y-1]);
+//          }
+             
+         
+             
+        }
+         
+    }
+     
+    public static int dfs(int start, int before) {
+        vertexVisit[start] = 1;
+        order[start]= ze++;
+        int CanGoMin= Integer.MAX_VALUE;
+         
+        for(int i = 1; i <=N; i++) {
+            if(vertexMap[start][i] > 0  ) {//vertexVisit[i] == 0
+                 
+                // 방문하지 않은 노드로 가는 길
+                if(vertexVisit[i] == 0){
+                     
+                     
+                     
+                    int ret = dfs(i,start);
+                     
+                    if(ret > order[start]) tns[vertexMap[start][i]] = 1;
+                     
+                    CanGoMin = Math.min(ret, CanGoMin);
+                     
+                     
+                     
+                }
+                // 방문했던 노드로 가는 길
+                else{
+                     
+                    if(i != before) CanGoMin = Math.min(order[i], CanGoMin);
+                     
+                }
+                 
+            }
+        }
+         
+        return CanGoMin;
+         
+    }
+ 
+ 
+ 
+}

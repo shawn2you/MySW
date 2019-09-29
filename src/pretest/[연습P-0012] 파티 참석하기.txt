@@ -1,0 +1,145 @@
+파티 참석하기
+
+[문제]
+삼성고등학교의 기숙사는 N개의 방으로 이루어져 있고, 각 기숙사 방에는 한 명의 학생이 살고 있다. 편의상 각 학생에 1번부터 N번까지 번호를 붙이도록 하자.
+하루는 X번 학생의 기숙사 방에서 파티를 열기로 하였다. 각 학생들은 각자의 기숙사 방에서 X번 학생의 기숙사 방까지 갔다가 파티를 마치고 돌아오려 한다. 이 때, 이동하는 경로는 최단 경로로 이동한다. 다만 문제는 각 기숙사를 잇고 있는 M개의 길이 일방통행이라는 점이다. 결국, 그 기숙사 방까지 가는 경로와 그 기숙사 방에서 돌아오는 경로가 다를 수 밖에 없다.
+각 길의 정보가 주어졌을 때, 파티에 참석했다가 돌아오는데 소요되는 시간이 가장 긴 학생의 소요 시간을 알아내자.
+
+
+
+
+[입력]
+첫 번째 줄에 테스트 케이스의 갯수 T가 주어진다. 이어서 T개 케이스의 입력값이 주어진다. 
+각 테스트 케이스의 첫 번째 줄에 학생의 수 N, 길의 수 M, 파티를 여는 기숙사 방에 있는 학생의 번호 X가 주어진다. (1 ≤ N ≤ 50,000, 1 ≤ M ≤ 500,000)
+각 테스트 케이스의 두 번째 줄부터 M개의 줄에 걸쳐 각 길의 정보 s, e, t가 주어진다. s는 일방통행 길이 시작되는 기숙사 방의 번호이고, e는 길이 끝나는 기숙사 방의 번호이다. t는 그 길을 지나가는데 걸리는 소요 시간이다. 소요 시간은 1 이상 100 이하이다.
+
+
+
+
+[출력]
+각각의 테스트 케이스에 대하여 #x(x는 테스트 케이스 번호를 의미)를 출력하고 공백을 하나 둔 다음 파티에 참석했다가 돌아오는데 소요되는 시간이 가장 긴 학생의 소요 시간을 출력한다.
+
+
+
+
+
+[입출력 예]
+(입력)
+1
+4 8 2
+1 2 4
+1 3 2
+1 4 7
+2 1 1
+2 3 5
+3 1 2
+3 4 4
+4 2 3
+
+
+(출력)
+#1 10
+
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
+ 
+ 
+ 
+  
+public class Solution {  //Solution 
+      
+static int t, n, m, x;
+static ArrayList<Map>[] map1, map2;
+static int[] dist1, dist2, visit, answer;
+static int INF = Integer.MAX_VALUE-10000;
+static StringTokenizer st;
+static long start, end;
+    static public void main(String[] agrs) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    //    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/중상_연습P_0012_파티참석하기_input")));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        start = System.currentTimeMillis();
+  
+        int t = Integer.parseInt(br.readLine());
+ 
+        for (int tc = 1; tc <= t; tc++) {
+            st = new StringTokenizer(br.readLine());
+            n = Integer.parseInt(st.nextToken());
+            m = Integer.parseInt(st.nextToken());
+            x = Integer.parseInt(st.nextToken());
+            TreeSet<Integer> arr = new TreeSet<>();
+  
+            map1 = new ArrayList[n + 1];
+            map2 = new ArrayList[n + 1];
+            dist1 = new int[n+1];
+            dist2 = new int[n+1];
+              
+            for (int k = 1; k <= n; k++) map1[k] = new ArrayList<Map>();
+            for (int k = 1; k <= n; k++) map2[k] = new ArrayList<Map>();
+              
+            for (int i = 0; i < m; i++) {
+                st = new StringTokenizer(br.readLine());
+                int s = Integer.parseInt(st.nextToken()); // 출발
+                int e = Integer.parseInt(st.nextToken()); // 도착
+                int w = Integer.parseInt(st.nextToken()); // 가중치
+                map1[s].add(new Map(e, w));
+                map2[e].add(new Map(s, w));
+            }
+            Arrays.fill(dist1, INF);
+            Arrays.fill(dist2, INF);
+            bfs(x, map1, dist1);
+            bfs(x, map2, dist2);
+             
+            int max = 0;
+            for (int i = 1; i <= n; i++) {
+                max = Math.max(max, dist1[i] + dist2[i]);
+            }
+            System.out.println("#" + tc + " " + max);
+        }   }
+  
+    public static void bfs(int x, ArrayList<Map>[] map, int dist[] ) {
+        dist[x] = 0;
+        PriorityQueue<Map> Q = new PriorityQueue<>();
+        Q.add(new Map(x, 0));
+         
+        while (!Q.isEmpty()) {
+            Map now = Q.poll();
+            int curv = now.v;
+             
+            if (dist[curv]< now.w){
+                continue;
+            }
+ 
+  
+            for (int i = 0; i < map[curv].size(); i++) {
+                Map next = map[curv].get(i);
+                int nextv = next.v;
+                int nextw = next.w;
+                if (dist[nextv] > dist[curv] + nextw) {
+                    dist[nextv] = dist[curv] + nextw;
+                    Q.add(new Map(nextv, dist[curv] + nextw));
+                }    }    }   }
+     
+  public static class Map implements Comparable<Map> {
+        int v, w;
+       
+        public Map(int v, int w) {
+            this.v = v;
+            this.w = w;
+        }
+        @Override
+        public int compareTo(Map ago) {
+            return (this.w > ago.w) ? 1 : -1;
+        }   }
+}
+
