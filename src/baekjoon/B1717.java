@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /*
- * 
+ * Union & Find
  * 집합의 표현 : https://www.acmicpc.net/problem/1717
  */
 public class B1717 {
