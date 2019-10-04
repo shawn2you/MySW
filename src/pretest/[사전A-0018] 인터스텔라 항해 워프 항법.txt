@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
  
-// [»çÀüA-0018] [10¿ù PRO °ËÁ¤ »çÀü Å×½ºÆ®] ÀÎÅÍ½ºÅÚ¶ó Ç×ÇØ : ¿öÇÁ Ç×¹ı 
+// [ì‚¬ì „A-0018] [10ì›” PRO ê²€ì • ì‚¬ì „ í…ŒìŠ¤íŠ¸] ì¸í„°ìŠ¤í…”ë¼ í•­í•´ : ì›Œí”„ í•­ë²• 
 public class Solution {
     static int T, X, Y, M, W;
     static final int INF = Integer.MAX_VALUE;
@@ -9,7 +9,7 @@ public class Solution {
     static int[][] mapCnt;
     static int[][] dp;
     static int[][] wp;
-    static int[][] mv = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // »óÇÏÁÂ¿ì
+    static int[][] mv = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // ìƒí•˜ì¢Œìš°
     static Queue<int[]> que = new LinkedList<int[]>();
      
     public static void main(String[] args) throws Exception {
@@ -37,7 +37,7 @@ public class Solution {
                 }
             }
              
-            dp[1][1] = 0; // ½ÃÀÛÁ¡
+            dp[1][1] = 0; // ì‹œì‘ì 
              
             M = Integer.parseInt(br.readLine());
              
@@ -76,7 +76,7 @@ public class Solution {
                 r = tmp[0];
                 c = tmp[1];
                 now = tmp[2];
-                mapCnt[r][c]++; // ÇØ´ç ÁöÁ¡ ¸î¹øÂ° ¹æ¹®ÀÎ°¡
+                mapCnt[r][c]++; // í•´ë‹¹ ì§€ì  ëª‡ë²ˆì§¸ ë°©ë¬¸ì¸ê°€
                  
                 if(r == X && c == Y) {
                     continue;
@@ -87,7 +87,7 @@ public class Solution {
                     break;
                 }
                  
-                if(map[r][c] > 0) { // ¿öÇÁÁöÁ¡ÀÌ¸é
+                if(map[r][c] > 0) { // ì›Œí”„ì§€ì ì´ë©´
                     int idx = map[r][c];
                     nr = wp[idx][0];
                     nc = wp[idx][1];

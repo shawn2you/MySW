@@ -45,11 +45,11 @@ public class Solution {
                 public int compare(Point o1, Point o2) {
                     long ccw = ccw(p0, o1, o2);
                      
-                    if(ccw == 0) { // ÀÏÁ÷¼±ÀÌ¸é °Å¸® ºñ±³, °¡±î¿î Á¡ ¿ì¼±
+                    if(ccw == 0) { // ì¼ì§ì„ ì´ë©´ ê±°ë¦¬ ë¹„êµ, ê°€ê¹Œìš´ ì  ìš°ì„ 
                         long dist1 = dist(p0, o1);
                         long dist2 = dist(p0, o2);
                          
-                        if(dist1 < dist2) { // o1ÀÌ ´õ °¡±î¿ì¸é ¼ø¼­ À¯Áö
+                        if(dist1 < dist2) { // o1ì´ ë” ê°€ê¹Œìš°ë©´ ìˆœì„œ ìœ ì§€
                             return -1;
                         }
                         else if(dist1 > dist2) {
@@ -57,10 +57,10 @@ public class Solution {
                         }
                     }
                      
-                    if(ccw > 0) { // left turnÀÌ¸é  ±âÁØÁ¡¿¡¼­ º¼¶§ o1ÀÌ ÀÛÀº °¢µµ, ¼ø¼­À¯Áö
+                    if(ccw > 0) { // left turnì´ë©´  ê¸°ì¤€ì ì—ì„œ ë³¼ë•Œ o1ì´ ì‘ì€ ê°ë„, ìˆœì„œìœ ì§€
                         return -1;
                     }
-                    else {        // right turnÀÌ¸é ¹Ù²Ş
+                    else {        // right turnì´ë©´ ë°”ê¿ˆ
                         return 1;
                     }
                 }
@@ -122,11 +122,11 @@ public class Solution {
         list.clear();
          
         for(int i = 0; i < N; i++){
-            if(i == idx) { // °Ç³Ê¶Û ÀÎµ¦½º
+            if(i == idx) { // ê±´ë„ˆë›¸ ì¸ë±ìŠ¤
                 continue;
             }
              
-            while(list.size() > 1 && ccw(list.get(list.size()-2), list.get(list.size()-1), P[i]) <= 0){ // ½ºÅÃ¿¡ µÎ°³ ÀÌ»ó, left turn ³ª¿Ã¶§±îÁö loop
+            while(list.size() > 1 && ccw(list.get(list.size()-2), list.get(list.size()-1), P[i]) <= 0){ // ìŠ¤íƒì— ë‘ê°œ ì´ìƒ, left turn ë‚˜ì˜¬ë•Œê¹Œì§€ loop
                 list.remove(list.size()-1);
             }
             list.add(P[i]);
@@ -144,7 +144,7 @@ public class Solution {
             Point p0n = list.get((p0idx+1)%size);
             Point p1n = list.get((p1idx+1)%size);
              
-            while(ccw(new Point(0,0), getVector(p0,p0n), getVector(p1,p1n)) > 0) { // right turn ³ª¿Ã¶§±îÁö loop
+            while(ccw(new Point(0,0), getVector(p0,p0n), getVector(p1,p1n)) > 0) { // right turn ë‚˜ì˜¬ë•Œê¹Œì§€ loop
                 p1idx = (p1idx+1)%size;
                 p1 = list.get(p1idx);
                 p1n = list.get((p1idx+1)%size);

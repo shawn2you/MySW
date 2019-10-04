@@ -17,10 +17,10 @@ class Solution
             StringTokenizer st = new StringTokenizer(br.readLine());
             N = Integer.parseInt(st.nextToken());
             M = Integer.parseInt(st.nextToken());            
-            map = new boolean[N+2][M+2]; // ¿Ü°ûÀ» false·Î µÑ·¯½Î±â À§ÇØ¼­ N+2, M+2·Î »ı¼º   
-            cx = new int[4]; // °í½ºÆ®µéÀÇ xÀ§Ä¡
-            cy = new int[4]; // °í½ºÆ®µéÀÇ yÀ§Ä¡
-            cidx = 0; // °í½ºÆ®ÀÇ ¼ıÀÚ
+            map = new boolean[N+2][M+2]; // ì™¸ê³½ì„ falseë¡œ ë‘˜ëŸ¬ì‹¸ê¸° ìœ„í•´ì„œ N+2, M+2ë¡œ ìƒì„±   
+            cx = new int[4]; // ê³ ìŠ¤íŠ¸ë“¤ì˜ xìœ„ì¹˜
+            cy = new int[4]; // ê³ ìŠ¤íŠ¸ë“¤ì˜ yìœ„ì¹˜
+            cidx = 0; // ê³ ìŠ¤íŠ¸ì˜ ìˆ«ì
             for(int i=1; i<=N; i++)
             {
                 String str = br.readLine();
@@ -30,17 +30,17 @@ class Solution
                     if(ch != '#')
                     {
                         map[i][j] = true;
-                        if(ch == 'S') // ÆÑ¸Ç ½ÃÀÛÀ§Ä¡
+                        if(ch == 'S') // íŒ©ë§¨ ì‹œì‘ìœ„ì¹˜
                         {
                             sx = i;
                             sy = j;
                         }
-                        if(ch == 'E') // Á¾·áÀ§Ä¡
+                        if(ch == 'E') // ì¢…ë£Œìœ„ì¹˜
                         {
                             ex = i;
                             ey = j;
                         }
-                        if(ch == 'C') // °í½ºÆ® ½ÃÀÛÀ§Ä¡
+                        if(ch == 'C') // ê³ ìŠ¤íŠ¸ ì‹œì‘ìœ„ì¹˜
                         {
                             cx[cidx] = i;
                             cy[cidx++] = j;
@@ -48,17 +48,17 @@ class Solution
                     }
                 }
             }            
-            int pacman = bfs(sx, sy); // ÆÑ¸Ç ÃÖ´Ü°Å¸®
+            int pacman = bfs(sx, sy); // íŒ©ë§¨ ìµœë‹¨ê±°ë¦¬
             for(int i=0; i<cidx; i++)
             {
-                int ghost = bfs(cx[i], cy[i]); // °í½ºÆ® ÃÖ´Ü°Å¸®
-                if(pacman >= ghost && pacman%2 == ghost%2) // °í½ºÆ® ÃÖ´Ü°Å¸®°¡ ÀÛ°Å³ª °°À¸¸é¼­ È¦Â¦ÀÌ °°À¸¸é ¸¸³­´Ù.
+                int ghost = bfs(cx[i], cy[i]); // ê³ ìŠ¤íŠ¸ ìµœë‹¨ê±°ë¦¬
+                if(pacman >= ghost && pacman%2 == ghost%2) // ê³ ìŠ¤íŠ¸ ìµœë‹¨ê±°ë¦¬ê°€ ì‘ê±°ë‚˜ ê°™ìœ¼ë©´ì„œ í™€ì§ì´ ê°™ìœ¼ë©´ ë§Œë‚œë‹¤.
                 {
                     pacman = -1;
                     break;
                 }
             }
-            if(pacman == INF) // ÆÑ¸ÇÀÌ Á¾·áÀ§Ä¡¿¡ µµ´ŞÇÒ ¼ö ¾ø´Â °æ¿ì
+            if(pacman == INF) // íŒ©ë§¨ì´ ì¢…ë£Œìœ„ì¹˜ì— ë„ë‹¬í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
                 pacman = -1;
             System.out.println("#" + tc + " " + pacman);
         }

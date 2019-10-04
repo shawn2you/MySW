@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
  
-// (Áß»ó) [±âÃâP-0043] ¿ïÅ¸¸®
+// (ì¤‘ìƒ) [ê¸°ì¶œP-0043] ìš¸íƒ€ë¦¬
 public class Solution {
     static int T, N, idx;
     static class Pile {
@@ -97,14 +97,14 @@ public class Solution {
             E = new Pile(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), 0);
              
             for(int i = 0; i < idx; i++) {
-                V[i] = 101; // ¹æ¹®¼ø¼­
-                befo[i] = -1; // ÀÌÀü ÀÎµ¦½º
+                V[i] = 101; // ë°©ë¬¸ìˆœì„œ
+                befo[i] = -1; // ì´ì „ ì¸ë±ìŠ¤
             }
              
             dfsEnd = false;
             stt = end = -1;
              
-            if(!isCycle()) { // ¿ïÅ¸¸®¿¡ »çÀÌÅ¬ ¾øÀ¸¸é ¿ïÅ¸¸® ¾È³Ñ°í S -> E °¡´É
+            if(!isCycle()) { // ìš¸íƒ€ë¦¬ì— ì‚¬ì´í´ ì—†ìœ¼ë©´ ìš¸íƒ€ë¦¬ ì•ˆë„˜ê³  S -> E ê°€ëŠ¥
                 System.out.println("#" + tc + " 0");
                 continue;
             }
@@ -120,8 +120,8 @@ public class Solution {
                 bf = befo[bf];
             }
              
-            arr.add(stt); // ½ÃÀÛÁ¡ ¼¼ÆÃ
-            arr.add(end); // Ãß°¡ ¼¼ÆÃ
+            arr.add(stt); // ì‹œì‘ì  ì„¸íŒ…
+            arr.add(end); // ì¶”ê°€ ì„¸íŒ…
              
             Pile Q1 = new Pile(1000000001, S.y + 1, 0);
             Pile Q2 = new Pile(1000000001, E.y + 1, 0);
@@ -148,10 +148,10 @@ public class Solution {
                 }
             }
              
-            if(cnt1 % 2 == cnt2 % 2) { // µÑ´Ù ³»ºÎÀÇ Á¡ÀÌ°Å³ª ¿ÜºÎÀÇ Á¡ÀÌ¸é ¿ïÅ¸¸® ¾È°Ç³Êµµ µÊ
+            if(cnt1 % 2 == cnt2 % 2) { // ë‘˜ë‹¤ ë‚´ë¶€ì˜ ì ì´ê±°ë‚˜ ì™¸ë¶€ì˜ ì ì´ë©´ ìš¸íƒ€ë¦¬ ì•ˆê±´ë„ˆë„ ë¨
                 System.out.println("#" + tc + " 0");
             }
-            else { // ¾Æ´Ï¸é ÇÑ¹øÀº °Ç³Ê¾ß µÊ
+            else { // ì•„ë‹ˆë©´ í•œë²ˆì€ ê±´ë„ˆì•¼ ë¨
                 System.out.println("#" + tc + " 1");
             }
         }
@@ -179,19 +179,19 @@ public class Solution {
         int st = -1;
          
         for(int i = 0; i < idx; i++) {
-            if(ps[i].cnt == 1) { // ²ôÆ®¸Ó¸® ¸»¶Ò Ã£±â
+            if(ps[i].cnt == 1) { // ë„íŠ¸ë¨¸ë¦¬ ë§ëš ì°¾ê¸°
                 st = i;
                 break;
             }
         }
          
-        if(st == -1) { // ²ôÆ®¸Ó¸® ¾øÀ¸¸é »çÀÌÅ¬ÀÌ°Ú³×
-            st = 0; // °Á Ã¹¹øÂ°²¨ ½ÃÀÛÀ¸·Î ³õÀÚ
+        if(st == -1) { // ë„íŠ¸ë¨¸ë¦¬ ì—†ìœ¼ë©´ ì‚¬ì´í´ì´ê² ë„¤
+            st = 0; // ê± ì²«ë²ˆì§¸êº¼ ì‹œì‘ìœ¼ë¡œ ë†“ì
         }
          
         V[st] = 1;
         befo[st] = -2;
-        dfs(st, 1); // ³ëµå, ¹æ¹®¼ø¼­
+        dfs(st, 1); // ë…¸ë“œ, ë°©ë¬¸ìˆœì„œ
          
         return dfsEnd;
     }
@@ -200,14 +200,14 @@ public class Solution {
         for(int i = 0; i < ps[now].rel.size(); i++) {
             int next = ps[now].rel.get(i);
              
-            if(V[next] == order - 1) { // ¹æ¹®¼ø¼­ ¹Ù·Î ÀÌÀüÀº continue
+            if(V[next] == order - 1) { // ë°©ë¬¸ìˆœì„œ ë°”ë¡œ ì´ì „ì€ continue
                 continue;
             }
              
-            if(V[next] < order) { // ¹æ¹®¼ø¼­ ÀÛÀº°Å¸é »çÀÌÅ¬ Ã£¾Ò³×
+            if(V[next] < order) { // ë°©ë¬¸ìˆœì„œ ì‘ì€ê±°ë©´ ì‚¬ì´í´ ì°¾ì•˜ë„¤
                 dfsEnd = true;
-                stt = next; // »çÀÌÅ¬ ½ÃÀÛ
-                end = now; // »çÀÌÅ¬ ³¡
+                stt = next; // ì‚¬ì´í´ ì‹œì‘
+                end = now; // ì‚¬ì´í´ ë
                 break;
             }
              

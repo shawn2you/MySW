@@ -19,7 +19,7 @@ class Solution
             st = new StringTokenizer(br.readLine());
             int[] del = new int[N];
             for(int i=0; i<N; i++)
-                del[i] = Integer.parseInt(st.nextToken()); // Á¤Á¡ÀÌ Áö¿öÁö´Â ¼ø¼­
+                del[i] = Integer.parseInt(st.nextToken()); // ì •ì ì´ ì§€ì›Œì§€ëŠ” ìˆœì„œ
              
             map = new long[N+1][N+1];
             for(int i=1; i<N; i++)
@@ -28,13 +28,13 @@ class Solution
                 for(int j=i+1; j<=N; j++)
                 {
                     long a = Long.parseLong(st.nextToken());
-                    if(a == 0) // µÎ Á¤Á¡ÀÌ ¿¬°áµÇÁö ¾ÊÀº °æ¿ì
+                    if(a == 0) // ë‘ ì •ì ì´ ì—°ê²°ë˜ì§€ ì•Šì€ ê²½ìš°
                          a = INF;
                      map[i][j] = map[j][i] = a;
                 }
             }
              
-            map2 = new long[N+1][N+1]; // Á¤Á¡ÀÌ Ãß°¡µÇ´Â ¼ø¼­·Î ¸®¶óº§¸µÇÏ¿© map2 »ý¼º
+            map2 = new long[N+1][N+1]; // ì •ì ì´ ì¶”ê°€ë˜ëŠ” ìˆœì„œë¡œ ë¦¬ë¼ë²¨ë§í•˜ì—¬ map2 ìƒì„±
             for(int i=1; i<=N; i++)
             {
                 int a = del[N-i];
@@ -45,7 +45,7 @@ class Solution
                 }
             }           
              
-            // ÇÃ·ÎÀÌµå-¿ö¼È·Î ¸ðµç½Ö ÃÖ´Ü°Å¸® ±¸ÇÏ±â
+            // í”Œë¡œì´ë“œ-ì›Œì…œë¡œ ëª¨ë“ ìŒ ìµœë‹¨ê±°ë¦¬ êµ¬í•˜ê¸°
             long[] ans = new long[N+1];
             for(int k=1; k<=N; k++)
             {               
@@ -57,7 +57,7 @@ class Solution
                         map2[i][j] = Math.min(map2[i][j], map2[i][k] + map2[k][j]);                     
                 }
                  
-                // Á¤Á¡ Ãß°¡µÉ¶§¸¶´Ù °¡Àå Å« ÃÖ´Ü °æ·Î ±¸ÇÏ±â 
+                // ì •ì  ì¶”ê°€ë ë•Œë§ˆë‹¤ ê°€ìž¥ í° ìµœë‹¨ ê²½ë¡œ êµ¬í•˜ê¸° 
                 long nMax = 0;
                 for(int i=1; i<=k; i++)
                     for(int j=1; j<=k; j++)

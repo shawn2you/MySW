@@ -27,7 +27,7 @@ class Solution
                 map[b].add(a);
             }
              
-            dist = new int[N+1][2]; // È¦Â¦ ÃÖ´ë 2°³¸¸ °¡´É
+            dist = new int[N+1][2]; // í™€ì§ ìµœëŒ€ 2ê°œë§Œ ê°€ëŠ¥
             for(int i=1; i<=N; i++)
                 dist[i][0] = dist[i][1] = -1;
  
@@ -44,16 +44,16 @@ class Solution
                 for(int i=0; i<map[here].size(); i++)
                 {
                     int there = map[here].get(i);
-                    if(dist[there][1] != -1) // ÀÌ¹Ì È¦Â¦ ÀüºÎ Ã¤¿öÁ³À¸¸é ÀÌÈÄ Å½»ö ÇÊ¿ä ¾øÀ½
+                    if(dist[there][1] != -1) // ì´ë¯¸ í™€ì§ ì „ë¶€ ì±„ì›Œì¡Œìœ¼ë©´ ì´í›„ íƒìƒ‰ í•„ìš” ì—†ìŒ
                         continue;
-                    if(dist[there][0] == -1 || dist[there][0] == depth) // ÃÖÃÊ·Î ¹ß°ßÇß°Å³ª °Å¸® Â÷ÀÌ°¡ 1ÀÎ °æ¿ì
+                    if(dist[there][0] == -1 || dist[there][0] == depth) // ìµœì´ˆë¡œ ë°œê²¬í–ˆê±°ë‚˜ ê±°ë¦¬ ì°¨ì´ê°€ 1ì¸ ê²½ìš°
                     {
                         v.add(there);
                         d.add(depth+1);
                         if(dist[there][0] == -1) 
-                            dist[there][0] = depth+1; // Ã³À½À¸·Î ¹ß°ßÇÑ Á¤Á¡ÀÇ ÃÖ´Ü°Å¸® °»½Å
+                            dist[there][0] = depth+1; // ì²˜ìŒìœ¼ë¡œ ë°œê²¬í•œ ì •ì ì˜ ìµœë‹¨ê±°ë¦¬ ê°±ì‹ 
                         else
-                            dist[there][1] = depth+1; // °Å¸® Â÷ÀÌ°¡ 1ÀÎ °æ¿ì µÎ¹øÂ° ÃÖ´Ü°Å¸® °»½Å   
+                            dist[there][1] = depth+1; // ê±°ë¦¬ ì°¨ì´ê°€ 1ì¸ ê²½ìš° ë‘ë²ˆì§¸ ìµœë‹¨ê±°ë¦¬ ê°±ì‹    
                         if(depth%2 == 0)
                             odd++;
                         else

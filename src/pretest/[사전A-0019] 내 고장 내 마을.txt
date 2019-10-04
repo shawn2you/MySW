@@ -19,9 +19,9 @@ import java.util.StringTokenizer;
  
 public class Solution {
     static int T;
-    static int N, M; // ¸¶À»¼ö , ±æ¼ö
+    static int N, M; // ë§ˆì„ìˆ˜ , ê¸¸ìˆ˜
      
-    static int order[]; // °£¼± ¼ø¼­
+    static int order[]; // ê°„ì„  ìˆœì„œ
      
     static String update;
     static String ans;
@@ -32,11 +32,11 @@ public class Solution {
  
      
      
-//  static ArrayList<Edge> edge = new ArrayList<Edge>(); // À§ÇÁ °£¼±ºñ¿ë
+//  static ArrayList<Edge> edge = new ArrayList<Edge>(); // ìœ„í”„ ê°„ì„ ë¹„ìš©
     static int INF =Integer.MAX_VALUE;
      
     static int vertexMap[][]; 
-    static int vertexVisit[]; // Ã¼Å©
+    static int vertexVisit[]; // ì²´í¬
      
      
     public static void main(String[] args) throws IOException {
@@ -116,7 +116,7 @@ public class Solution {
         for(int i = 1; i <=N; i++) {
             if(vertexMap[start][i] > 0  ) {//vertexVisit[i] == 0
                  
-                // ¹æ¹®ÇÏÁö ¾ÊÀº ³ëµå·Î °¡´Â ±æ
+                // ë°©ë¬¸í•˜ì§€ ì•Šì€ ë…¸ë“œë¡œ ê°€ëŠ” ê¸¸
                 if(vertexVisit[i] == 0){
                      
                      
@@ -130,7 +130,7 @@ public class Solution {
                      
                      
                 }
-                // ¹æ¹®Çß´ø ³ëµå·Î °¡´Â ±æ
+                // ë°©ë¬¸í–ˆë˜ ë…¸ë“œë¡œ ê°€ëŠ” ê¸¸
                 else{
                      
                     if(i != before) CanGoMin = Math.min(order[i], CanGoMin);
