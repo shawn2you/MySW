@@ -1,30 +1,30 @@
-ÆÄÆ¼ Âü¼®ÇÏ±â
+íŒŒí‹° ì°¸ì„í•˜ê¸°
 
-[¹®Á¦]
-»ï¼º°íµîÇÐ±³ÀÇ ±â¼÷»ç´Â N°³ÀÇ ¹æÀ¸·Î ÀÌ·ç¾îÁ® ÀÖ°í, °¢ ±â¼÷»ç ¹æ¿¡´Â ÇÑ ¸íÀÇ ÇÐ»ýÀÌ »ì°í ÀÖ´Ù. ÆíÀÇ»ó °¢ ÇÐ»ý¿¡ 1¹øºÎÅÍ N¹ø±îÁö ¹øÈ£¸¦ ºÙÀÌµµ·Ï ÇÏÀÚ.
-ÇÏ·ç´Â X¹ø ÇÐ»ýÀÇ ±â¼÷»ç ¹æ¿¡¼­ ÆÄÆ¼¸¦ ¿­±â·Î ÇÏ¿´´Ù. °¢ ÇÐ»ýµéÀº °¢ÀÚÀÇ ±â¼÷»ç ¹æ¿¡¼­ X¹ø ÇÐ»ýÀÇ ±â¼÷»ç ¹æ±îÁö °¬´Ù°¡ ÆÄÆ¼¸¦ ¸¶Ä¡°í µ¹¾Æ¿À·Á ÇÑ´Ù. ÀÌ ¶§, ÀÌµ¿ÇÏ´Â °æ·Î´Â ÃÖ´Ü °æ·Î·Î ÀÌµ¿ÇÑ´Ù. ´Ù¸¸ ¹®Á¦´Â °¢ ±â¼÷»ç¸¦ ÀÕ°í ÀÖ´Â M°³ÀÇ ±æÀÌ ÀÏ¹æÅëÇàÀÌ¶ó´Â Á¡ÀÌ´Ù. °á±¹, ±× ±â¼÷»ç ¹æ±îÁö °¡´Â °æ·Î¿Í ±× ±â¼÷»ç ¹æ¿¡¼­ µ¹¾Æ¿À´Â °æ·Î°¡ ´Ù¸¦ ¼ö ¹Û¿¡ ¾ø´Ù.
-°¢ ±æÀÇ Á¤º¸°¡ ÁÖ¾îÁ³À» ¶§, ÆÄÆ¼¿¡ Âü¼®Çß´Ù°¡ µ¹¾Æ¿À´Âµ¥ ¼Ò¿äµÇ´Â ½Ã°£ÀÌ °¡Àå ±ä ÇÐ»ýÀÇ ¼Ò¿ä ½Ã°£À» ¾Ë¾Æ³»ÀÚ.
-
-
-
-
-[ÀÔ·Â]
-Ã¹ ¹øÂ° ÁÙ¿¡ Å×½ºÆ® ÄÉÀÌ½ºÀÇ °¹¼ö T°¡ ÁÖ¾îÁø´Ù. ÀÌ¾î¼­ T°³ ÄÉÀÌ½ºÀÇ ÀÔ·Â°ªÀÌ ÁÖ¾îÁø´Ù. 
-°¢ Å×½ºÆ® ÄÉÀÌ½ºÀÇ Ã¹ ¹øÂ° ÁÙ¿¡ ÇÐ»ýÀÇ ¼ö N, ±æÀÇ ¼ö M, ÆÄÆ¼¸¦ ¿©´Â ±â¼÷»ç ¹æ¿¡ ÀÖ´Â ÇÐ»ýÀÇ ¹øÈ£ X°¡ ÁÖ¾îÁø´Ù. (1 ¡Â N ¡Â 50,000, 1 ¡Â M ¡Â 500,000)
-°¢ Å×½ºÆ® ÄÉÀÌ½ºÀÇ µÎ ¹øÂ° ÁÙºÎÅÍ M°³ÀÇ ÁÙ¿¡ °ÉÃÄ °¢ ±æÀÇ Á¤º¸ s, e, t°¡ ÁÖ¾îÁø´Ù. s´Â ÀÏ¹æÅëÇà ±æÀÌ ½ÃÀÛµÇ´Â ±â¼÷»ç ¹æÀÇ ¹øÈ£ÀÌ°í, e´Â ±æÀÌ ³¡³ª´Â ±â¼÷»ç ¹æÀÇ ¹øÈ£ÀÌ´Ù. t´Â ±× ±æÀ» Áö³ª°¡´Âµ¥ °É¸®´Â ¼Ò¿ä ½Ã°£ÀÌ´Ù. ¼Ò¿ä ½Ã°£Àº 1 ÀÌ»ó 100 ÀÌÇÏÀÌ´Ù.
+[ë¬¸ì œ]
+ì‚¼ì„±ê³ ë“±í•™êµì˜ ê¸°ìˆ™ì‚¬ëŠ” Nê°œì˜ ë°©ìœ¼ë¡œ ì´ë£¨ì–´ì ¸ ìžˆê³ , ê° ê¸°ìˆ™ì‚¬ ë°©ì—ëŠ” í•œ ëª…ì˜ í•™ìƒì´ ì‚´ê³  ìžˆë‹¤. íŽ¸ì˜ìƒ ê° í•™ìƒì— 1ë²ˆë¶€í„° Në²ˆê¹Œì§€ ë²ˆí˜¸ë¥¼ ë¶™ì´ë„ë¡ í•˜ìž.
+í•˜ë£¨ëŠ” Xë²ˆ í•™ìƒì˜ ê¸°ìˆ™ì‚¬ ë°©ì—ì„œ íŒŒí‹°ë¥¼ ì—´ê¸°ë¡œ í•˜ì˜€ë‹¤. ê° í•™ìƒë“¤ì€ ê°ìžì˜ ê¸°ìˆ™ì‚¬ ë°©ì—ì„œ Xë²ˆ í•™ìƒì˜ ê¸°ìˆ™ì‚¬ ë°©ê¹Œì§€ ê°”ë‹¤ê°€ íŒŒí‹°ë¥¼ ë§ˆì¹˜ê³  ëŒì•„ì˜¤ë ¤ í•œë‹¤. ì´ ë•Œ, ì´ë™í•˜ëŠ” ê²½ë¡œëŠ” ìµœë‹¨ ê²½ë¡œë¡œ ì´ë™í•œë‹¤. ë‹¤ë§Œ ë¬¸ì œëŠ” ê° ê¸°ìˆ™ì‚¬ë¥¼ ìž‡ê³  ìžˆëŠ” Mê°œì˜ ê¸¸ì´ ì¼ë°©í†µí–‰ì´ë¼ëŠ” ì ì´ë‹¤. ê²°êµ­, ê·¸ ê¸°ìˆ™ì‚¬ ë°©ê¹Œì§€ ê°€ëŠ” ê²½ë¡œì™€ ê·¸ ê¸°ìˆ™ì‚¬ ë°©ì—ì„œ ëŒì•„ì˜¤ëŠ” ê²½ë¡œê°€ ë‹¤ë¥¼ ìˆ˜ ë°–ì— ì—†ë‹¤.
+ê° ê¸¸ì˜ ì •ë³´ê°€ ì£¼ì–´ì¡Œì„ ë•Œ, íŒŒí‹°ì— ì°¸ì„í–ˆë‹¤ê°€ ëŒì•„ì˜¤ëŠ”ë° ì†Œìš”ë˜ëŠ” ì‹œê°„ì´ ê°€ìž¥ ê¸´ í•™ìƒì˜ ì†Œìš” ì‹œê°„ì„ ì•Œì•„ë‚´ìž.
 
 
 
 
-[Ãâ·Â]
-°¢°¢ÀÇ Å×½ºÆ® ÄÉÀÌ½º¿¡ ´ëÇÏ¿© #x(x´Â Å×½ºÆ® ÄÉÀÌ½º ¹øÈ£¸¦ ÀÇ¹Ì)¸¦ Ãâ·ÂÇÏ°í °ø¹éÀ» ÇÏ³ª µÐ ´ÙÀ½ ÆÄÆ¼¿¡ Âü¼®Çß´Ù°¡ µ¹¾Æ¿À´Âµ¥ ¼Ò¿äµÇ´Â ½Ã°£ÀÌ °¡Àå ±ä ÇÐ»ýÀÇ ¼Ò¿ä ½Ã°£À» Ãâ·ÂÇÑ´Ù.
+[ìž…ë ¥]
+ì²« ë²ˆì§¸ ì¤„ì— í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì˜ ê°¯ìˆ˜ Tê°€ ì£¼ì–´ì§„ë‹¤. ì´ì–´ì„œ Tê°œ ì¼€ì´ìŠ¤ì˜ ìž…ë ¥ê°’ì´ ì£¼ì–´ì§„ë‹¤. 
+ê° í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì˜ ì²« ë²ˆì§¸ ì¤„ì— í•™ìƒì˜ ìˆ˜ N, ê¸¸ì˜ ìˆ˜ M, íŒŒí‹°ë¥¼ ì—¬ëŠ” ê¸°ìˆ™ì‚¬ ë°©ì— ìžˆëŠ” í•™ìƒì˜ ë²ˆí˜¸ Xê°€ ì£¼ì–´ì§„ë‹¤. (1 â‰¤ N â‰¤ 50,000, 1 â‰¤ M â‰¤ 500,000)
+ê° í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì˜ ë‘ ë²ˆì§¸ ì¤„ë¶€í„° Mê°œì˜ ì¤„ì— ê±¸ì³ ê° ê¸¸ì˜ ì •ë³´ s, e, tê°€ ì£¼ì–´ì§„ë‹¤. sëŠ” ì¼ë°©í†µí–‰ ê¸¸ì´ ì‹œìž‘ë˜ëŠ” ê¸°ìˆ™ì‚¬ ë°©ì˜ ë²ˆí˜¸ì´ê³ , eëŠ” ê¸¸ì´ ëë‚˜ëŠ” ê¸°ìˆ™ì‚¬ ë°©ì˜ ë²ˆí˜¸ì´ë‹¤. tëŠ” ê·¸ ê¸¸ì„ ì§€ë‚˜ê°€ëŠ”ë° ê±¸ë¦¬ëŠ” ì†Œìš” ì‹œê°„ì´ë‹¤. ì†Œìš” ì‹œê°„ì€ 1 ì´ìƒ 100 ì´í•˜ì´ë‹¤.
+
+
+
+
+[ì¶œë ¥]
+ê°ê°ì˜ í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì— ëŒ€í•˜ì—¬ #x(xëŠ” í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ ë²ˆí˜¸ë¥¼ ì˜ë¯¸)ë¥¼ ì¶œë ¥í•˜ê³  ê³µë°±ì„ í•˜ë‚˜ ë‘” ë‹¤ìŒ íŒŒí‹°ì— ì°¸ì„í–ˆë‹¤ê°€ ëŒì•„ì˜¤ëŠ”ë° ì†Œìš”ë˜ëŠ” ì‹œê°„ì´ ê°€ìž¥ ê¸´ í•™ìƒì˜ ì†Œìš” ì‹œê°„ì„ ì¶œë ¥í•œë‹¤.
 
 
 
 
 
-[ÀÔÃâ·Â ¿¹]
-(ÀÔ·Â)
+[ìž…ì¶œë ¥ ì˜ˆ]
+(ìž…ë ¥)
 1
 4 8 2
 1 2 4
@@ -37,7 +37,7 @@
 4 2 3
 
 
-(Ãâ·Â)
+(ì¶œë ¥)
 #1 10
 
 
@@ -66,7 +66,7 @@ static StringTokenizer st;
 static long start, end;
     static public void main(String[] agrs) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    //    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/Áß»ó_¿¬½ÀP_0012_ÆÄÆ¼Âü¼®ÇÏ±â_input")));
+    //    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("src/ì¤‘ìƒ_ì—°ìŠµP_0012_íŒŒí‹°ì°¸ì„í•˜ê¸°_input")));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         start = System.currentTimeMillis();
   
@@ -89,9 +89,9 @@ static long start, end;
               
             for (int i = 0; i < m; i++) {
                 st = new StringTokenizer(br.readLine());
-                int s = Integer.parseInt(st.nextToken()); // Ãâ¹ß
-                int e = Integer.parseInt(st.nextToken()); // µµÂø
-                int w = Integer.parseInt(st.nextToken()); // °¡ÁßÄ¡
+                int s = Integer.parseInt(st.nextToken()); // ì¶œë°œ
+                int e = Integer.parseInt(st.nextToken()); // ë„ì°©
+                int w = Integer.parseInt(st.nextToken()); // ê°€ì¤‘ì¹˜
                 map1[s].add(new Map(e, w));
                 map2[e].add(new Map(s, w));
             }
