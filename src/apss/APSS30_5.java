@@ -12,22 +12,26 @@ import java.util.StringTokenizer;
  * 다익스트라
  */
 
-class Node{
-	int x;
-	int y;
-	int tm;
-	public Node(int x, int y, int tm){
+class Node implements Comparable<Node>{
+	int x; // 도착점
+	int y; // 소요시간
+	public Node(int x, int y){
 		super();
 		this.x = x;
 		this.y = y;
-		this.tm = tm;
+	}
+	@Override
+	public int compareTo(Node o) {
+		// TODO Auto-generated method stub
+		return this.y > o.y ? 1:-1 ;
 	}
 }
 public class APSS30_5 {
 
 	static int T, V, E, n, m;
 	// 방향없는 간선으로 양방향 셋팅 필요
-	static ArrayList<Node> adj = new ArrayList<Node>();
+	static ArrayList<Node>[] map1, map2;
+	static int INF = Integer.MAX_VALUE-10000;
 	
 	public static void main(String[] args) throws Exception {
 		FileInputStream fi = new FileInputStream(new File(APSS30_5.class.getResource("").getPath() + "APSS30_5.txt"));
@@ -35,8 +39,7 @@ public class APSS30_5 {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		T = Integer.parseInt(br.readLine());
-		
+		T = Integer.parseInt(br.readLine());		 
 		
 		for(int t=0; t<T; t++){
 			StringTokenizer st = new StringTokenizer(br.readLine());
@@ -48,6 +51,13 @@ public class APSS30_5 {
 			
 			int s, e, d;
 			int[] time = new int[V+1]; // 해당 장소의 최소값
+			map1 = new ArrayList[V + 1];
+			map2 = new ArrayList[V + 1];
+			
+			for (int k = 1; k <= V; k++){
+				map1[k] = new ArrayList<Node>();
+				map2[k] = new ArrayList<Node>();
+			}
 			
 			for(int i=0; i<E; i++){
 				st = new StringTokenizer(br.readLine());
@@ -55,9 +65,8 @@ public class APSS30_5 {
 				e = Integer.parseInt(st.nextToken()); // 종료
 				d = Integer.parseInt(st.nextToken()); // 시간
 										
-				adj.add(new Node(s, e, d));
-				
-				
+				map1[s].add(new Node(e, d));
+				map2[e].add(new Node(s, d));				
 			}
 		
 		}
