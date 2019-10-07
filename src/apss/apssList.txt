@@ -1,0 +1,7 @@
+28.3 고대어 사전 : https://algospot.com/judge/problem/read/DICTIONARY
+28.6 단어 제한 끝말 잇기  https://www.algospot.com/judge/problem/read/WORDCHAIN
+
+[다익스트라] 
+30.3 신호 라우팅 : https://algospot.com/judge/problem/read/ROUTING
+30.5 소방차 : https://algospot.com/judge/problem/read/FIRETRUCKS#
+30.7 철인N종 경기 https://algospot.com/judge/problem/read/NTHLON
