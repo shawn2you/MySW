@@ -69,10 +69,7 @@ public class APSS30_3 {
 			}
 			
 			Dijkstra(0);
-//			for(int i=0; i<N-1; i++) {
-//				sum = Math.max(lCost[i], lCost[i+1]);
-//			}
-//			System.out.println(t + " " + sum);
+
 			System.out.printf("%.10f", lCost[N-1]);
 			System.out.println();
 			
