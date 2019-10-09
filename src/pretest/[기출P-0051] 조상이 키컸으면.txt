@@ -1,0 +1,152 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.StringTokenizer;
+ 
+class Node{
+    int no;
+    int height;
+    int depth;
+    Node parent;
+    int maxHeight;
+    List<Node> chidren = new ArrayList<Node>();
+     
+    public Node(int no) {
+        super();
+        this.no = no;
+    }
+ 
+    @Override
+    public String toString() {
+        return "Node [no=" + no + ", height=" + height + ", depth=" + depth + ", parent=" + parent.no + ", chidren="
+                + chidren.size() + "]";
+    }
+}
+ 
+public class Solution {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+     
+    static int N, Q, MK;
+    static Node[] nodes;
+    static int parents[][];
+    public static void main(String[] args) throws Exception {
+        //long start = System.currentTimeMillis();
+        //System.setIn(new FileInputStream(Solution.class.getResource("sample_input.txt").getPath()));
+         
+        br = new BufferedReader(new InputStreamReader(System.in));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+         
+        int T = Integer.parseInt(br.readLine());
+        for (int testCase = 1; testCase <= T; testCase++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            Q = Integer.parseInt(st.nextToken());
+            nodes = new Node[N+1];
+             
+            MK = 1;
+            int n = N;
+            while(n > 0) {
+                n >>= 1;
+                MK++;
+            }
+            parents = new int[MK][N+1];
+             
+            for (int i = 0; i <= N; i++) {
+                nodes[i] = new Node(i);
+            }
+             
+            int p, h;
+            for (int i = 1; i <= N; i++) {
+                st = new StringTokenizer(br.readLine());
+                p = Integer.parseInt(st.nextToken());
+                h = Integer.parseInt(st.nextToken());
+                nodes[i].parent = nodes[p];
+                nodes[i].height = h;
+                nodes[p].chidren.add(nodes[i]);
+            }
+             
+            bfs();
+             
+            for (int k = 1; k < MK; k++) {
+                for (int i = 1; i <= N; i++) {
+                    parents[k][i] = parents[k-1][parents[k-1][i]];
+                }
+            }
+             
+            int k;
+            Node a, b;
+            bw.write("#" + testCase);
+            for (int i = 1; i <= Q; i++) {
+                st = new StringTokenizer(br.readLine());
+                k = Integer.parseInt(st.nextToken());
+                a = nodes[Integer.parseInt(st.nextToken())];
+                 
+                for (int j = 1; j < k; j++) {
+                    b = nodes[Integer.parseInt(st.nextToken())];
+                    a = lca(a, b);
+                }
+                 
+                bw.write(" " + a.maxHeight);
+            }
+            bw.newLine();
+        }
+         
+        //long end = System.currentTimeMillis();
+        //bw.write("Time="+(end-start)+"ms\n");
+        br.close();
+        bw.flush();
+        bw.close();
+    }
+     
+    private static Node lca(Node a, Node b) {
+        if(a.depth < b.depth) {
+            Node tmp = a;
+            a = b;
+            b = tmp;
+        }
+         
+        int d = a.depth - b.depth;
+        int k = 0;
+        while(d > 0) {
+            if(d%2 == 1) a = nodes[parents[k][a.no]];
+            d >>= 1;
+            k++;
+        }
+         
+        if(a.no == b.no) return a;
+         
+        for (k = MK-1; k >= 0; k--) {
+            if(parents[k][a.no] == parents[k][b.no])continue;
+            a = nodes[parents[k][a.no]];
+            b = nodes[parents[k][b.no]];
+        }
+         
+        return nodes[parents[0][a.no]];
+    }
+ 
+    private static void bfs() {
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(nodes[1]);
+        nodes[1].depth = 1;
+        nodes[1].maxHeight = nodes[1].height; 
+        parents[0][1] = 0;
+         
+        while (!q.isEmpty()) {
+            Node p = q.poll();
+            for (Node c : p.chidren) {
+                c.depth = p.depth+1;
+                parents[0][c.no] = p.no;
+                c.maxHeight = Math.max(p.maxHeight, c.height);
+                q.add(c);
+            }
+        }
+    }
+}
