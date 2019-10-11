@@ -153,10 +153,16 @@ public class afterA191005 {
 				next = nextNd.end;
 				dist = nextNd.cost;			
 				
-				if(visited[next] == 0 && lDist[next] > lDist[curr] + dist ){
+				if(visited[next] == 0 && lDist[next] >= lDist[curr] + dist ){
 					lDist[next] = lDist[curr] + dist;
 					cDist[next] = dist;
-				}								
+				}
+//				else if(visited[next] == 0 && lDist[next] == lDist[curr] + dist){
+//					if(cDist[next] > dist){
+//						lDist[next] = lDist[curr] + dist;
+//						cDist[next] = dist;
+//					}
+//				}
 			} // end for
 		}
 		
