@@ -41,8 +41,8 @@ public class stuP0008 {
         for(int t=1; t<=T; t++){
         	st = new StringTokenizer(br.readLine());
         	
-        	N = Integer.parseInt(st.nextToken()); // °øÁ¤(Á¤Á¡)
-        	M = Integer.parseInt(st.nextToken()); // º§Æ®(°£¼±)
+        	N = Integer.parseInt(st.nextToken()); // ê³µì •(ì •ì )
+        	M = Integer.parseInt(st.nextToken()); // ë²¨íŠ¸(ê°„ì„ )
         	
         	for(int i=0; i<=N; i++) {
         		al.add(new ArrayList<Node2>());
@@ -51,25 +51,25 @@ public class stuP0008 {
         	}
 		
 /*
-[ÀÔ·Â] 
-ÀÔ·Â ÆÄÀÏ¿¡´Â ¿©·¯ Å×½ºÆ® ÄÉÀÌ½º°¡ Æ÷ÇÔµÉ ¼ö ÀÖ´Ù. 
-ÆÄÀÏÀÇ Ã¹Â° ÁÙ¿¡ ÄÉÀÌ½ºÀÇ °³¼ö T°¡ ÁÖ¾îÁö°í, ÀÌÈÄ Â÷·Ê·Î T°³ Å×½ºÆ® ÄÉÀÌ½º°¡ ÁÖ¾îÁø´Ù. (1 ¡Â T ¡Â 15) 
-°¢ ÄÉÀÌ½ºÀÇ Ã¹ ÁÙ¿¡ °øÁ¤ÀÇ ¼ö N°ú ÄÁº£ÀÌ¾î º§Æ®ÀÇ ¼ö MÀÌ °ø¹éÀ¸·Î ±¸ºÐµÇ¾î ÁÖ¾îÁø´Ù. (1 ¡Â N ¡Â 100,000, 1 ¡Â M ¡Â 300,000)
-±×¸®°í ´ÙÀ½ M°³ÀÇ ÁÙ¿¡ °¢ ÄÁº£ÀÌ¾î º§Æ®¿¡ ´ëÇÑ Á¤º¸¸¦ ³ªÅ¸³»´Â ¼¼ Á¤¼ö°¡ °ø¹éÀ¸·Î ±¸ºÐµÇ¾î ÁÖ¾îÁø´Ù. 
-"a b c"¶ó°í ÁÖ¾îÁ³À» ¶§ a¹ø °øÁ¤¿¡¼­ b¹ø °øÁ¤À¸·Î ÀÛ¾÷À» º¸³»¾ßÇÏ´Âµ¥ º¸³»´Âµ¥ °É¸®´Â ½Ã°£ÀÌ c¶ó´Â °ÍÀ» ÀÇ¹ÌÇÑ´Ù. (1 ¡Â a, b ¡Â N, 1 ¡Â c ¡Â 10,000, a ¡Á b)
-ÀÛ¾÷Àº Ç×»ó 1¹ø °øÁ¤¿¡¼­ ½ÃÀÛÇÏ¸ç, N¹ø °øÁ¤¿¡¼­ ³¡³­´Ù. 
-ÀÔ·ÂÀ¸·Î ÁÖ¾îÁö´Â Á¤º¸¸¦ ±×·¡ÇÁ·Î Ç¥ÇöÇßÀ» ¶§, ±×·¡ÇÁ´Â DAG(Directed Acyclic Graph)°¡ µÇ¸ç, 
-1¹ø Á¤Á¡À¸·Î µé¾î¿À´Â °£¼±ÀÇ °³¼ö´Â 0ÀÌ°í, N¹ø Á¤Á¡¿¡¼­ ³ª°¡´Â °£¼±ÀÇ °³¼ö ¶ÇÇÑ 0ÀÌ´Ù. ±×¸®°í Ç×»ó ÀÛ¾÷ÀÌ ¿Ï·áµÇµµ·Ï ÀÔ·ÂÀÌ ÁÖ¾îÁø´Ù.
+[ìž…ë ¥] 
+ìž…ë ¥ íŒŒì¼ì—ëŠ” ì—¬ëŸ¬ í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ê°€ í¬í•¨ë  ìˆ˜ ìžˆë‹¤. 
+íŒŒì¼ì˜ ì²«ì§¸ ì¤„ì— ì¼€ì´ìŠ¤ì˜ ê°œìˆ˜ Tê°€ ì£¼ì–´ì§€ê³ , ì´í›„ ì°¨ë¡€ë¡œ Tê°œ í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ê°€ ì£¼ì–´ì§„ë‹¤. (1 â‰¤ T â‰¤ 15) 
+ê° ì¼€ì´ìŠ¤ì˜ ì²« ì¤„ì— ê³µì •ì˜ ìˆ˜ Nê³¼ ì»¨ë² ì´ì–´ ë²¨íŠ¸ì˜ ìˆ˜ Mì´ ê³µë°±ìœ¼ë¡œ êµ¬ë¶„ë˜ì–´ ì£¼ì–´ì§„ë‹¤. (1 â‰¤ N â‰¤ 100,000, 1 â‰¤ M â‰¤ 300,000)
+ê·¸ë¦¬ê³  ë‹¤ìŒ Mê°œì˜ ì¤„ì— ê° ì»¨ë² ì´ì–´ ë²¨íŠ¸ì— ëŒ€í•œ ì •ë³´ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ì„¸ ì •ìˆ˜ê°€ ê³µë°±ìœ¼ë¡œ êµ¬ë¶„ë˜ì–´ ì£¼ì–´ì§„ë‹¤. 
+"a b c"ë¼ê³  ì£¼ì–´ì¡Œì„ ë•Œ aë²ˆ ê³µì •ì—ì„œ bë²ˆ ê³µì •ìœ¼ë¡œ ìž‘ì—…ì„ ë³´ë‚´ì•¼í•˜ëŠ”ë° ë³´ë‚´ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì´ cë¼ëŠ” ê²ƒì„ ì˜ë¯¸í•œë‹¤. (1 â‰¤ a, b â‰¤ N, 1 â‰¤ c â‰¤ 10,000, a â‰  b)
+ìž‘ì—…ì€ í•­ìƒ 1ë²ˆ ê³µì •ì—ì„œ ì‹œìž‘í•˜ë©°, Në²ˆ ê³µì •ì—ì„œ ëë‚œë‹¤. 
+ìž…ë ¥ìœ¼ë¡œ ì£¼ì–´ì§€ëŠ” ì •ë³´ë¥¼ ê·¸ëž˜í”„ë¡œ í‘œí˜„í–ˆì„ ë•Œ, ê·¸ëž˜í”„ëŠ” DAG(Directed Acyclic Graph)ê°€ ë˜ë©°, 
+1ë²ˆ ì •ì ìœ¼ë¡œ ë“¤ì–´ì˜¤ëŠ” ê°„ì„ ì˜ ê°œìˆ˜ëŠ” 0ì´ê³ , Në²ˆ ì •ì ì—ì„œ ë‚˜ê°€ëŠ” ê°„ì„ ì˜ ê°œìˆ˜ ë˜í•œ 0ì´ë‹¤. ê·¸ë¦¬ê³  í•­ìƒ ìž‘ì—…ì´ ì™„ë£Œë˜ë„ë¡ ìž…ë ¥ì´ ì£¼ì–´ì§„ë‹¤.
  */
         	int a, b, c;
         	for(int i=0; i<M; i++) {
         		st = new StringTokenizer(br.readLine());
             	
-            	a = Integer.parseInt(st.nextToken()); // ½ÃÀÛ
-            	b = Integer.parseInt(st.nextToken()); // Á¾·á
-            	c = Integer.parseInt(st.nextToken()); // ºñ¿ë
+            	a = Integer.parseInt(st.nextToken()); // ì‹œìž‘
+            	b = Integer.parseInt(st.nextToken()); // ì¢…ë£Œ
+            	c = Integer.parseInt(st.nextToken()); // ë¹„ìš©
 
-            	// ¹æÇâ Á¸Àç
+            	// ë°©í–¥ ì¡´ìž¬
         		al.get(a).add(new Node2(b, c));
         		inDegree[b]++;
         	}
@@ -77,10 +77,10 @@ public class stuP0008 {
         	caluCost();
         	
 /*
-[Ãâ·Â] 
-°¢ Å×½ºÆ® ÄÉÀÌ½ºÀÇ ´äÀ» ¼ø¼­´ë·Î Ç¥ÁØÃâ·ÂÀ¸·Î Ãâ·ÂÇÏ¸ç, 
-°¢ ÄÉÀÌ½º¸¶´Ù ÁÙÀÇ ½ÃÀÛ¿¡ ¡°#x¡±¸¦ Ãâ·ÂÇÏ¿©¾ß ÇÑ´Ù. ÀÌ¶§ x´Â ÄÉÀÌ½ºÀÇ ¹øÈ£ÀÌ´Ù. 
-°°Àº ÁÙ¿¡, 1¹ø °øÁ¤¿¡¼­ ÀÛ¾÷À» ½ÃÀÛÇÏ¿© N¹ø °øÁ¤¿¡¼­ ÀÛ¾÷ÀÌ ¿Ï·áµÇ´Âµ¥ °É¸®´Â ÃÖ¼Ò ½Ã°£À» Ãâ·ÂÇÑ´Ù.		
+[ì¶œë ¥] 
+ê° í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì˜ ë‹µì„ ìˆœì„œëŒ€ë¡œ í‘œì¤€ì¶œë ¥ìœ¼ë¡œ ì¶œë ¥í•˜ë©°, 
+ê° ì¼€ì´ìŠ¤ë§ˆë‹¤ ì¤„ì˜ ì‹œìž‘ì— â€œ#xâ€ë¥¼ ì¶œë ¥í•˜ì—¬ì•¼ í•œë‹¤. ì´ë•Œ xëŠ” ì¼€ì´ìŠ¤ì˜ ë²ˆí˜¸ì´ë‹¤. 
+ê°™ì€ ì¤„ì—, 1ë²ˆ ê³µì •ì—ì„œ ìž‘ì—…ì„ ì‹œìž‘í•˜ì—¬ Në²ˆ ê³µì •ì—ì„œ ìž‘ì—…ì´ ì™„ë£Œë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ìµœì†Œ ì‹œê°„ì„ ì¶œë ¥í•œë‹¤.		
  */
         	System.out.println("#"+t+ " " + inCost[N]);
         	
@@ -90,7 +90,7 @@ public class stuP0008 {
 	public static void caluCost() {
 		PriorityQueue<Node2> pq = new PriorityQueue<Node2>();
 		
-		pq.offer(new Node2(1, 0)); // 1¹ø°øÁ¤¿¡¼­ ½ÃÀÛÇÔ    	
+		pq.offer(new Node2(1, 0)); // 1ë²ˆê³µì •ì—ì„œ ì‹œìž‘í•¨    	
 
     	Node2 nd;
     	int next, curr, cost;
@@ -107,7 +107,7 @@ public class stuP0008 {
     			nd = al.get(curr).get(j);
     			next = nd.a;
     			cost = nd.c;
-    			// ¹æ¹®ÇÏ¸é¼­ ºñ¿ëÀ» ´©ÀûÇÑ´Ù. 
+    			// ë°©ë¬¸í•˜ë©´ì„œ ë¹„ìš©ì„ ëˆ„ì í•œë‹¤. 
     			inCost[next] = inCost[curr] + cost;    			
     			
     			if(--inDegree[next] == 0) pq.offer(new Node2(next, inCost[next]));
