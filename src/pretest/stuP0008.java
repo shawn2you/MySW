@@ -43,6 +43,7 @@ public class stuP0008 {
         	
         	N = Integer.parseInt(st.nextToken()); // 공정(정점)
         	M = Integer.parseInt(st.nextToken()); // 벨트(간선)
+        	al.clear();
         	
         	for(int i=0; i<=N; i++) {
         		al.add(new ArrayList<Node2>());
@@ -99,7 +100,7 @@ public class stuP0008 {
     		curr = nd.a;
     		
     		if(inDegree[N] == 0) {
-    			System.out.println("---------------");
+//    			System.out.println("---------------"+N);
     			break;
     		}
     		
@@ -108,7 +109,7 @@ public class stuP0008 {
     			next = nd.a;
     			cost = nd.c;
     			// 방문하면서 비용을 누적한다. 
-    			inCost[next] = inCost[curr] + cost;    			
+    			inCost[next] = Math.max(inCost[next],  inCost[curr] + cost);    			
     			
     			if(--inDegree[next] == 0) pq.offer(new Node2(next, inCost[next]));
     		}
