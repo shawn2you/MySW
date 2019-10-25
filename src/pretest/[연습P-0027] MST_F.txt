@@ -1,0 +1,170 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Solution {
+     
+    static int T, N, M;
+    static int max = Integer.MAX_VALUE;
+    static int [] p   = new int[301];
+    static int [] par = new int[301];
+    static int [] len = new int[301];
+    static int [] depth = new int[301];
+    static ArrayList<int[]> [] mst = new ArrayList[301];
+     
+    static int find(int node) {
+        int pnode = p[node];
+         
+        if (pnode == node) 
+            return pnode;
+        else
+            return p[node] = find(pnode);
+    }
+     
+    static void union(int node1, int node2, int cost) {
+        int pnode1 = find(node1);
+        int pnode2 = find(node2);
+         
+        if (pnode1 != pnode2) {
+            p[pnode2] = pnode1;
+            mst[node1].add(new int[] {node2, cost});
+            mst[node2].add(new int[] {node1, cost});            
+        }
+    }
+     
+    static void make_tree(int node, int pre) {
+ 
+        for (int i = 0; i < mst[node].size(); i++) {
+            int next = mst[node].get(i)[0];
+            int cost = mst[node].get(i)[1];
+             
+            if (next == pre) continue;
+             
+            par[next] = node;
+            len[next] = cost;
+            depth[next] = depth[node] + 1;
+            make_tree(next, node);
+        }
+    }
+     
+    static int search_max(int node1, int node2) {
+         
+        int maxcost = 0;
+         
+        if (depth[node1] < depth[node2]) {
+            int temp;
+            temp  = node1;
+            node1 = node2;
+            node2 = temp;
+        }
+         
+        int diff = depth[node1] - depth[node2];
+         
+        for (int i = diff; i > 0; i--) {
+            maxcost = Math.max(len[node1], maxcost);
+            node1 = par[node1];
+        }
+         
+        if (node1 == node2) return maxcost;
+         
+        while (node1 != node2) {
+            maxcost = Math.max(len[node1], maxcost);
+            maxcost = Math.max(len[node2], maxcost);
+            node1 = par[node1];
+            node2 = par[node2];
+        }
+         
+        return maxcost;
+    }
+     
+    public static void main(String[] args) throws Exception {
+         
+        int linecnt, X;
+         
+        //System.setIn(new FileInputStream(new File("C:\\Users\\admin\\Desktop\\workspace\\Solution\\src\\sample_input.txt")));
+//      System.setIn(new FileInputStream(new File("C:\\Users\\admin\\Desktop\\workspace\\Solution\\src\\sample.txt")));     
+                 
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+         
+        for (int i = 1; i <= 300; i++)
+            mst[i] = new ArrayList<int[]>();
+         
+        T = Integer.parseInt(br.readLine());
+         
+        for (int t = 1; t <= T; t++) {
+             
+            N = Integer.parseInt(br.readLine());
+             
+            ArrayList<int[]> e = new ArrayList<int[]>(); 
+                     
+            for (int i = 1; i <= N-1; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                 
+                for (int j = i+1; j <= N; j++) {
+                    e.add(new int[] {i, j, Integer.parseInt(st.nextToken())});
+                }
+            }
+             
+            // 간선의 길이로 정렬하자
+            Collections.sort(e, new Comparator<int[]>() {
+                public int compare(int[] o1, int[] o2) {
+                    return o1[2] - o2[2];
+                }
+            });
+             
+            for (int i = 1; i <= N; i++) {
+                p[i] = i;
+                mst[i].clear();
+                par[i] = 0;
+                len[i] = 0;
+                depth[i] = 0;
+            }
+             
+            X = linecnt = 0;
+             
+            // MST를 구성하자
+            for (int i = 0; i < e.size(); i++) {
+                int node1 = e.get(i)[0];
+                int node2 = e.get(i)[1];
+                int cost  = e.get(i)[2];
+                 
+                if (find(node1) != find(node2)) {
+                    X += cost;
+                    linecnt++;
+                    union(node1, node2, cost);
+                }
+                 
+                if (linecnt == N-1) break;
+            }
+             
+            par[1] = 0;
+            depth[1] = 0;
+            make_tree(1, 0);
+             
+            int sol = max;
+             
+            // MST를 구성하지 않는 간선을 돌면서 최소 차이를 찾아내자
+            for (int i = 0; i < e.size(); i++) {
+                int node1 = e.get(i)[0];
+                int node2 = e.get(i)[1];
+                int cost  = e.get(i)[2];
+                         
+                if (par[node1] == node2 || par[node2] == node1) continue;
+                 
+                int diff = cost - search_max(node1, node2);
+                 
+                // 차이가 0이면 이 간선도 MST이다.
+                if (diff == 0) continue;
+                 
+                sol = Math.min(sol, diff);
+            }
+             
+            if (sol == max) sol = -1;
+             
+            bw.write("#" + t + " " + sol + "\n");   
+            bw.flush();
+        }
+         
+    }
+ 
+}
