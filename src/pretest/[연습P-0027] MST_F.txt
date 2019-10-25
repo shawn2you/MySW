@@ -105,7 +105,7 @@ public class Solution {
                 }
             }
              
-            // °£¼±ÀÇ ±æÀÌ·Î Á¤·ÄÇÏÀÚ
+            // ê°„ì„ ì˜ ê¸¸ì´ë¡œ ì •ë ¬í•˜ì
             Collections.sort(e, new Comparator<int[]>() {
                 public int compare(int[] o1, int[] o2) {
                     return o1[2] - o2[2];
@@ -122,7 +122,7 @@ public class Solution {
              
             X = linecnt = 0;
              
-            // MST¸¦ ±¸¼ºÇÏÀÚ
+            // MSTë¥¼ êµ¬ì„±í•˜ì
             for (int i = 0; i < e.size(); i++) {
                 int node1 = e.get(i)[0];
                 int node2 = e.get(i)[1];
@@ -143,7 +143,7 @@ public class Solution {
              
             int sol = max;
              
-            // MST¸¦ ±¸¼ºÇÏÁö ¾Ê´Â °£¼±À» µ¹¸é¼­ ÃÖ¼Ò Â÷ÀÌ¸¦ Ã£¾Æ³»ÀÚ
+            // MSTë¥¼ êµ¬ì„±í•˜ì§€ ì•ŠëŠ” ê°„ì„ ì„ ëŒë©´ì„œ ìµœì†Œ ì°¨ì´ë¥¼ ì°¾ì•„ë‚´ì
             for (int i = 0; i < e.size(); i++) {
                 int node1 = e.get(i)[0];
                 int node2 = e.get(i)[1];
@@ -153,7 +153,7 @@ public class Solution {
                  
                 int diff = cost - search_max(node1, node2);
                  
-                // Â÷ÀÌ°¡ 0ÀÌ¸é ÀÌ °£¼±µµ MSTÀÌ´Ù.
+                // ì°¨ì´ê°€ 0ì´ë©´ ì´ ê°„ì„ ë„ MSTì´ë‹¤.
                 if (diff == 0) continue;
                  
                 sol = Math.min(sol, diff);
