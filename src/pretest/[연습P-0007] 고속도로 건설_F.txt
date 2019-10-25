@@ -30,7 +30,7 @@ public class Solution {
     public static void main(String[] args) throws Exception {
         //double startTime = System.currentTimeMillis();
   
-        //System.setIn(new FileInputStream("A0031ÀÚÀ²ÁÖÇàÅ×½ºÆ®_input.txt"));
+        //System.setIn(new FileInputStream("A0031ììœ¨ì£¼í–‰í…ŒìŠ¤íŠ¸_input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         T = Integer.parseInt(br.readLine());
@@ -74,11 +74,11 @@ public class Solution {
             a = path.get(i).a;
             b = path.get(i).b;
   
-            if(find(a) == find(b)) { // ÀÌ¹Ì °°Àº ±×·ìÀÌ¸é continue
+            if(find(a) == find(b)) { // ì´ë¯¸ ê°™ì€ ê·¸ë£¹ì´ë©´ continue
                 continue;
             }
   
-            union(a, b); // °°Àº±×·ì ¸¸µé±â
+            union(a, b); // ê°™ì€ê·¸ë£¹ ë§Œë“¤ê¸°
             Ans += path.get(i).s;
             cnt++;
   
@@ -96,7 +96,7 @@ public class Solution {
     }
   
     static int find(int a) {
-        if(u[a] == a) { // ´ëÀåÀÌ¸é
+        if(u[a] == a) { // ëŒ€ì¥ì´ë©´
             return a;
         }
   
