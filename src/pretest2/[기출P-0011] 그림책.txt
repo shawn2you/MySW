@@ -1,0 +1,119 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Solution {
+    static int T, N, K; // N: 영역의 수, K: 색깔의 수
+    static long Ans;
+    static int[] f = new int[1000001]; // 각 영역별 색이 달라야 하는 영역
+    static int[] v = new int[1000001]; // 방문여부 체크
+    static long[] dp = new long[1000001]; // 사이클일 경우 경우의 수
+    static final int MOD = 1000000007;
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+         
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            Ans = 0;
+             
+            st = new StringTokenizer(br.readLine());
+            for(int i = 1; i <= N; i++) {
+                f[i] = Integer.parseInt(st.nextToken());
+                v[i] = 0;
+            }
+             
+            setDp(N, K);
+                         
+            int vS, vE, vIdx; // vS: 방문순서 시작, vE: 방문순서 끝, vIdx 현재 방문영역 idx;
+            vS = vE = vIdx = 1;
+            Ans = 1;
+             
+            for(int i = 1; i <= N; i++) {
+                if(v[i] != 0) { // 이미 방문한 영역이면
+                    continue;
+                }
+                 
+                vS = vE;
+                vIdx = i;
+                 
+                while(v[vIdx] == 0) {
+                    v[vIdx] = vE; // 방문순서 저장
+                    vE++; // 방문순서 증가
+                    vIdx = f[vIdx]; // 다음 방문할 영역 idx 가져오기
+                }
+                 
+                // 1. 사이클인 부분
+                int cycle = 0;
+                 
+                if(vS <= v[vIdx]) {
+                    cycle = vE - v[vIdx]; // 사이클이 몇개짜린가
+                     
+                    if(cycle > 0) {
+                        if(cycle == 1) { // 본인이 본인 가리키고 있는 하나짜리 영역은 K만큼 경우의 수 곱해줌
+                            Ans = (Ans * K) % MOD;
+                            Ans %= MOD;
+                        }
+                        else if(cycle % 2 == 0 && K == 1) { // 사이클이 2개 이상이고, 사이클을 이루는 영역의 갯수가 짝수이고 K가 1이면 못칠함
+                            Ans = 0;
+                            break;
+                        }
+                        else if(cycle % 2 == 1 && K <= 2) { // 사이클이 2개 이상이고, 사이클을 이루는 영역의 갯수가 홀수이고 K가 2 이하이면 못칠함
+                            Ans = 0;
+                            break;
+                        }
+                        else {
+                            Ans *= dp[cycle] % MOD;
+                            Ans %= MOD;
+                        }
+                    }
+                }
+                 
+                // 2. 사이클 아닌 부분
+                //System.out.println("사이클 아닌부분 : " + (vE - vS - cycle));
+                Ans *= pow(K - 1, vE - vS - cycle) % MOD;
+                Ans %= MOD;
+            }
+             
+            bw.write("#" + tc + " " + Ans + "\n");
+             
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+ 
+    static long pow(int k, int n) {
+        if(n == 0) {
+            return (long) 1;
+        }
+         
+        if(n == 1) {
+            return (long) k;
+        }
+         
+        long res = k;
+         
+        for(int i = 2; i <= n; i++) {
+            res *= k;
+            res %= MOD;
+        }
+         
+        return res;
+    }
+ 
+    static void setDp(int n, int k) {
+        dp[2] = (long) k * (k - 1) % MOD;
+        dp[3] = (long) dp[2] * (k - 2) % MOD;
+         
+        for(int i = 4; i <= n; i++) {
+            dp[i] = (long) dp[i - 2] * (k - 1) % MOD;
+            dp[i] += (long) dp[i - 1] * (k - 2) % MOD;
+        }
+    }
+}

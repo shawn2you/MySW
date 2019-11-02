@@ -1,0 +1,137 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+// [사전A-0032] [2019년 11~12월 PRO 검정 사전 테스트] 타일 붙이기
+public class Solution {
+    static int T, N, K;
+    static int[][] layer = new int[12][2]; // 0~11번 layer, layer 별 시작 끝 번호 저장
+    static long com[][] = new long[64][64];
+
+    public static void main(String[] args) throws Exception {
+        layer[0][0] = 1;
+        layer[0][1] = 1;
+        int tmp = 8;
+
+        for(int i = 1; i < 12; i++) {
+            layer[i][0] = layer[i - 1][1] + 1;
+            layer[i][1] = layer[i][0] + tmp - 1;
+            tmp += 8;
+        }
+
+        // 조합 계산, 파스칼의 삼각형
+        com[0][0] = 1;
+        com[1][0] = 1;
+        com[1][1] = 1;
+        for(int i = 2; i < 64; i++) {
+            com[i][0] = 1;
+
+            for(int j = 1; j <= i; j++) {
+                com[i][j] = com[i-1][j-1] + com[i-1][j];
+            }
+        }
+/*
+        // 잘 들어갔나 확인
+        for(int i = 0; i < 64; i++) {
+            for(int j = 0; j <= i; j++) {
+                System.out.print(" " + com[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println("===========================");
+
+        for(int i = 0; i < 12; i++) {
+            System.out.println(i + " : " + layer[i][0] + " " + layer[i][1]);
+        }
+        System.out.println("===========================");
+
+        System.setIn(new FileInputStream("A0032타일붙이기_input.txt"));
+*/
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            int noN = -1;
+            int noK = -1;
+            boolean exCk1 = false;
+            boolean exCk2 = false;
+
+            // layer 번호 구하기
+            for(int i = 0; i < 12; i++) {
+                if(layer[i][0] <= N && N <= layer[i][1]) {
+                    noN = i;
+
+                    if(layer[i][1] == N) {
+                        exCk1 = true;
+                    }
+                }
+
+                if(layer[i][0] <= K && K <= layer[i][1]) {
+                    noK = i;
+
+                    if(layer[i][0] == K) {
+                        exCk2 = true;
+                    }
+                }
+            }
+
+            //System.out.println(N + " " + K + " : " + noN + " " + noK);
+
+            // 예외1: N과 K의 layer가 다른경우1, K번째 타일 못칠함
+            if(noN < noK) {
+                System.out.println("#" + tc + " 0 / 1");
+                continue;
+            }
+
+            // 예외2: N과 K의 layer가 다른경우2, K번째 타일 무조건 칠해짐
+            if(noK < noN) {
+                System.out.println("#" + tc + " 1 / 1");
+                continue;
+            }
+
+            // 예외3: N과 K의 layer가 같은 경우 + 1.해당 layer 다 칠해진 경우, 2.해당 layer의 시작번호(제일 작은 번호)가 K인 경우 K번째 타일 무조건 칠해짐
+            if(exCk1 || exCk2) {
+                System.out.println("#" + tc + " 1 / 1");
+                continue;
+            }
+
+            int range = N - layer[noN - 1][1] - 1;
+
+            // 예외4: K번째 타일 못칠하는 경우
+            if(N < K) {
+                if(K < layer[noN][1] - range + 1) {
+                    System.out.println("#" + tc + " 0 / 1");
+                    continue;
+                }
+            }
+
+            long arr[] = new long[362];
+            int Comb = N - layer[noN][0];   // 조합 가능한 타일 개수 구하기
+            long Case = 0;
+
+            // 먼 곳 부터 경우의 수 채우기
+            for(int j = Comb ; j >= 1; j--) {
+                Case += com[Comb][j];
+                arr[layer[noN][0] + j] += Case;
+                arr[layer[noN][1] - j + 1] += Case;
+            }
+
+            if(arr[K] == 0) {
+                System.out.println("#" + tc + " 0 / 1");
+                continue;
+            }
+
+            while (arr[K]%2 == 0) {
+                arr[K] /= 2;
+                Comb--;
+            }
+
+            System.out.println("#" + tc + " " + arr[K] + " / " + (long) Math.pow(2, Comb));
+        }
+    }
+}

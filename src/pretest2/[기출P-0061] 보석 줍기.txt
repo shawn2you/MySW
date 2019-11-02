@@ -1,0 +1,88 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+    static int T, N, M;
+    static char[][] A;
+    static boolean[][] pass;
+    static int[][][] D;
+      
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+          
+        for(int test_case = 1; test_case <= T; test_case++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+            A = new char[N + 1][M + 1];
+            pass = new boolean[N + 1][M + 1];
+            D = new int[N + M - 2 + 1][N + 1][N + 1];
+              
+            for(int i = 1; i <= N; i++) {
+                A[i] = (" " + br.readLine()).toCharArray();
+            }
+              
+            pass[0][1] = true;
+            pass[1][0] = true;
+              
+            for(int i = 1; i <= N; i++) {
+                for(int j = 1; j <= M; j++) {
+                    if(A[i][j] != '#') {
+                        if(i == 1) {
+                            if(pass[i][j - 1]) {
+                                pass[i][j] = true;
+                                continue;
+                            }
+                        }
+                          
+                        if(j == 1) {
+                            if(pass[i - 1][j]) {
+                                pass[i][j] = true;
+                                continue;
+                            }
+                        }
+                          
+                        if(pass[i - 1][j] || pass[i][j - 1]) {
+                            pass[i][j] = true;
+                        }
+                    }
+                }
+            }
+              
+            for(int m = 1; m <= N + M - 2; m++) {
+                for(int i1 = 1; i1 <= Math.min(m + 1, N); i1++) {
+                    if(m - i1 + 2 > M || !pass[i1][m - i1 + 2]) { // 이동횟수 m일 때 i1의 j1 좌표가 M을 넘어가거나, 해당 맵이 #이라서 갈 수 없는 경우 continue
+                        continue;
+                    }
+                     
+                    for(int i2 = 1; i2 <= i1; i2++) {
+                        if(m - i2 + 2 > M || !pass[i2][m - i2 + 2]) { // 이동횟수 m일 때 i1의 j1 좌표가 M을 넘어가거나, 해당 맵이 #이라서 갈 수 없는 경우 continue
+                            continue;
+                        }
+ 
+                        int tmp = D[m - 1][i1][i2];
+                        tmp = Math.max(tmp, D[m - 1][i1][i2 - 1]);
+                        tmp = Math.max(tmp, D[m - 1][i1 - 1][i2]);
+                        tmp = Math.max(tmp, D[m - 1][i1 - 1][i2 - 1]);
+                          
+                        if(m - i1 + 2 > 0 && A[i1][m - i1 + 2] != '.' && A[i1][m - i1 + 2] != 'E') {
+                            tmp += (A[i1][m - i1 + 2] - '0');
+                        }
+                          
+                        if(i1 != i2) { // 동일하지 않은 좌표인 경우, i1 == i2 이면 동일한 이동횟수에서 j1 == j2 이므로
+                            if(m - i2 + 2 > 0 && A[i2][m - i2 + 2] != '#' && A[i2][m - i2 + 2] != '.') {
+                                tmp += (A[i2][m - i2 + 2] - '0');
+                            }
+                        }
+                          
+                        D[m][i1][i2] = tmp;
+                    }
+                }
+            }
+              
+            System.out.println("#" + test_case + " " + D[N + M -2][N][N]);
+        }
+    }
+}

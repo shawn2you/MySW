@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+  
+//(¡ﬂ) [±≥¿∞A-0012] ∫∏ºÆ ≈–¿Ã 
+public class Solution {
+    static int T, N, M;
+    static int[] w, v;
+    static long[] d;
+  
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+         
+        for (int test_case = 1; test_case <= T; test_case++) {
+            st = new StringTokenizer(br.readLine());
+              
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+                
+            w = new int[N];
+            v = new int[N];
+            d = new long[10001];
+ 
+            for(int i=0; i<N; i++) {
+                st = new StringTokenizer(br.readLine());
+                w[i] = Integer.parseInt(st.nextToken());
+                v[i] = Integer.parseInt(st.nextToken());
+            }
+                
+            for(int i = 0; i < N; i++) {
+                for(int j = M; j >= v[i]; j--) {
+                    d[j] = Math.max(d[j], d[j - v[i]] + w[i]);
+                }
+            }
+              
+            System.out.println("#"+ test_case + " " + d[M]);
+  
+        }
+    }
+}

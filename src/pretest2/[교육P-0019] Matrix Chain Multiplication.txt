@@ -1,0 +1,89 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+public class Solution {
+ //교육 P-0019 Matrix chain Multiplication
+ 
+ static String result = "";
+ static int m[][] = null;
+ static int s[][] = null;
+ static int p[] = null;
+  
+ public static void main(String[] args) throws Exception{
+ 
+        BufferedReader br = new BufferedReader( new InputStreamReader( System.in ));
+        StringTokenizer st;
+        long start = System.currentTimeMillis(); 
+        int T = Integer.parseInt( br.readLine() );     
+        for( int test_case = 1; test_case <= T; test_case++ ) {   
+          
+         result = "";
+         int numB = Integer.parseInt( br.readLine());
+         //x,y 를 저장할 배열하나 선언
+         m = null;
+         s = null;
+         p = new int[numB + 1];
+         m = new int[numB+1][numB+1];
+         s = new int[numB+1][numB+1]; //이전에 어디까지의 값이 최소였던가를 적어놓는다.
+          
+         st = new StringTokenizer(br.readLine());
+          
+         for(int i = 0; i <= numB; i++) {
+             p[i] = Integer.parseInt(st.nextToken());
+         }
+          
+         for(int l=2; l<numB+1; l++){ // l은 샘플링 하고자 하는 행렬의 길이
+          //처음엔 길이가 2인 행렬을 탐색한다.
+          //System.out.println("길이 확인 : " + l);
+           
+          long start1 = System.currentTimeMillis();
+          for(int i=1; i<numB-l+2; i++ ){ //길이가 2인 행렬 기준으로(길이가 2란 말은 행렬이 2개란말...) , i는 numB-1 까지와서 값을 채워넣어야함..
+           int j = i+l-1;
+           //j는 길이가 2인 행렬해서,,, i=1일때, j의 값은 2가 나와야함.
+           //j는 길이가 2인 행렬에서,,  i=2일때, j의 값은 3이 나와야함.
+           //   길이가 3인 행렬에서,,  i=1일때, j의 값은 3이 나와야한다.
+            
+           //System.out.println(i + " " + j);
+            
+           m[i][j] = Integer.MAX_VALUE;
+           if(j-j==1){
+            int a = p[i-1];
+            int b = p[i];
+            int c = p[j];
+            m[i][j] = a*b*c;
+           }
+           //ex. m[1][2]의 값을 구할려면.. 행렬 1~2까지를 곱한 값, p[0]*p[1]*p[2];
+           //ex. m[2][5]의 값을 구할려면... 앞쪽 자르는 경우의 수를 구해서... min 값을 구해나가야 된다.
+            
+            
+           for(int k=i; k<j; k++){
+                
+            //System.out.println(k);
+             
+            int a = p[i-1];
+            int b = p[k];
+            int c = p[j];
+             
+            int q = m[i][k] + m[k+1][j] + a*b*c;
+             
+            if(q<m[i][j] || m[i][j] == 0){
+             m[i][j] = q;
+            }
+           }
+            
+            
+          }
+           
+         }// 이까지 돌고나면.. 기본값들이 완성이 된다.
+ 
+         int rr = m[1][numB];         
+                   
+         System.out.println("#" + test_case + " "  + rr);   
+        }
+ 
+ 
+ } 
+ 
+}

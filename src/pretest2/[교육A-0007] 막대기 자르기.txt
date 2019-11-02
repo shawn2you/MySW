@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Solution {
+    static int T, N;
+    static int[] P;
+    static int[] R;
+ 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            N = Integer.parseInt(br.readLine());
+            P = new int[N + 1]; // 길이별 값어치
+            R = new int[N + 1]; // 길이별 최대 값어치
+             
+            st = new StringTokenizer(br.readLine());
+             
+            for(int i = 1; i <= N; i++) {
+                P[i] = Integer.parseInt(st.nextToken());
+            }
+             
+            R[1] = P[1]; // 길이 1일때 최대 값어치  = 길이 1일때 값어치로 초기화
+             
+            for(int i = 2; i <= N; i++) {
+                for(int j = 1; j <= i; j++) {
+                    R[i] = Math.max(R[i], P[j] + R[i - j]);
+                }
+            }
+             
+            System.out.println("#" + tc + " " + R[N]);
+        }
+    }
+}

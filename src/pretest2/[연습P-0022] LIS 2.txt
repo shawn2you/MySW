@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+ 
+// LIS 2 - DP
+public class Solution {
+    static int T, N, ans;
+    static int[] input;
+    static int[] D;
+    static final int INF = Integer.MAX_VALUE;
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+         
+        for(int test_case = 1; test_case <= T; test_case++) {
+            N = Integer.parseInt(br.readLine());
+            ans = 0;
+            input = new int[N + 1];
+            D = new int[N + 1];
+             
+            st = new StringTokenizer(br.readLine());
+             
+            for(int i = 1; i <= N; i++) {
+                input[i] = Integer.parseInt(st.nextToken());
+                D[i] = INF;
+            }
+             
+            if(N == 1) {
+                System.out.println("#" + test_case + " 1");
+                continue;
+            }
+             
+            int idx = 1;
+             
+            D[1] = input[1];
+             
+            for(int i = 2; i <= N; i++) {
+                 
+ 
+                if(D[idx] < input[i]) { // 크면 뒤에 넣기
+                    idx++;
+                    D[idx] = input[i];
+                }
+                else {
+                    int dd = Arrays.binarySearch(D, input[i]);
+                     
+                    if(dd < 0) {
+                        dd *= -1;
+                        dd -= 1;
+                    }
+             
+                    D[dd] = input[i];
+                }
+                 
+                ans = Math.max(ans, idx);
+            }
+             
+            System.out.println("#" + test_case + " " + ans);
+                         
+        }
+    }
+}

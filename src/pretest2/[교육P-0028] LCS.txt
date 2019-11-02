@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+ 
+// (Áß»ó) [±³À°P-0028] LCS
+public class Solution {
+    static int T, N, M;
+    static char[] A;
+    static char[] B;
+    static int[][] D;
+    static int[] Ans;
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            A = ('-' + br.readLine()).toCharArray();
+            B = ('-' + br.readLine()).toCharArray();
+            N = A.length - 1;
+            M = B.length - 1;
+            D = new int[N + 1][M + 1];
+             
+            int a, b;
+             
+            for(int i = 1; i <= N; i++) {
+                a = A[i];
+                 
+                for(int j = 1; j <= M; j++) {
+                    D[i][j] = Math.max(D[i - 1][j], D[i][j - 1]);
+                     
+                    b = B[j];
+                     
+                    if(a == b && D[i - 1][j - 1] == D[i][j]) {
+                        D[i][j]++;
+                    }
+                }
+            }
+             
+            Ans = new int[D[N][M] + 1];
+             
+            int r, c, idx;
+            r = N;
+            c = M;
+            idx = D[N][M];
+             
+            while(r > 0 && c > 0) {
+                if(idx == 0) {
+                    break;
+                }
+                 
+                if(D[r - 1][c] == idx) {
+                    r--;
+                    continue;
+                }
+                 
+                if(D[r][c - 1] == idx) {
+                    c--;
+                    continue;
+                }
+                 
+                if(D[r - 1][c - 1] == idx - 1) {
+                    Ans[idx] = r;
+                    idx--;
+                    r--;
+                    c--;
+                    continue;
+                }
+            }
+             
+            System.out.print("#" + tc + " ");
+             
+            for(int i = 1; i <= D[N][M]; i++) {
+                System.out.print(A[Ans[i]]);
+            }
+            System.out.println();
+        }
+    }
+}

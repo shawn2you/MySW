@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Solution {
+    static int T, N, e1, e2, x1, x2, Ans;
+    static int[][] s; // 라인별 시간 정보
+    static int[][] t; // 라인 바꾸는데 드는 시간 정보
+    static int[][] d;
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());            
+            N = Integer.parseInt(st.nextToken()); // 공정의 수
+            e1 = Integer.parseInt(st.nextToken()); // 라인1 진입하는데 드는 시간
+            e2 = Integer.parseInt(st.nextToken()); // 라인2 진입하는데 드는 시간
+            x1 = Integer.parseInt(st.nextToken()); // 라인1 나오는데 드는 시간
+            x2 = Integer.parseInt(st.nextToken()); // 라인2 나오는데 드는 시간
+            Ans = 0;
+             
+            s = new int[2][N + 1]; // 라인1,2 각 공정별 드는 시간
+            t = new int[2][N + 1]; // 라인 변경에 드는 시간
+            d = new int[2][N + 1]; // 라인별 각 공정에 도착 가능한 최소시간 
+             
+            for(int i = 0; i < 2; i++) {
+                st = new StringTokenizer(br.readLine());
+                 
+                for(int j = 1; j <= N; j++) {
+                    s[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+             
+            for(int i = 0; i < 2; i++) {
+                st = new StringTokenizer(br.readLine());
+                 
+                for(int j = 1; j <= N - 1; j++) { // N-1 까지
+                    t[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+             
+            d[0][1] = e1; // 라인1, 공정1 진입하는데 드는 시간으로 초기화
+            d[1][1] = e2; // 라인2, 공정1 진입하는데 드는 시간으로 초기화
+             
+            for(int i = 2; i <= N; i++) {
+                d[0][i] = Math.min(d[0][i - 1] + s[0][i - 1], d[1][i - 1] + s[1][i - 1] + t[1][i - 1]); // 같은라인에서 넘기는 시간, 다른라인에서 넘기는 시간 비교
+                d[1][i] = Math.min(d[1][i - 1] + s[1][i - 1], d[0][i - 1] + s[0][i - 1]  + t[0][i - 1]);
+            }
+             
+            Ans = Math.min(d[0][N] + s[0][N] + x1, d[1][N] + s[1][N]  + x2);
+             
+            System.out.println("#" + tc + " " + Ans);
+        }
+    }
+}

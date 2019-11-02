@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+ 
+// 아름다운 비트문자열 - 조합론 문제
+public class Solution {
+    static int T, N, K;
+    static long X;
+    static final long INF = (long) (Math.pow(2, 60));
+    static long[][] C = new long[1001][1001];
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
+         
+        T = Integer.parseInt(br.readLine());
+         
+        C[0][0] = 1;
+        C[1][0] = 1;
+        C[1][1] = 1;
+         
+        for(int i = 2; i <= 1000; i++) {
+            C[i][0] = 1;
+            C[i][i] = 1;
+             
+            for(int j = 1; j < i; j++) {
+                C[i][j] = Math.min(C[i - 1][j - 1] + C[i - 1][j], INF);
+            }
+        }
+ 
+        for(int test_case = 1; test_case <= T; test_case++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            X = Long.parseLong(st.nextToken());
+             
+            bw.write("#" + test_case + " ");
+ 
+            for(int i = 1; i <= N; i++) {
+                if(X <= C[N - i][K]) {
+                    bw.write("0");
+                }
+                else {
+                    bw.write("1");
+                    X -= C[N - i][K];
+                    K--;
+                }
+            }
+            bw.write("\n");
+             
+        }
+        bw.flush();
+        bw.close();
+    }
+}

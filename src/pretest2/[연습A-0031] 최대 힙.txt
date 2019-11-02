@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+ 
+// 최대 힙
+public class Solution {
+    static int T, N;
+    static final int mod = 100000123;
+    static final int nn = (int) Math.pow(2, 12) - 2;
+    static long[][] C = new long[nn + 1][nn + 1];
+    static long[] D = new long[12];
+     
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+         
+        C[0][0] = 1;
+        C[1][0] = 1;
+        C[1][1] = 1;
+         
+        for(int i = 2; i <= nn; i++) {
+            C[i][0] = 1;
+            C[i][i] = 1;
+             
+            for(int j = 1; j < i; j++) {
+                C[i][j] = (C[i - 1][j - 1] + C[i - 1][j]) % mod;
+            }
+        }
+         
+        D[1] = 2; // N이 1인 경우 2개 초기값 세팅
+         
+        for(int i = 2; i <= 11; i++) {
+            D[i] = C[(int) (Math.pow(2, i + 1) - 2)][(int) (Math.pow(2, i) - 1)] % mod;
+            D[i] *= D[i - 1];
+            D[i] %= mod;
+            D[i] *= D[i - 1];
+            D[i] %= mod;
+        }
+         
+        for(int test_case = 1; test_case <= T; test_case++) {
+            N = Integer.parseInt(br.readLine());
+             
+            if(N == 0) {
+                System.out.println("#" + test_case + " 1");
+                continue;
+            }
+             
+            System.out.println("#" + test_case + " " + D[N]);
+        }
+    }
+}
