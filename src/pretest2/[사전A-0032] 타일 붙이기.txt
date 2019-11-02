@@ -3,10 +3,10 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// [»çÀüA-0032] [2019³â 11~12¿ù PRO °ËÁ¤ »çÀü Å×½ºÆ®] Å¸ÀÏ ºÙÀÌ±â
+// [ì‚¬ì „A-0032] [2019ë…„ 11~12ì›” PRO ê²€ì • ì‚¬ì „ í…ŒìŠ¤íŠ¸] íƒ€ì¼ ë¶™ì´ê¸°
 public class Solution {
     static int T, N, K;
-    static int[][] layer = new int[12][2]; // 0~11¹ø layer, layer º° ½ÃÀÛ ³¡ ¹øÈ£ ÀúÀå
+    static int[][] layer = new int[12][2]; // 0~11ë²ˆ layer, layer ë³„ ì‹œì‘ ë ë²ˆí˜¸ ì €ì¥
     static long com[][] = new long[64][64];
 
     public static void main(String[] args) throws Exception {
@@ -20,7 +20,7 @@ public class Solution {
             tmp += 8;
         }
 
-        // Á¶ÇÕ °è»ê, ÆÄ½ºÄ®ÀÇ »ï°¢Çü
+        // ì¡°í•© ê³„ì‚°, íŒŒìŠ¤ì¹¼ì˜ ì‚¼ê°í˜•
         com[0][0] = 1;
         com[1][0] = 1;
         com[1][1] = 1;
@@ -32,7 +32,7 @@ public class Solution {
             }
         }
 /*
-        // Àß µé¾î°¬³ª È®ÀÎ
+        // ì˜ ë“¤ì–´ê°”ë‚˜ í™•ì¸
         for(int i = 0; i < 64; i++) {
             for(int j = 0; j <= i; j++) {
                 System.out.print(" " + com[i][j]);
@@ -46,7 +46,7 @@ public class Solution {
         }
         System.out.println("===========================");
 
-        System.setIn(new FileInputStream("A0032Å¸ÀÏºÙÀÌ±â_input.txt"));
+        System.setIn(new FileInputStream("A0032íƒ€ì¼ë¶™ì´ê¸°_input.txt"));
 */
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -61,7 +61,7 @@ public class Solution {
             boolean exCk1 = false;
             boolean exCk2 = false;
 
-            // layer ¹øÈ£ ±¸ÇÏ±â
+            // layer ë²ˆí˜¸ êµ¬í•˜ê¸°
             for(int i = 0; i < 12; i++) {
                 if(layer[i][0] <= N && N <= layer[i][1]) {
                     noN = i;
@@ -82,19 +82,19 @@ public class Solution {
 
             //System.out.println(N + " " + K + " : " + noN + " " + noK);
 
-            // ¿¹¿Ü1: N°ú KÀÇ layer°¡ ´Ù¸¥°æ¿ì1, K¹øÂ° Å¸ÀÏ ¸øÄ¥ÇÔ
+            // ì˜ˆì™¸1: Nê³¼ Kì˜ layerê°€ ë‹¤ë¥¸ê²½ìš°1, Kë²ˆì§¸ íƒ€ì¼ ëª»ì¹ í•¨
             if(noN < noK) {
                 System.out.println("#" + tc + " 0 / 1");
                 continue;
             }
 
-            // ¿¹¿Ü2: N°ú KÀÇ layer°¡ ´Ù¸¥°æ¿ì2, K¹øÂ° Å¸ÀÏ ¹«Á¶°Ç Ä¥ÇØÁü
+            // ì˜ˆì™¸2: Nê³¼ Kì˜ layerê°€ ë‹¤ë¥¸ê²½ìš°2, Kë²ˆì§¸ íƒ€ì¼ ë¬´ì¡°ê±´ ì¹ í•´ì§
             if(noK < noN) {
                 System.out.println("#" + tc + " 1 / 1");
                 continue;
             }
 
-            // ¿¹¿Ü3: N°ú KÀÇ layer°¡ °°Àº °æ¿ì + 1.ÇØ´ç layer ´Ù Ä¥ÇØÁø °æ¿ì, 2.ÇØ´ç layerÀÇ ½ÃÀÛ¹øÈ£(Á¦ÀÏ ÀÛÀº ¹øÈ£)°¡ KÀÎ °æ¿ì K¹øÂ° Å¸ÀÏ ¹«Á¶°Ç Ä¥ÇØÁü
+            // ì˜ˆì™¸3: Nê³¼ Kì˜ layerê°€ ê°™ì€ ê²½ìš° + 1.í•´ë‹¹ layer ë‹¤ ì¹ í•´ì§„ ê²½ìš°, 2.í•´ë‹¹ layerì˜ ì‹œì‘ë²ˆí˜¸(ì œì¼ ì‘ì€ ë²ˆí˜¸)ê°€ Kì¸ ê²½ìš° Kë²ˆì§¸ íƒ€ì¼ ë¬´ì¡°ê±´ ì¹ í•´ì§
             if(exCk1 || exCk2) {
                 System.out.println("#" + tc + " 1 / 1");
                 continue;
@@ -102,7 +102,7 @@ public class Solution {
 
             int range = N - layer[noN - 1][1] - 1;
 
-            // ¿¹¿Ü4: K¹øÂ° Å¸ÀÏ ¸øÄ¥ÇÏ´Â °æ¿ì
+            // ì˜ˆì™¸4: Kë²ˆì§¸ íƒ€ì¼ ëª»ì¹ í•˜ëŠ” ê²½ìš°
             if(N < K) {
                 if(K < layer[noN][1] - range + 1) {
                     System.out.println("#" + tc + " 0 / 1");
@@ -111,10 +111,10 @@ public class Solution {
             }
 
             long arr[] = new long[362];
-            int Comb = N - layer[noN][0];   // Á¶ÇÕ °¡´ÉÇÑ Å¸ÀÏ °³¼ö ±¸ÇÏ±â
+            int Comb = N - layer[noN][0];   // ì¡°í•© ê°€ëŠ¥í•œ íƒ€ì¼ ê°œìˆ˜ êµ¬í•˜ê¸°
             long Case = 0;
 
-            // ¸Õ °÷ ºÎÅÍ °æ¿ìÀÇ ¼ö Ã¤¿ì±â
+            // ë¨¼ ê³³ ë¶€í„° ê²½ìš°ì˜ ìˆ˜ ì±„ìš°ê¸°
             for(int j = Comb ; j >= 1; j--) {
                 Case += com[Comb][j];
                 arr[layer[noN][0] + j] += Case;

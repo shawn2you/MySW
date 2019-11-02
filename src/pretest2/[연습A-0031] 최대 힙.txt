@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
  
-// ÃÖ´ë Èü
+// ìµœëŒ€ í™
 public class Solution {
     static int T, N;
     static final int mod = 100000123;
@@ -26,7 +26,7 @@ public class Solution {
             }
         }
          
-        D[1] = 2; // NÀÌ 1ÀÎ °æ¿ì 2°³ ÃÊ±â°ª ¼¼ÆÃ
+        D[1] = 2; // Nì´ 1ì¸ ê²½ìš° 2ê°œ ì´ˆê¸°ê°’ ì„¸íŒ…
          
         for(int i = 2; i <= 11; i++) {
             D[i] = C[(int) (Math.pow(2, i + 1) - 2)][(int) (Math.pow(2, i) - 1)] % mod;

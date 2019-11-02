@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
   
-//(¡ﬂ) [±≥¿∞A-0012] ∫∏ºÆ ≈–¿Ã 
+//(Ï§ë) [ÍµêÏú°A-0012] Î≥¥ÏÑù ÌÑ∏Ïù¥ 
 public class Solution {
     static int T, N, M;
     static int[] w, v;

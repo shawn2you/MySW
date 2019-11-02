@@ -2,11 +2,11 @@ import java.io.*;
 import java.util.*;
  
 public class Solution {
-    static int T, N, K; // N: ¿µ¿ªÀÇ ¼ö, K: »ö±òÀÇ ¼ö
+    static int T, N, K; // N: ì˜ì—­ì˜ ìˆ˜, K: ìƒ‰ê¹”ì˜ ìˆ˜
     static long Ans;
-    static int[] f = new int[1000001]; // °¢ ¿µ¿ªº° »öÀÌ ´Ş¶ó¾ß ÇÏ´Â ¿µ¿ª
-    static int[] v = new int[1000001]; // ¹æ¹®¿©ºÎ Ã¼Å©
-    static long[] dp = new long[1000001]; // »çÀÌÅ¬ÀÏ °æ¿ì °æ¿ìÀÇ ¼ö
+    static int[] f = new int[1000001]; // ê° ì˜ì—­ë³„ ìƒ‰ì´ ë‹¬ë¼ì•¼ í•˜ëŠ” ì˜ì—­
+    static int[] v = new int[1000001]; // ë°©ë¬¸ì—¬ë¶€ ì²´í¬
+    static long[] dp = new long[1000001]; // ì‚¬ì´í´ì¼ ê²½ìš° ê²½ìš°ì˜ ìˆ˜
     static final int MOD = 1000000007;
      
     public static void main(String[] args) throws Exception {
@@ -30,12 +30,12 @@ public class Solution {
              
             setDp(N, K);
                          
-            int vS, vE, vIdx; // vS: ¹æ¹®¼ø¼­ ½ÃÀÛ, vE: ¹æ¹®¼ø¼­ ³¡, vIdx ÇöÀç ¹æ¹®¿µ¿ª idx;
+            int vS, vE, vIdx; // vS: ë°©ë¬¸ìˆœì„œ ì‹œì‘, vE: ë°©ë¬¸ìˆœì„œ ë, vIdx í˜„ì¬ ë°©ë¬¸ì˜ì—­ idx;
             vS = vE = vIdx = 1;
             Ans = 1;
              
             for(int i = 1; i <= N; i++) {
-                if(v[i] != 0) { // ÀÌ¹Ì ¹æ¹®ÇÑ ¿µ¿ªÀÌ¸é
+                if(v[i] != 0) { // ì´ë¯¸ ë°©ë¬¸í•œ ì˜ì—­ì´ë©´
                     continue;
                 }
                  
@@ -43,27 +43,27 @@ public class Solution {
                 vIdx = i;
                  
                 while(v[vIdx] == 0) {
-                    v[vIdx] = vE; // ¹æ¹®¼ø¼­ ÀúÀå
-                    vE++; // ¹æ¹®¼ø¼­ Áõ°¡
-                    vIdx = f[vIdx]; // ´ÙÀ½ ¹æ¹®ÇÒ ¿µ¿ª idx °¡Á®¿À±â
+                    v[vIdx] = vE; // ë°©ë¬¸ìˆœì„œ ì €ì¥
+                    vE++; // ë°©ë¬¸ìˆœì„œ ì¦ê°€
+                    vIdx = f[vIdx]; // ë‹¤ìŒ ë°©ë¬¸í•  ì˜ì—­ idx ê°€ì ¸ì˜¤ê¸°
                 }
                  
-                // 1. »çÀÌÅ¬ÀÎ ºÎºĞ
+                // 1. ì‚¬ì´í´ì¸ ë¶€ë¶„
                 int cycle = 0;
                  
                 if(vS <= v[vIdx]) {
-                    cycle = vE - v[vIdx]; // »çÀÌÅ¬ÀÌ ¸î°³Â¥¸°°¡
+                    cycle = vE - v[vIdx]; // ì‚¬ì´í´ì´ ëª‡ê°œì§œë¦°ê°€
                      
                     if(cycle > 0) {
-                        if(cycle == 1) { // º»ÀÎÀÌ º»ÀÎ °¡¸®Å°°í ÀÖ´Â ÇÏ³ªÂ¥¸® ¿µ¿ªÀº K¸¸Å­ °æ¿ìÀÇ ¼ö °öÇØÁÜ
+                        if(cycle == 1) { // ë³¸ì¸ì´ ë³¸ì¸ ê°€ë¦¬í‚¤ê³  ìˆëŠ” í•˜ë‚˜ì§œë¦¬ ì˜ì—­ì€ Kë§Œí¼ ê²½ìš°ì˜ ìˆ˜ ê³±í•´ì¤Œ
                             Ans = (Ans * K) % MOD;
                             Ans %= MOD;
                         }
-                        else if(cycle % 2 == 0 && K == 1) { // »çÀÌÅ¬ÀÌ 2°³ ÀÌ»óÀÌ°í, »çÀÌÅ¬À» ÀÌ·ç´Â ¿µ¿ªÀÇ °¹¼ö°¡ Â¦¼öÀÌ°í K°¡ 1ÀÌ¸é ¸øÄ¥ÇÔ
+                        else if(cycle % 2 == 0 && K == 1) { // ì‚¬ì´í´ì´ 2ê°œ ì´ìƒì´ê³ , ì‚¬ì´í´ì„ ì´ë£¨ëŠ” ì˜ì—­ì˜ ê°¯ìˆ˜ê°€ ì§ìˆ˜ì´ê³  Kê°€ 1ì´ë©´ ëª»ì¹ í•¨
                             Ans = 0;
                             break;
                         }
-                        else if(cycle % 2 == 1 && K <= 2) { // »çÀÌÅ¬ÀÌ 2°³ ÀÌ»óÀÌ°í, »çÀÌÅ¬À» ÀÌ·ç´Â ¿µ¿ªÀÇ °¹¼ö°¡ È¦¼öÀÌ°í K°¡ 2 ÀÌÇÏÀÌ¸é ¸øÄ¥ÇÔ
+                        else if(cycle % 2 == 1 && K <= 2) { // ì‚¬ì´í´ì´ 2ê°œ ì´ìƒì´ê³ , ì‚¬ì´í´ì„ ì´ë£¨ëŠ” ì˜ì—­ì˜ ê°¯ìˆ˜ê°€ í™€ìˆ˜ì´ê³  Kê°€ 2 ì´í•˜ì´ë©´ ëª»ì¹ í•¨
                             Ans = 0;
                             break;
                         }
@@ -74,8 +74,8 @@ public class Solution {
                     }
                 }
                  
-                // 2. »çÀÌÅ¬ ¾Æ´Ñ ºÎºĞ
-                //System.out.println("»çÀÌÅ¬ ¾Æ´ÑºÎºĞ : " + (vE - vS - cycle));
+                // 2. ì‚¬ì´í´ ì•„ë‹Œ ë¶€ë¶„
+                //System.out.println("ì‚¬ì´í´ ì•„ë‹Œë¶€ë¶„ : " + (vE - vS - cycle));
                 Ans *= pow(K - 1, vE - vS - cycle) % MOD;
                 Ans %= MOD;
             }

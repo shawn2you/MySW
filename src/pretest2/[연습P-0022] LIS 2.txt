@@ -38,7 +38,7 @@ public class Solution {
             for(int i = 2; i <= N; i++) {
                  
  
-                if(D[idx] < input[i]) { // Å©¸é µÚ¿¡ ³Ö±â
+                if(D[idx] < input[i]) { // í¬ë©´ ë’¤ì— ë„£ê¸°
                     idx++;
                     D[idx] = input[i];
                 }

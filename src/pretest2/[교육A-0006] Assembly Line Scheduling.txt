@@ -3,8 +3,8 @@ import java.util.*;
  
 public class Solution {
     static int T, N, e1, e2, x1, x2, Ans;
-    static int[][] s; // ¶óÀÎº° ½Ã°£ Á¤º¸
-    static int[][] t; // ¶óÀÎ ¹Ù²Ù´Âµ¥ µå´Â ½Ã°£ Á¤º¸
+    static int[][] s; // ë¼ì¸ë³„ ì‹œê°„ ì •ë³´
+    static int[][] t; // ë¼ì¸ ë°”ê¾¸ëŠ”ë° ë“œëŠ” ì‹œê°„ ì •ë³´
     static int[][] d;
      
     public static void main(String[] args) throws Exception {
@@ -14,16 +14,16 @@ public class Solution {
          
         for(int tc = 1; tc <= T; tc++) {
             st = new StringTokenizer(br.readLine());            
-            N = Integer.parseInt(st.nextToken()); // °øÁ¤ÀÇ ¼ö
-            e1 = Integer.parseInt(st.nextToken()); // ¶óÀÎ1 ÁøÀÔÇÏ´Âµ¥ µå´Â ½Ã°£
-            e2 = Integer.parseInt(st.nextToken()); // ¶óÀÎ2 ÁøÀÔÇÏ´Âµ¥ µå´Â ½Ã°£
-            x1 = Integer.parseInt(st.nextToken()); // ¶óÀÎ1 ³ª¿À´Âµ¥ µå´Â ½Ã°£
-            x2 = Integer.parseInt(st.nextToken()); // ¶óÀÎ2 ³ª¿À´Âµ¥ µå´Â ½Ã°£
+            N = Integer.parseInt(st.nextToken()); // ê³µì •ì˜ ìˆ˜
+            e1 = Integer.parseInt(st.nextToken()); // ë¼ì¸1 ì§„ì…í•˜ëŠ”ë° ë“œëŠ” ì‹œê°„
+            e2 = Integer.parseInt(st.nextToken()); // ë¼ì¸2 ì§„ì…í•˜ëŠ”ë° ë“œëŠ” ì‹œê°„
+            x1 = Integer.parseInt(st.nextToken()); // ë¼ì¸1 ë‚˜ì˜¤ëŠ”ë° ë“œëŠ” ì‹œê°„
+            x2 = Integer.parseInt(st.nextToken()); // ë¼ì¸2 ë‚˜ì˜¤ëŠ”ë° ë“œëŠ” ì‹œê°„
             Ans = 0;
              
-            s = new int[2][N + 1]; // ¶óÀÎ1,2 °¢ °øÁ¤º° µå´Â ½Ã°£
-            t = new int[2][N + 1]; // ¶óÀÎ º¯°æ¿¡ µå´Â ½Ã°£
-            d = new int[2][N + 1]; // ¶óÀÎº° °¢ °øÁ¤¿¡ µµÂø °¡´ÉÇÑ ÃÖ¼Ò½Ã°£ 
+            s = new int[2][N + 1]; // ë¼ì¸1,2 ê° ê³µì •ë³„ ë“œëŠ” ì‹œê°„
+            t = new int[2][N + 1]; // ë¼ì¸ ë³€ê²½ì— ë“œëŠ” ì‹œê°„
+            d = new int[2][N + 1]; // ë¼ì¸ë³„ ê° ê³µì •ì— ë„ì°© ê°€ëŠ¥í•œ ìµœì†Œì‹œê°„ 
              
             for(int i = 0; i < 2; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -36,16 +36,16 @@ public class Solution {
             for(int i = 0; i < 2; i++) {
                 st = new StringTokenizer(br.readLine());
                  
-                for(int j = 1; j <= N - 1; j++) { // N-1 ±îÁö
+                for(int j = 1; j <= N - 1; j++) { // N-1 ê¹Œì§€
                     t[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
              
-            d[0][1] = e1; // ¶óÀÎ1, °øÁ¤1 ÁøÀÔÇÏ´Âµ¥ µå´Â ½Ã°£À¸·Î ÃÊ±âÈ­
-            d[1][1] = e2; // ¶óÀÎ2, °øÁ¤1 ÁøÀÔÇÏ´Âµ¥ µå´Â ½Ã°£À¸·Î ÃÊ±âÈ­
+            d[0][1] = e1; // ë¼ì¸1, ê³µì •1 ì§„ì…í•˜ëŠ”ë° ë“œëŠ” ì‹œê°„ìœ¼ë¡œ ì´ˆê¸°í™”
+            d[1][1] = e2; // ë¼ì¸2, ê³µì •1 ì§„ì…í•˜ëŠ”ë° ë“œëŠ” ì‹œê°„ìœ¼ë¡œ ì´ˆê¸°í™”
              
             for(int i = 2; i <= N; i++) {
-                d[0][i] = Math.min(d[0][i - 1] + s[0][i - 1], d[1][i - 1] + s[1][i - 1] + t[1][i - 1]); // °°Àº¶óÀÎ¿¡¼­ ³Ñ±â´Â ½Ã°£, ´Ù¸¥¶óÀÎ¿¡¼­ ³Ñ±â´Â ½Ã°£ ºñ±³
+                d[0][i] = Math.min(d[0][i - 1] + s[0][i - 1], d[1][i - 1] + s[1][i - 1] + t[1][i - 1]); // ê°™ì€ë¼ì¸ì—ì„œ ë„˜ê¸°ëŠ” ì‹œê°„, ë‹¤ë¥¸ë¼ì¸ì—ì„œ ë„˜ê¸°ëŠ” ì‹œê°„ ë¹„êµ
                 d[1][i] = Math.min(d[1][i - 1] + s[1][i - 1], d[0][i - 1] + s[0][i - 1]  + t[0][i - 1]);
             }
              

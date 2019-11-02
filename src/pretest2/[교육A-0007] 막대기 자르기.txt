@@ -13,8 +13,8 @@ public class Solution {
          
         for(int tc = 1; tc <= T; tc++) {
             N = Integer.parseInt(br.readLine());
-            P = new int[N + 1]; // ±æÀÌº° °ª¾îÄ¡
-            R = new int[N + 1]; // ±æÀÌº° ÃÖ´ë °ª¾îÄ¡
+            P = new int[N + 1]; // ê¸¸ì´ë³„ ê°’ì–´ì¹˜
+            R = new int[N + 1]; // ê¸¸ì´ë³„ ìµœëŒ€ ê°’ì–´ì¹˜
              
             st = new StringTokenizer(br.readLine());
              
@@ -22,7 +22,7 @@ public class Solution {
                 P[i] = Integer.parseInt(st.nextToken());
             }
              
-            R[1] = P[1]; // ±æÀÌ 1ÀÏ¶§ ÃÖ´ë °ª¾îÄ¡  = ±æÀÌ 1ÀÏ¶§ °ª¾îÄ¡·Î ÃÊ±âÈ­
+            R[1] = P[1]; // ê¸¸ì´ 1ì¼ë•Œ ìµœëŒ€ ê°’ì–´ì¹˜  = ê¸¸ì´ 1ì¼ë•Œ ê°’ì–´ì¹˜ë¡œ ì´ˆê¸°í™”
              
             for(int i = 2; i <= N; i++) {
                 for(int j = 1; j <= i; j++) {

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
  
-// (Áß»ó) [±³À°P-0028] LCS
+// (ì¤‘ìƒ) [êµìœ¡P-0028] LCS
 public class Solution {
     static int T, N, M;
     static char[] A;

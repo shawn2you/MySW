@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
  
-// ¾Æ¸§´Ù¿î ºñÆ®¹®ÀÚ¿­ - Á¶ÇÕ·Ğ ¹®Á¦
+// ì•„ë¦„ë‹¤ìš´ ë¹„íŠ¸ë¬¸ìì—´ - ì¡°í•©ë¡  ë¬¸ì œ
 public class Solution {
     static int T, N, K;
     static long X;
