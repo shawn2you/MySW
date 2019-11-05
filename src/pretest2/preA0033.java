@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
  
  
@@ -12,6 +13,7 @@ public class preA0033 {
     static int T, N, M, K, ans;
     static char[][] pro = new char[1001][101];
     static int[] eng = new int[26];
+    static int[] visited = new int[26];
     static int[][] Ieng = new int[101][26];
            
 /*
@@ -32,6 +34,11 @@ public class preA0033 {
         StringTokenizer st = null;
          
         for(int t=1; t<=T; t++){        
+        	
+        	// 초기화
+        	for(int i=0; i<26; i++){
+        		visited[i] = 0;
+        	}
 /*
 [입력] 
 첫 줄에 테스트 케이스의 개수 T 가 주어지며, 그 다음 T 개의 테스트 케이스가 주어진다. 
@@ -69,23 +76,47 @@ public class preA0033 {
              
 /*           
 (접근방법)
-1. 처음 순서로 부터 처리방향으로 투입 엔지니어 기준으로 점검 가능한 수 계산
-2. 점검 가능한 수를 큰수부터 정렬
-3. 
 */
             for(int j=0; j<N; j++) {
 	            for(int i=0; i<M; i++){
+	            	// 기술자 투입가능한 부품 초기화
+	            	if(i==0 && j>0){
+	            		for(int k=0; k<K; k++){
+//	            			Ieng[j][eng[k]] = Ieng[j-1][eng[k]]; // 누적 처리시 
+	            			Ieng[j][eng[k]] = 0; // 초기화
+	            		}	            		
+	            	}
 	            	int p = pro[i][j]-65; // A : 65
-//	            	System.out.println(pro[i][j] + ", " + p);
+	            	
 	            	Ieng[j][p]++;
+	            	
+	            	Ieng[N][p]++; // 최대값 계산
+
+//	            	System.out.println(pro[i][j] + ", " + Ieng[j][p]);
 	            }
+//	            System.out.println("--------------------");
             }
             
-            for(int j=0; j<26; j++) {
-            	System.out.print(Ieng[N-1][j] + " ");
-            }
-            System.out.println();
+//            for(int j=0; j<26; j++) {
+//            	System.out.print(Ieng[N-1][j] + " ");
+//            }
+            ans = 0;
+            int curr=0, pre=0, cMax=0, iEng ;
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
             
+            for(int i=0; i<M; i++){
+            	// 공정순서별로 탐색을 시작한다. 
+            	// 해당 공정에 기술자 투입이 가능할 경우 투입 후 남은 공정수가 가장 작은 수를 선택
+            	// 해당 작은수가 같을 경우 현재 투입시 가장 이득인 경우를 투입 결정
+            	for(int k=0; k<K; k++){
+            		curr = Ieng[i][eng[k]];
+            		Ieng[N][eng[k]] -= curr;
+            		
+            		cMax = Math.max(cMax, curr);
+            	}            	
+            }
+            
+
             System.out.println("#"+t+ " " + ans);
  
         } // end T
