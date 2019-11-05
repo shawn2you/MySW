@@ -1,0 +1,85 @@
+import java.io.*;
+import java.util.*;
+ 
+//(중상) [기출P-0053] 공주의 결혼식
+public class Solution {
+    static int T, W, B;
+    static int[][] C = new int[2001][3];
+    static double[][] white = new double[1001][1001];
+    static double[][] black = new double[1001][1001];
+    static double[][] next = new double[1001][1001];
+      
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+          
+        C[1][0] = C[1][1] = 1;
+        for (int n = 2; n <= 2000; n++) {
+            C[n][0] = 1;
+            for (int k = 1; k <= 2; k++) { // 두명만 뽑을거니까 nC0, nC1, nC2 까지만 미리 계산
+                C[n][k] = C[n-1][k-1] + C[n-1][k];
+            }
+        }
+         
+        for(int w = 0; w <= 1000; w++) { // 확률 계산
+            for(int b = 0; b <= 1000; b++) {
+                if(w + b == 0 || (w == 1 && b == 1)) { // 백마기사, 흑마기사 둘다 없거나 한마리씩 남은 경우
+                    white[w][b] = 0; // 백마기사 결혼 확률 0
+                    black[w][b] = 0; // 흑마기사 결혼 확률 0
+                    next[w][b] = 1; // 내년 결혼 확률 1
+                    continue;
+                }
+                 
+                if(w == 0 && b > 0) { // 백마기사 없는데, 흑마기사 남은경우
+                    white[w][b] = 0;
+                    black[w][b] = 1; // 흑마기사 확률 1
+                    next[0][0] = 0;
+                    continue;
+                }
+                 
+                if(w > 0 && b == 0) { // 흑마기사 없는데, 백마기사 남은경우
+                    white[w][b] = 1; // 백마기사 확률 1
+                    black[w][b] = 0;
+                    next[0][0] = 0;
+                    continue;
+                }
+                 
+                double c;
+                 
+                if(w > 0) {
+                    c = (double) C[w][2] / C[w + b][2]; // 백마기사 w명 중 2명 다 백마기사 뽑는 경우의 수 / w+b명 기사 중 아무나 두명 뽑는 경우의 수 
+                    white[w][b] += c * white[w - 1][b];
+                    black[w][b] += c * black[w - 1][b];
+                    next[w][b] += c * next[w - 1][b];
+                }
+                 
+                if(b > 0) {
+                    c = (double) C[b][2] / C[w + b][2];
+                    white[w][b] += c * white[w][b - 1];
+                    black[w][b] += c * black[w][b - 1];
+                    next[w][b] += c * next[w][b - 1];
+                }
+                 
+                if(w > 0 && b > 0) { // 백흑 한마리씩 뽑는 경우의 수 / w+b에서 두명 아무나 두명 뽑는 경우의 수
+                    c = (double) (w * b) / C[w + b][2];
+                    white[w][b] += c * white[w - 1][b - 1];
+                    black[w][b] += c * black[w - 1][b - 1];
+                    next[w][b] += c * next[w - 1][b - 1];
+                }
+            }
+        }
+         
+        T = Integer.parseInt(br.readLine());
+         
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            W = Integer.parseInt(st.nextToken());
+            B = Integer.parseInt(st.nextToken());
+             
+            System.out.print("#" + tc);
+            System.out.print(" " + String.format("%.13f", white[W][B]));
+            System.out.print(" " + String.format("%.13f", black[W][B]));
+            System.out.println(" " + String.format("%.13f", next[W][B]));
+        }
+    }
+}
