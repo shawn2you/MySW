@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
  
  
@@ -13,7 +13,7 @@ public class preA0033 {
     static int T, N, M, K, ans;
     static char[][] pro = new char[1001][101];
     static int[] eng = new int[26];
-    static int[] visited = new int[26];
+    static int[] in = new int[5]; // 투입엔지니어위치
     static int[][] Ieng = new int[101][26];
            
 /*
@@ -36,8 +36,8 @@ public class preA0033 {
         for(int t=1; t<=T; t++){        
         	
         	// 초기화
-        	for(int i=0; i<26; i++){
-        		visited[i] = 0;
+        	for(int i=0; i<5; i++){
+        		in[i] = 0;
         	}
 /*
 [입력] 
@@ -101,8 +101,8 @@ public class preA0033 {
 //            	System.out.print(Ieng[N-1][j] + " ");
 //            }
             ans = 0;
-            int curr=0, pre=0, cMax=0, iEng ;
-            PriorityQueue<Integer> pq = new PriorityQueue<>();
+            int curr=0, pre=0, cMax=0, iEng=-1, cEng=-1;
+//            ArrayList<Integer> iEngList = new ArrayList<Integer>();
             
             for(int i=0; i<M; i++){
             	// 공정순서별로 탐색을 시작한다. 
@@ -110,10 +110,26 @@ public class preA0033 {
             	// 해당 작은수가 같을 경우 현재 투입시 가장 이득인 경우를 투입 결정
             	for(int k=0; k<K; k++){
             		curr = Ieng[i][eng[k]];
-            		Ieng[N][eng[k]] -= curr;
+            		Ieng[N][eng[k]] -= curr; // 공정에 기술자가 투입되면 투입된 만큼은 무조건 제거
             		
-            		cMax = Math.max(cMax, curr);
-            	}            	
+            		// 투입후 남은게 가장 작은건을 먼저 투입한다.
+            		if(k > 0) {
+            			if(Ieng[N][eng[k]] > Ieng[N][eng[k-1]]){
+            				cEng = k; // k번째 엔지니어 투입
+            			}
+            		}else {
+            			cEng = k; // k번째 엔지니어 투입
+            		}
+            	}
+            	
+//            	iEngList.add(iEng);
+            	// 최초 투입이거나 엔지니어가 변경된 경우
+            	if(iEng == -1 || iEng != cEng) {
+            		iEng = cEng;
+            		in[iEng] = 1; // 0미투입, 1투입 , 2해제 
+            	}
+            	
+            	ans += Ieng[i][eng[iEng]];
             }
             
 
