@@ -42,6 +42,7 @@ public class preA0033_1 {
         for(int t=1; t<=T; t++){
         	// 초기화 
         	ans = 0;
+        	engList.clear();
 /*
 [입력] 
 첫 줄에 테스트 케이스의 개수 T 가 주어지며, 그 다음 T 개의 테스트 케이스가 주어진다. 
@@ -78,14 +79,10 @@ public class preA0033_1 {
 //            	System.out.println();
 //            }
 
-             
-/*           
-(접근방법)
-*/
             for(int j=1; j<=N; j++) {
 	            for(int i=1; i<=M; i++){
 	            	// 기술자 투입가능한 부품 초기화
-	            	if(i==1 && j>1){
+	            	if(i==1){
 	            		for(int k=0; k<K; k++){
 //	            			Ieng[j][eng[k]] = Ieng[j-1][eng[k]]; // 누적 처리시 
 	            			Ieng[j][eng[k]] = 0; // 초기화
@@ -101,19 +98,18 @@ public class preA0033_1 {
 //	            System.out.println("--------------------");
             }
             
-           
-        	for(int k=0; k<K; k++){
-        		for(int j=1; j<=M; j++) {
-            		System.out.print((char)(eng[k]+65) + "["+eng[k]+"]:"+ Ieng[j][eng[k]] + "  ");
-            	}
-            	System.out.println();
-            }
+            // 검증
+//        	for(int k=0; k<K; k++){
+//        		for(int j=1; j<=N; j++) {
+//            		System.out.print((char)(eng[k]+65) + "["+eng[k]+"]:"+ Ieng[j][eng[k]] + "  ");
+//            	}
+//            	System.out.println();
+//            }
             
         	
-        	reOrder(0);
-        	
+        	reOrder(0);       	
 
-//            System.out.println("#"+t+ " " + ans);
+            System.out.println("#"+t+ " " + ans);
  
         } // end T
          
@@ -126,34 +122,32 @@ public class preA0033_1 {
     
 
     
-    static void reOrder(int depth) {
-    	
+    static void reOrder(int depth) {    	
     	if(depth == K) {
     		// 조합 구성시 DP 수행
-    		System.out.println(Arrays.toString(engOrder));
+//    		System.out.println(Arrays.toString(engOrder));
     		
     		//초기화 
     		for(int i=0; i<=K; i++) {
-    			for(int j=0; j<=M; j++) {
+    			for(int j=0; j<=N; j++) {
     				dp[i][j] = 0;
     			}
     		}
 
 			// engOrder[i] 기술자 , Ieng[공정][기술자]
     		for(int i=1; i<=K; i++) {
-    			for(int j=1; j<=M; j++) { 				
-    				dp[i][j] = Math.max(dp[i-1][j] + Ieng[j][engOrder[i-1]], dp[i-1][j-1] + Ieng[j][engOrder[i-1]]);
-    				System.out.printf("(%d, %d):%c = %d  ", i, j, (char)(engOrder[i-1]+65), dp[i][j]);
+    			for(int j=1; j<=N; j++) {
+//    				System.out.printf("%c:%d", (char)(engOrder[i-1]+65), Ieng[j][engOrder[i-1]]);
+    				dp[i][j] = Math.max(dp[i][j-1] + Ieng[j][engOrder[i-1]], dp[i-1][j-1] + Ieng[j][engOrder[i-1]]);
+//    				System.out.printf(" (%d, %d) = %d  ", i, j, dp[i][j]);
     			}
-    			System.out.println();
-    		}    		
-//    		for(int i=1; i<=K; i++) {
-//    			for(int j=1; j<=M; j++) {
-//    				dp[i][j] = Math.max(dp[i-1][j] + Ieng[j][engOrder[i-1]], dp[i-1][j-1] + Ieng[j][engOrder[i-1]]);
-//    			}
-//    		}
+//    			System.out.println();
+    		}
+    		for(int i=1; i<=K; i++) {    			
+    			ans = Math.max(ans, dp[i][N]);
+    		}
     		
-    		System.out.println(dp[K][M]);
+//    		System.out.println(ans);
     	}
     	
     	for(int i=0; i<K-depth; i++) {
