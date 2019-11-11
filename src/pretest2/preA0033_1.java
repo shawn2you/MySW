@@ -12,15 +12,15 @@ import java.util.StringTokenizer;
 public class preA0033_1 {
      
     static int T, N, M, K, ans;
-    static char[][] pro = new char[1001][101];
+    static char[][] pro = new char[101][5001];
     static int[] eng = new int[26]; // 최초 기술자 목록(원본)
-    static int[][] Ieng = new int[101][26];
+    static int[][] Ieng = new int[5001][26];
     
     static ArrayList<Integer> engList = new ArrayList<Integer>();
     static int[] engOrder; // = new int[5]; // 조합된 기술자목록
     
     // 순열 조합별로 구성하여 계산
-    static int[][] dp = new int[6][101]; // dp[기술자, 라인수]
+    static int[][] dp = new int[6][5001]; // dp[기술자, 라인수]
            
 /*
 [제한사항] 
