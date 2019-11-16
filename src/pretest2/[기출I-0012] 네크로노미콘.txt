@@ -1,0 +1,62 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+// [기출I-0012] 네크로노미콘
+public class Solution {
+    static int T, N, M, Ans; // N: 총 페이지 수, M: 단서 수, Ans: 답
+    static int[] d1, d2;
+ 
+    public static void main(String[] args) throws Exception {
+        //System.setIn(new FileInputStream("I0012네크로노미콘_input.txt"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+ 
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            M = Integer.parseInt(st.nextToken());
+            Ans = 0;
+            d1 = new int[N + 2]; // 있을거다, 끝페이지 처리를 위해 N + 2 사이즈
+            d2 = new int[N + 2]; // 없을거다
+ 
+            int s, e, k; // 단서 시작 페이지, 끝 페이지, 범위안에 유무
+ 
+            for(int i = 0; i < M; i++) { // [교육P-0016] 동굴 문제와 유사..
+                st = new StringTokenizer(br.readLine());
+                s = Integer.parseInt(st.nextToken());
+                e = Integer.parseInt(st.nextToken());
+                k = Integer.parseInt(st.nextToken());
+ 
+                if(k == 1) {
+                    d1[s]++;
+                    d1[e + 1]--;
+                    continue;
+                }
+ 
+                d2[s]++;
+                d2[e + 1]--;
+            }
+ 
+            for(int i = 2; i <= N; i++) { // 누적
+                d1[i] = d1[i - 1] + d1[i];
+                d2[i] = d2[i - 1] + d2[i];
+            }
+ 
+            int max = -1;
+ 
+            for(int i = 1; i <= N; i++) { // 탐색
+                if(d2[i] > 0 || d1[i] < max) {
+                    continue;
+                }
+ 
+                Ans = i;
+                max = d1[i];
+            }
+ 
+            System.out.println("#" + tc + " " + Ans);
+        }
+    }
+}

@@ -1,0 +1,55 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+// [기출P-0027] 기름 값
+public class Solution {
+    static int T, N, L; // N 도시갯수, L 기름통 크기
+    static int[][] city;
+    static int[][] D;
+ 
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        T = Integer.parseInt(br.readLine());
+        StringTokenizer st;
+ 
+        loop : for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            L = Integer.parseInt(st.nextToken());
+            city = new int[N + 1][2];
+            D = new int[N + 1][L + 1]; // i번째 도시에서 j기름양일 때 최소값
+ 
+            st = new StringTokenizer(br.readLine());
+ 
+            for(int i = 1; i < N; i++) {
+                city[i][0] = Integer.parseInt(st.nextToken()); // 리터당 기름값
+                city[i][1] = Integer.parseInt(st.nextToken()); // 다음도시까지 거리
+ 
+                if(city[i][1] > L) {
+                    System.out.println("#" + tc + " -1"); // 기름통보다 거리가 멀 경우 도착 못함
+                    continue loop;
+                }
+            }
+ 
+            for(int i = 0; i <= L; i++) { // 초기화: 첫번째 도시, 기름 0~L 일때 최소값
+                D[1][i] = city[1][0] * i;
+            }
+ 
+            for(int i = 2; i <= N; i++) { // i번째 도시
+                D[i][0] = D[i - 1][city[i - 1][1]]; // 기름0으로 가까스로 도착
+ 
+                for(int j = 1; j <= L; j++) { // j기름양 일 때 최소값
+                    D[i][j] = D[i][j - 1] + city[i][0]; // 기름 현재 도시에서 넣는거와
+ 
+                    if(city[i - 1][1] + j <=  L) { // 앞에 도시에서 j만큼 남겨올 수 있는 경우랑 비교
+                        D[i][j] = Math.min(D[i][j], D[i - 1][city[i - 1][1] + j]);
+                    }
+                }
+            }
+ 
+            System.out.println("#" + tc + " " + D[N][0]); // 마지막 도시에서 기름 없는 경우가 답
+        }
+    }
+}
