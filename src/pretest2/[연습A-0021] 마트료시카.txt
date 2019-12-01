@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+ 
+// (중) [연습A-0021] 마트료시카 - 최장증가수열
+public class Solution {
+    static int T, N, Ans;
+    static int[] M;
+    static int[] D;
+    static final int INF = Integer.MAX_VALUE;
+     
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        T = sc.nextInt();
+         
+        for(int test_case = 1; test_case <= T; test_case++) {
+            N = sc.nextInt();
+            Ans = 0;
+            M = new int[N];
+            D = new int[N];
+             
+            for(int i = 0; i < N; i++) {
+                M[i] = sc.nextInt();
+                D[i] = INF;
+            }
+             
+            if(N == 1) { // 예외처리
+                System.out.println("#" + test_case + " 0");
+                continue;
+            }
+             
+            int idx = 0;
+             
+            D[0] = M[0];
+              
+            for(int i = 1; i < N; i++) {
+                if(D[idx] < M[i]) { // 크면 뒤에 넣기
+                    idx++;
+                    D[idx] = M[i];
+                }
+                else {
+                    int dd = Arrays.binarySearch(D, M[i]); // D 배열에서 들어갈 인덱스 찾기
+                     
+                    if(dd < 0) {
+                        dd *= -1;
+                        dd -= 1;
+                    }
+              
+                    D[dd] = M[i];
+                }
+                 
+                Ans = Math.max(Ans, idx + 1); // 최장증가수열 길이 갱신, idx 0 시작이므로 +1
+            }
+             
+            System.out.println("#" + test_case + " " + Ans);
+        }
+    }
+}

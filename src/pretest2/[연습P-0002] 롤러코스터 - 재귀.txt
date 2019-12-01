@@ -1,0 +1,96 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+ 
+public class Solution {
+  static ArrayList<Part> [] nArr;
+  static int [][] cache;
+  static int L;
+  static int N;
+  static int B;
+   
+  public static void main(String[] args) throws Exception{
+    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+     
+    int T = Integer.parseInt(in.readLine());
+     
+    for (int test_case = 1; test_case <= T; test_case++) {
+       
+      StringTokenizer st = new StringTokenizer(in.readLine());
+      L = Integer.parseInt(st.nextToken());
+      N = Integer.parseInt(st.nextToken());
+      B = Integer.parseInt(st.nextToken());
+       
+      // 시작점을 기준으로 ArrayList 를 ...
+      nArr = new ArrayList[N];
+       
+      // 초기화
+      for (int i = 0; i < N; i++) nArr[i] = new ArrayList<Part>(); 
+       
+      for (int i = 0; i < N; i++) {
+        st = new StringTokenizer(in.readLine());
+        int x = Integer.parseInt(st.nextToken());
+        int w = Integer.parseInt(st.nextToken());
+        int f = Integer.parseInt(st.nextToken());
+        int c = Integer.parseInt(st.nextToken());
+         
+        nArr[x].add(new Part(x, w, f, c));
+      }
+       
+      cache = new int [L+1][B+1];
+       
+      int Answer = find(0, B);
+         
+      if(Answer < 0) Answer = -1;
+       
+      System.out.println("#" + test_case + " " + Answer);
+    }
+  }
+   
+  // 현재 위치, 남은 거리, 남은 비용
+  // return 최대 재미도
+  static int find(int curL, int c) {
+    int w = L - curL;
+    if(w < 0 || c < 0 || (w > 0 && c == 0)) return Integer.MIN_VALUE;
+     
+    if(w == 0) return 0;
+     
+    if(cache[curL][c] != 0) return cache[curL][c]; 
+     
+    int min = Integer.MIN_VALUE;
+     
+    for (int i = 0; i < nArr[curL].size(); i++) {
+      int fun = 0;
+       
+      Part tmp = nArr[curL].get(i);
+       
+      fun += tmp.F;
+       
+      if(w-tmp.W >= 0)
+        fun += find((tmp.X+tmp.W), c-tmp.C);
+       
+      min = Math.max(min, fun);
+    }
+     
+    cache[curL][c] = min;
+     
+    return cache[curL][c];
+  }
+}
+ 
+ 
+class Part {
+  int X;  // 시작점
+  int W;  // 거리
+  int F;  // 재미도
+  int C;  // 비용
+ 
+  public Part(int x, int w, int f, int c) {
+    X = x;
+    W = w;
+    F = f;
+    C = c;
+  }
+}

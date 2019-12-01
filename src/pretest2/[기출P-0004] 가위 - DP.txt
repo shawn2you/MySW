@@ -1,0 +1,86 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+ 
+// [기출P-0004] 가위
+public class Solution {
+    static int T, N, K;
+    static int[] A = new int[1001];
+    static int[][] P = new int[1001][1001]; // i~j 구간의 비용 미리계산
+    static int[][] D;
+ 
+    public static void main(String[] args) throws Exception {
+        //System.setIn(new FileInputStream("P0004가위_input.txt"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        T = Integer.parseInt(br.readLine());
+ 
+        for(int tc = 1; tc <= T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            D = new int[K + 1][N + 1]; // i번 가위사용, j길이 일 때 최소비용
+ 
+            st = new StringTokenizer(br.readLine());
+ 
+            for(int i = 1; i <= N; i++) {
+                A[i] = Integer.parseInt(st.nextToken());
+            }
+ 
+            int max, min;
+ 
+            for(int i = 1; i <= N; i++) { // 시작
+                max = A[i];
+                min = A[i];
+ 
+                for(int j = i; j <= N; j++) { // 끝 일때 종이띠 비용 계산
+                    max = Math.max(max, A[j]);
+                    min = Math.min(min, A[j]);
+                    P[i][j] = max - min;
+                }
+            }
+ 
+            /*
+            for(int i = 1; i <= N; i++) { // 시작
+                for(int j = 1; j <= N; j++) { // 끝 일때 종이띠 비용 계산
+                    System.out.print(P[i][j] + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+            */
+ 
+            for(int i = 1; i <= N; i++) {
+                D[0][i] = P[1][i]; // 0번 가위사용 일때 초기화
+            }
+ 
+            int left, right, pMin, cMin;
+ 
+            for(int i = 1; i <= K; i++) { // i번 가위사용
+                for(int j = 1; j <= N; j++) { // j길이일 때 최소비용 구하기
+                    pMin = D[i - 1][j]; // 한번 덜 자른 것보다는 비용이 같거나 작게 해야함
+ 
+                    for(int k = 1; k < j; k++) {
+                        left = D[i - 1][j - k]; // 왼쪽 비용
+                        right = P[j - k + 1][j]; // 오른쪽 비용
+                        cMin = Math.max(left, right);
+ 
+                        if(cMin > pMin) { // 비용이 더 커진다면 잘라볼 필요 없음
+                            break;
+                        }
+ 
+                        if(cMin < pMin) {
+                            pMin = cMin;
+                            continue;
+                        }
+                    }
+ 
+                    D[i][j] = pMin;
+                }
+            }
+ 
+            System.out.println("#" + tc + " " + D[K][N]);
+        }
+    }
+}

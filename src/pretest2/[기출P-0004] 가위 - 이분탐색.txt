@@ -1,0 +1,61 @@
+import java.io.*;
+import java.util.*;
+  
+public class Solution {
+      
+    public static int N, K;
+    public static int[] A = new int[1001];
+    public static int Answer;
+      
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+  
+        int T = Integer.parseInt(br.readLine());
+        for (int test_case = 1; test_case <= T; test_case++) {
+  
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            K = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(br.readLine());
+            for (int i = 1; i <= N; i++) {
+                A[i] = Integer.parseInt(st.nextToken());
+            }
+              
+            Answer = 0;
+            int s = 0;
+            int e = 1000000;
+            while (s <= e) {
+                int m = (s+e)/2;
+                if (f(m)) {
+                    Answer = m;
+                    e = m-1;
+                }
+                else {
+                    s = m+1;
+                }
+            }
+              
+            bw.write("#" + test_case + " " + Answer + "\n");
+        }
+        bw.flush();
+        bw.close();
+  
+    }
+  
+    private static boolean f(int m) {
+        int cut = 0;
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+        for (int i = 1; i <= N; i++) {
+            min = Math.min(min, A[i]);
+            max = Math.max(max, A[i]);
+            if (m < max-min) {
+                cut++;
+                if (K < cut) return false;
+                min = A[i];
+                max = A[i];
+            }
+        }
+        return true;
+    }
+}

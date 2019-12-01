@@ -1,0 +1,138 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.StringTokenizer;
+  
+  
+public class Solution {
+      
+    static class Part{
+          
+        int s;
+        int e;
+        int f;
+        int c;
+          
+        public Part(int s, int e, int f, int c) {
+              
+            super();
+            this.s = s;
+            this.e = e;
+            this.f = f;
+            this.c = c;
+              
+        }
+          
+    }
+      
+    public static void main(String args[]){
+          
+        try {
+  
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+              
+            int tc = Integer.parseInt(reader.readLine());
+              
+            String lineStr;
+            StringTokenizer st;
+  
+            for (int tci = 1; tci <= tc; tci++) {
+                  
+                lineStr = reader.readLine();
+                st = new StringTokenizer(lineStr);
+                  
+                int L = Integer.parseInt(st.nextToken());
+                int N = Integer.parseInt(st.nextToken());
+                int B = Integer.parseInt(st.nextToken());
+                  
+                int[] X = new int[N + 1];
+                int[] W = new int[N + 1];
+                int[] F = new int[N + 1];
+                int[] C = new int[N + 1];
+                  
+                List<Part> partList = new ArrayList<Part>();
+                  
+                for (int i = 1; i <= N; i++) {
+                      
+                    lineStr = reader.readLine();
+                    st = new StringTokenizer(lineStr);
+                      
+                    int x = Integer.parseInt(st.nextToken());
+                    int w = Integer.parseInt(st.nextToken());
+                      
+                    Part part = new Part(x, x + w, Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())); 
+                      
+                    partList.add(part);
+                      
+                }
+                  
+                Collections.sort(partList, new Comparator<Part>() {
+  
+                    @Override
+                    public int compare(Part p1, Part p2) {
+                          
+                        if(p1.s != p2.s){
+                              
+                            return p1.s - p2.s;
+                              
+                        }else{
+                              
+                            return p1.e - p2.e;
+                              
+                        }
+  
+                    }
+                      
+                });
+                  
+                  
+                int[] cache = new int[L + 1];
+                int[] cost = new int[L + 1];
+                  
+                for (int i = 1; i <= L; i++) {
+                      
+                    cache[i] = -1;
+                      
+                }
+                  
+                for (int i = 0; i < N; i++) {
+                      
+                    Part part = partList.get(i);
+                      
+                    if(cache[part.s] != -1){
+                          
+                        if(cache[part.e] < cache[part.s] + part.f &&
+                           part.e <= L &&
+                           cost[part.s] + part.c <= B){
+                              
+                            cache[part.e] = cache[part.s] + part.f;
+                            cost[part.e] = cost[part.s] + part.c;
+                              
+                        }
+                                                  
+                    }
+                      
+                }
+                  
+                writer.write("#" + tci + " " + cache[L] + "\n");
+                  
+                  
+            }
+  
+            writer.flush();
+            writer.close();
+            reader.close();
+              
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+          
+    }
+  
+}
