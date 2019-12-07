@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -26,14 +27,12 @@ public class APSS08_3 {
 		
 		for(int t = 0; t < T; t++) {
             N = Integer.parseInt(br.readLine());
-//            cache = new int[N][N]; // 초기화(많을 경우 for 문 처리)
-//            ret   = new int[N][N]; 
             
             for(int i = 0; i < N; i++) {
             	st = new StringTokenizer(br.readLine());
+            	Arrays.fill(ret[i], -1);
                 for(int j = 0; j <= i; j++){
                 	cache[i][j] = Integer.parseInt(st.nextToken());
-                	ret[i][j] = -1;
                 }
             }
             
@@ -56,11 +55,15 @@ public class APSS08_3 {
     }
 	
 	static int solve2(int x, int y) {
-		if(y == N -1) return ret[x][y] = cache[x][y];
-		
+		// 기저 처리
+		if(x ==N || y == N) return 0;
+		// 최종 깊이 직전까지 수행
+		if(y == N - 1) return ret[x][y] = cache[x][y];
+		// 이미 탐색하였으면 바로 리턴
 		if(ret[x][y] != -1) return ret[x][y];
 		
-        return ret[x][y] = cache[x][y] + Math.max(solve2(x + 1,y), solve2(x + 1, y + 1));
+		// 아래 또는 우측 아래 둘중에 최대로 선택
+        return ret[x][y] = cache[x][y] + Math.max(solve2(x + 1, y), solve2(x + 1, y + 1));
        
     }
 }
