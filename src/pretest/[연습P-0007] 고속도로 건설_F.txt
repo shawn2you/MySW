@@ -64,6 +64,7 @@ public class Solution {
         int cnt = 0;
         u = new int[N + 1];
   
+  		// 자기자신을 부모 노드로 셋팅 (사이크 확이을 위해)
         for(int i = 1; i <= N; i++) {
             u[i] = i;
         }

@@ -21,12 +21,15 @@ https://kosaf04pyh.tistory.com/176
 
 (단절점)
 [사전A-0019] [11월 PRO 검정 사전 테스트] 내 고장 내 마을
+https://matice.tistory.com/59
+
 
 (다익스트라) 
 [교육P-0009] 최단 경로 
 --[교육P-0032] 패닉룸 2
 --[연습P-0012] 파티 참석하기
 --[기출P-0005] 인터스텔라
+https://nobilitycat.tistory.com/139
 
 (벨만포드)
 [연습P-0008] 웜홀 
