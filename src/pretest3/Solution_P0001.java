@@ -22,22 +22,27 @@ static int[] reArr = new int[500001];
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
 		
 		T = Integer.parseInt(br.readLine());
+		String num;
+		char max;
+		int idx = 0;
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
 		
 		for (int t=1; t<=T; t++) {
-			// N자리 숫자에서 K개를 지운다. 
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			
-			N = Integer.parseInt(st.nextToken());
-			K = Integer.parseInt(st.nextToken());
-
-
-			String num = br.readLine();
-			char max;
-			int idx = 0;
-			StringBuilder sb = new StringBuilder();
+			// 초기화 
+			idx = 0;
+			sb.setLength(0);
 			sb.append("#");
 			sb.append(t);
 			sb.append(" ");
+			// N자리 숫자에서 K개를 지운다. 
+			st = new StringTokenizer(br.readLine());
+			
+			N = Integer.parseInt(st.nextToken());
+			K = Integer.parseInt(st.nextToken());			
+
+			num = br.readLine();			
+
 			// N-K 자리가 선택할 숫자 자리수
 			for(int i=0; i<N-K; i++){
 				max = '0';
