@@ -44,7 +44,8 @@ static int[] reArr = new int[500001];
 			num = br.readLine();			
 
 			// N-K 자리가 선택할 숫자 자리수
-			for(int i=0; i<N-K; i++){
+			int len = N-K;
+			for(int i=0; i<len; i++){
 				max = '0';
 				// 6(N)자리중에 2(K)개 제거시 (6-2 자리)
 				// 6, 4, 5 (3, 2, 1) 중에 1개 6선택 [0][0][2=6-4]
@@ -52,8 +53,9 @@ static int[] reArr = new int[500001];
 				//          3  2 (1) 중에 1개 3선택 [2][3][4=6-2]
 				//             2, 1  중에 1개 2선택 [3][4][5=6-1]
 				for(int j=idx; j<=K+i; j++){
-					if(max < num.charAt(j)){
-						max = num.charAt(j);
+					char tmp = num.charAt(j);
+					if(max < tmp){
+						max = tmp;
 						idx = j + 1; // 다음 시작포지션(선택한 다음 위치)
 					}
 				}
