@@ -7,14 +7,14 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /*
- * 1ÀÏÂ÷ 1¹ø ¹®Á¦
- * (Áß) [¿¬½ÀA-0028] ³ª´©±â
+ * 1ì¼ì°¨ 1ë²ˆ ë¬¸ì œ
+ * (ì¤‘) [ì—°ìŠµA-0028] ë‚˜ëˆ„ê¸°
  */
 public class Solution_A0028 {
 	
 	static int T, M, N, Sum_0, Sum_1;
 	
-	static int[][] map = new int[129][129];  // °¢ Á¾ÀÌ°ª
+	static int[][] map = new int[129][129];  // ê° ì¢…ì´ê°’
 
 	public static void main(String[] args) throws Exception {
 		
@@ -27,10 +27,10 @@ public class Solution_A0028 {
 		T = Integer.parseInt(br.readLine());
 		
 		for (int t=1; t<=T; t++) {
-			// ÃÊ±âÈ­ 
+			// ì´ˆê¸°í™” 
 			Sum_0 = 0;
 			Sum_1 = 0;
-			// ÇÑº¯ÀÇ ±æÀÌ N
+			// í•œë³€ì˜ ê¸¸ì´ N
 			N = Integer.parseInt(br.readLine());			
 			
 			for(int n=0; n<N; n++) {
@@ -41,7 +41,7 @@ public class Solution_A0028 {
 				}				
 			}
 			
-			// ³ª´­Áö ÆÇ´Ü ¿©ºÎ 
+			// ë‚˜ëˆŒì§€ íŒë‹¨ ì—¬ë¶€ 
 			div_check(0, 0, N);			
 			
 			System.out.println("#"+t+" " + Sum_0+" " + Sum_1);
@@ -67,11 +67,11 @@ public class Solution_A0028 {
 		}else if(cntCheck == n*n) {
 			Sum_1++;
 		}else {
-			// 4µîºĞ Ã³¸®
-			div_check(x, y, n/2);          // 1»çºĞ¸é (0, 0, 2)
-			div_check(x, y+n/2, n/2);      // 2»çºĞ¸é (0, 2, 2)
-			div_check(x+n/2, y, n/2);      // 3»çºĞ¸é (2, 0, 2)
-			div_check(x+n/2, y+n/2, n/2);  // 4»çºĞ¸é (2, 2, 2)	
+			// 4ë“±ë¶„ ì²˜ë¦¬
+			div_check(x, y, n/2);          // 1ì‚¬ë¶„ë©´ (0, 0, 2)
+			div_check(x, y+n/2, n/2);      // 2ì‚¬ë¶„ë©´ (0, 2, 2)
+			div_check(x+n/2, y, n/2);      // 3ì‚¬ë¶„ë©´ (2, 0, 2)
+			div_check(x+n/2, y+n/2, n/2);  // 4ì‚¬ë¶„ë©´ (2, 2, 2)	
 		}
 	}
 }
