@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 public class Solution_P0001 {
 
 static int T, K, N, Sum;
-static int[] reArr = new int[6];
+static int[] reArr = new int[500001];
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -33,28 +33,43 @@ static int[] reArr = new int[6];
 			N = Integer.parseInt(st.nextToken());
 			K = Integer.parseInt(st.nextToken());
 
-			// N자리 숫자에서 N-K 자리를 최대값 순서로 넣는다.
+
 			String num = br.readLine();
-			int[] arr = new int[N];
-			for(int i = 0; i< N; i++) {
-				arr[i] = Integer.parseInt(num.substring(i, i+1));				
-			}
-			// 6(N)자리중에 2(K)개 제거시 (6-2 자리)
-			// 6, 4, 5 (3, 2, 1) 중에 1개 6선택 [0][0][2=6-4]
-			//    4, 5, 3 (2, 1) 중에 1개 5선택 [1][1][3=6-3]
-			//          3  2 (1) 중에 1개 3선택 [2][3][4=6-2]
-			//             2, 1  중에 1개 2선택 [3][4][5=6-1]
-			int pos = 0;
-			for(int i=0; i<N-K; i++){				
-				pos = searchMax(arr, i, pos, N-(N-K-i));
-			}		
-			
+			char max;
+			int idx = 0;
 			StringBuilder sb = new StringBuilder();
 			
-			for(int i = 0; i < N-K; i++) {
-//				System.out.print(arr[i]);
-				sb.append(reArr[i]);
+			// N-K 자리가 선택할 숫자 자리수
+			for(int i=0; i<N-K; i++){
+				max = '0';
+				// 6(N)자리중에 2(K)개 제거시 (6-2 자리)
+				// 6, 4, 5 (3, 2, 1) 중에 1개 6선택 [0][0][2=6-4]
+				//    4, 5, 3 (2, 1) 중에 1개 5선택 [1][1][3=6-3]
+				//          3  2 (1) 중에 1개 3선택 [2][3][4=6-2]
+				//             2, 1  중에 1개 2선택 [3][4][5=6-1]
+				for(int j=idx; j<=K+i; j++){
+					if(max < num.charAt(j)){
+						max = num.charAt(j);
+						idx = j + 1; // 다음 시작포지션(선택한 다음 위치)
+					}
+				}
+				sb.append(max);
 			}
+			
+//			int[] arr = new int[N];
+//			for(int i = 0; i< N; i++) {
+//				arr[i] = Integer.parseInt(num.substring(i, i+1));				
+//			}
+//
+//			int pos = 0;
+//			for(int i=0; i<N-K; i++){				
+//				pos = searchMax(arr, i, pos, N-(N-K-i));
+//			}			
+			
+//			for(int i = 0; i < N-K; i++) {
+////				System.out.print(arr[i]);
+//				sb.append(reArr[i]);
+//			}
 			
 			System.out.println("#" +  t + " " + sb.toString());
 			
