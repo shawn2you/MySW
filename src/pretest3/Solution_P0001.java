@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  */
 public class Solution_P0001 {
 
-static int T, K, N, Sum;
+static int T, K, N;
 static int[] reArr = new int[500001];
 	
 	public static void main(String[] args) throws Exception {
@@ -24,9 +24,6 @@ static int[] reArr = new int[500001];
 		T = Integer.parseInt(br.readLine());
 		
 		for (int t=1; t<=T; t++) {
-			// 초기화 
-			Sum = 0;
-
 			// N자리 숫자에서 K개를 지운다. 
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			
@@ -38,7 +35,9 @@ static int[] reArr = new int[500001];
 			char max;
 			int idx = 0;
 			StringBuilder sb = new StringBuilder();
-			
+			sb.append("#");
+			sb.append(t);
+			sb.append(" ");
 			// N-K 자리가 선택할 숫자 자리수
 			for(int i=0; i<N-K; i++){
 				max = '0';
@@ -71,23 +70,23 @@ static int[] reArr = new int[500001];
 //				sb.append(reArr[i]);
 //			}
 			
-			System.out.println("#" +  t + " " + sb.toString());
+			System.out.println(sb.toString());
 			
 			
 		} // end test case		
 	} // end main
 
 	// 최대값 찾기
-	static int searchMax(int[] arr, int n, int pos, int end){
-		int max = 0;
-		int rePos = 0;
-		for(int i = pos; i <= end; i++){
-			if(arr[i] > max){
-				max = arr[i];
-				rePos = i;
-			}
-		}
-		reArr[n] = max;
-		return rePos+1;
-	}
+//	static int searchMax(int[] arr, int n, int pos, int end){
+//		int max = 0;
+//		int rePos = 0;
+//		for(int i = pos; i <= end; i++){
+//			if(arr[i] > max){
+//				max = arr[i];
+//				rePos = i;
+//			}
+//		}
+//		reArr[n] = max;
+//		return rePos+1;
+//	}
 }
