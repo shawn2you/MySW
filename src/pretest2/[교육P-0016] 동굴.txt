@@ -2,10 +2,10 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
  
-// [±³À°P-0016] µ¿±¼ 
+// [êµìœ¡P-0016] ë™êµ´ 
 public class Solution {
     static int T, N, H;
-    static int[] up; // ³ôÀÌº° Àå¾Ö¹° °¹¼ö
+    static int[] up; // ë†’ì´ë³„ ì¥ì• ë¬¼ ê°¯ìˆ˜
       
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,19 +20,19 @@ public class Solution {
               
             int tmp;
               
-            for(int i = 1; i <= N; i++) { // ³ôÀÌº° Àå¾Ö¹° ´©ÀûÇÕ ±¸ÇÏ±â À§ÇØ, ½ÃÀÛ¿¡ +1, ³¡ ´ÙÀ½¿¡-1
+            for(int i = 1; i <= N; i++) { // ë†’ì´ë³„ ì¥ì• ë¬¼ ëˆ„ì í•© êµ¬í•˜ê¸° ìœ„í•´, ì‹œì‘ì— +1, ë ë‹¤ìŒì—-1
                 tmp = Integer.parseInt(br.readLine());
                   
-                if(i % 2 == 1) { // È¦¼ö´Â ¾Æ·¡¼­ ¿Ã¶ó¿À´Â Àå¾Ö¹°
-                    up[1]++; // ³ôÀÌ 1¿¡¼­ Àå¾Ö¹° »ı±è
-                    up[tmp + 1]--; // ³ôÀÌ tmp+1¿¡¼­ Àå¾Ö¹° »ç¶óÁü
+                if(i % 2 == 1) { // í™€ìˆ˜ëŠ” ì•„ë˜ì„œ ì˜¬ë¼ì˜¤ëŠ” ì¥ì• ë¬¼
+                    up[1]++; // ë†’ì´ 1ì—ì„œ ì¥ì• ë¬¼ ìƒê¹€
+                    up[tmp + 1]--; // ë†’ì´ tmp+1ì—ì„œ ì¥ì• ë¬¼ ì‚¬ë¼ì§
                 }
-                else { // Â¦¼ö´Â À§¿¡¼­ ³»·Á¿À´Â Àå¾Ö¹°
-                    up[H - tmp + 1]++; // µ¿±¼³ôÀÌ-tmp+1¿¡¼­ Àå¾Ö¹° »ı±è
+                else { // ì§ìˆ˜ëŠ” ìœ„ì—ì„œ ë‚´ë ¤ì˜¤ëŠ” ì¥ì• ë¬¼
+                    up[H - tmp + 1]++; // ë™êµ´ë†’ì´-tmp+1ì—ì„œ ì¥ì• ë¬¼ ìƒê¹€
                 }
             }
              
-            for(int i = 2; i <= H; i++) { // ³ôÀÌº° Àå¾Ö¹° ´©ÀûÇÕ
+            for(int i = 2; i <= H; i++) { // ë†’ì´ë³„ ì¥ì• ë¬¼ ëˆ„ì í•©
                 up[i] += up[i - 1];
             }
               
@@ -41,7 +41,7 @@ public class Solution {
             int min = up[1];
             int cnt = 1;
               
-            for(int i = 2; i <= H; i++) { // Á¦ÀÏ ÀûÀº Àå¾Ö¹° ±¸°£ Ä«¿îÆ®
+            for(int i = 2; i <= H; i++) { // ì œì¼ ì ì€ ì¥ì• ë¬¼ êµ¬ê°„ ì¹´ìš´íŠ¸
                 if(up[i] == min) {
                     cnt++;
                 }
