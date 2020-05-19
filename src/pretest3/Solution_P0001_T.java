@@ -1,0 +1,72 @@
+package pretest3;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
+
+/*
+ * (중상) [연습P-0001] 큰수만들기
+ */
+public class Solution_P0001_T {
+
+static int T, K, N;
+//static int[] reArr = new int[500001];
+	
+	public static void main(String[] args) throws Exception {
+		
+		FileInputStream fi = new FileInputStream(new File(Solution_P0001_T.class.getResource("").getPath() + "Solution_P0001.txt"));
+		System.setIn(fi);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
+		
+		T = Integer.parseInt(br.readLine());
+		String num;
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
+		
+		for (int t=1; t<=T; t++) {
+			// 초기화 
+			sb.setLength(0);
+			sb.append("#");
+			sb.append(t);
+			sb.append(" ");
+			// N자리 숫자에서 K개를 지운다. 
+			st = new StringTokenizer(br.readLine());
+			
+			N = Integer.parseInt(st.nextToken());
+			K = Integer.parseInt(st.nextToken());			
+
+			num = br.readLine();
+			
+			char[] cnum = num.toCharArray();
+					
+			LinkedList<Character> sta = new LinkedList<>();			
+			int selIdx = 0;
+			int maxIdx = 0;
+			
+			for(int i=0; i<N; i++) {
+				while(K > 0 && !sta.isEmpty() && sta.getFirst() < cnum[i]) {
+					if(selIdx == K) break; // 모두 선택 완료 함
+					sta.poll();
+					selIdx++;
+				}
+				sta.push(cnum[i]);
+			}
+			
+			while(!sta.isEmpty()) {
+				sb.append(sta.getLast());
+				sta.pollLast();
+				maxIdx++;
+				if(maxIdx == N-K) break;
+			}
+			
+			System.out.println(sb.toString());
+			
+			
+		} // end test case		
+	} // end main
+
+}
