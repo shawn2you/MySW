@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -34,11 +35,11 @@ public class Solution_P0016 {
 			N = Integer.parseInt(st.nextToken());
 			H = Integer.parseInt(st.nextToken());
 			
-			int[] hi = new int[H+1];
+			int[] hi = new int[H]; // 높이별 장애물 개수
 			
 			for(int i=0; i<N; i++){
 				// 시작은 석순 ~ 끝은 종유석
-				int len = Integer.parseInt(br.readLine()); // 길치
+				int len = Integer.parseInt(br.readLine()); // 길이
 				if(i%2 == 0) {
 					for(int h=0; h<len; h++){
 						hi[h]++;
@@ -50,15 +51,22 @@ public class Solution_P0016 {
 				}
 			}
 			
-			int sum = Integer.MAX_VALUE;
+			int sum = 0;
 			int idx = 0;
 			
+			Arrays.sort(hi);
+			
 			for(int h=0; h<H; h++){
-				if(hi[h] <= sum){
+				if(h == 0) {
+					sum = hi[0];
 					idx++;
-					sum = hi[h];
-				}
+				}else if(sum == hi[h]){
+					idx++;
+				}else{
+					break;
+				}				
 			}
+						
 			System.out.println("#"+t+" "+ sum + " " + idx);
 			
 		} // end test case
