@@ -36,23 +36,25 @@ public class Solution_P0016_2 {
 			N = Integer.parseInt(st.nextToken());
 			H = Integer.parseInt(st.nextToken());
 			
-			int[] hi = new int[H+1]; // 높이별 장애물 개수
+			hi = new int[H+1]; // 높이별 장애물 개수
             
-            int tmp;
+			int len;
               
-            for(int i = 1; i <= N; i++) { // 높이별 장애물 누적합 구하기 위해, 시작에 +1, 끝 다음에-1
-                tmp = Integer.parseInt(br.readLine());
+            for(int i = 1; i <= N; i++) { 
+            	// 높이별 장애물 누적합 구하기 위해, 시작에 +1, 끝 다음에-1
+            	len = Integer.parseInt(br.readLine());
                   
-                if(i % 2 == 1) { // 홀수는 아래서 올라오는 장애물
-                	hi[1]++; // 높이 1에서 장애물 생김
-                	hi[tmp + 1]--; // 높이 tmp+1에서 장애물 사라짐
+                if(i % 2 == 1) { // 홀수는 석순
+                	hi[1]++; // 가장 아래에서 장애물 시작
+                	hi[len + 1]--; // 높이 len까지 장애물 있으며, +1부터 장애물 사라짐
                 }
-                else { // 짝수는 위에서 내려오는 장애물
-                	hi[H - tmp + 1]++; // 동굴높이-tmp+1에서 장애물 생김
+                else { // 짝수는 종유석
+                	hi[H - len + 1]++; // 위에서 부터 생기니 시작점은 (동굴높이- len + 1)에서 장애물 생성
+                	// 끝다음이 없으므로 사라지는점은 불필요
                 }
             }
              
-            for(int i = 2; i <= H; i++) { // 높이별 장애물 누적합
+            for(int i = 2; i <= H; i++) { // 높이별 장애물개수 계산(1번째는 계산 불필요하며, 누적으로 합을 계산)
             	hi[i] += hi[i - 1];
             }
 			
