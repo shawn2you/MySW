@@ -34,57 +34,43 @@ public class Solution_TEST1 {
 			ArrayList<Integer> al = new ArrayList<>();
 			
 			
-			int idx = 0;
 			for (int n = 0; n < N; n++) {
 				int in = Integer.parseInt(br.readLine());
-//				System.out.println(in);
-				if(in < MX ) {
-					al.add(in);
-					idx++;
-				}
+				al.add(in);
 			}
 			
 			Collections.sort(al);
 			
-			// L1-L2가 가장 큰 것(최대값에서 최소값 선택한 경우)
-			int L2=0, L1=0;
-			int isTrue = 0;
-			for (int n = idx-1; n >= 0; n--) {
-//				System.out.println(al.get(n));
-				if(isTrue == 1) break;
-
-				L2 = al.get(n); // 최대값에서 순차적으로 선택
-				if(L2*2 < MX) {
-					break; // 최대값이 X/2 보다 작으면 진행 불필요
-				}
-				for (int i = 0; i < idx; i++) {
-					L1 = al.get(i);
-					if(L2 + L1 == MX) { // 구멍이 일치할 경우 종료
-						isTrue = 1;
-//						System.out.println(L1);
-//						System.out.println(L2);
-						break;
-					}
-					if(L2 + L1 > MX) {
-//						isTrue = 0;
-						break;
-					}
-//					else {
-//						isTrue = 0;
-//					}
-				}
-			}
+			int lIdx = 0;
+			int hIdx = N -1;
+			
 			StringBuilder sb = new StringBuilder();
 			sb.append("#");
 			sb.append(t);
 			sb.append(" ");
-			if(isTrue == 1) {
-				sb.append("yes");
-				sb.append(" ");
-				sb.append(L1);
-				sb.append(" ");
-				sb.append(L2);
-			}else {
+			
+			int isTrue = 0;
+			int hSc = 0;
+			int lSc = 0;
+			
+			while(lIdx < hIdx) { // 배열의 앞뒤 값을 불러서 비교한다. n번 수행
+				hSc = al.get(hIdx);
+				lSc = al.get(lIdx);
+				
+	             if(hSc + lSc == MX) {
+	            	isTrue = 1;
+	 				sb.append("yes");
+					sb.append(" ");
+					sb.append(lSc);
+					sb.append(" ");
+					sb.append(hSc);	                
+	                break;
+	             }
+	             if(hSc + lSc > MX) hIdx--;
+	             if(hSc + lSc < MX) lIdx++;
+	         }
+			
+			if(isTrue == 0) {
 				sb.append("danger");
 			}
 			
