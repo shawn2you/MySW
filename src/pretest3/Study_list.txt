@@ -33,3 +33,128 @@ Solution_P0019.java - (중상) [연습P-0019] 구간합 - 구간합 문제풀기
 
 과제 : 당황한 암호학자
 
+
+
+
+
+
+
+
+
+
+
+
+5/20
+※ 문제해결과정
+
+1. 문제를 읽고 이해한다
+2. 문제를 익숙한 용어로 재정의한다
+3. 어떻게 해결할 지 계획을 세운다
+4. 계획을 검증한다
+5. 프로그램으로 구현한다
+6. 어떻게 풀었는 지 돌아보고, 개선할 방법이 있는 지 찾아본다
+
+※ 문제해결전략
+
+- 직관과 체계적인 접근
+- 체계적인 접근을 위한 질문들
+1. 비슷한 문제를 풀어본 적이 있던가?
+2. 단순한 방법에서 시작할 수 있을까?
+3. 내가 문제를 푸는 과정을 수식화할 수 있을까?(손으로 풀 수 있을까?)
+4. 문제를 단순화할 수 있을까?
+5. 그림으로 그려볼 수 있을까?
+6. 수식으로 표현할 수 있을까?
+7. 문제를 분해할 수 있을까?
+8. 뒤에서 부터 생각해서 문제를 풀 수 있을까?
+9. 순서를 강제할 수 있을까?
+10. 특정 형태의 답만을 고려할 수 있을까?
+
+※ 동굴 
+- 석순과 종유석을 각각 배열에 저장하지만, 높이 H 만큼 탐색하는 for문을 한번 만 이용하여 계산
+- lowerBound 이용, 
+static int lowerBound(int left, int right, int h, int type){
+        int mid=0;
+         
+            while(left<right){
+                mid=(left+right)/2;
+                if(A[mid]>=h){ //key값이 중앙값보다 작거나 같으면
+                    right=mid;
+                }else{ //key값이 중앙 값보다 크면
+                    left=mid+1;
+                }
+            }
+        return right;
+    }
+
+※ 자료구조
+        LinkedList<Character> stack = new LinkedList<>();
+        Deque<Character> skack = new ArrayDeque<>();
+        Queue <Integer> que = new LinkedList<Integer>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+
+※ 지은이가 지은집
+- 정렬 후 left(0), right(N-1) 먼저 더해보고, 찾고자 하는 X값과 비교하여, left++ 또는 right-- 한다.
+
+※ 탑
+- 우측에서 레이저가 발사되어 왼쪽에 있는 탑에 송신되는 지를 묻는 문제이지만,
+  왼쪽 탑을 모두 탐색하면, 시간복잡도가 증가하니
+  왼쪽 탑(0)부터 시작해서 우측에 있는 탑높이를 보면서, 시작한 탑에 송신될 지를 판단하고,
+  탑의 높이를 스택에 저장해서, 다음 번 우측 탑 높이만 비교할 때 사용한다
+
+※ 소수들의 곱셈
+- 2,3,5,7 로 주어진 소수들끼리의 곱셈결과를 오름차순으로 나열하면서, N번째 결과를 찾는 문제
+  주어진 소수(2,3,5,7) 를 저장한 배열은 고정으로 두고, 우선순위큐에 있는 값을 하나씩 꺼내서
+  주어진 소수 배열에 있는 값들과 곱한 후, 그 결과를 다시 우선순위큐에 add 한다.
+  우선순위큐를 쓰면, 값을 꺼낼 때, 작은 값부터 꺼내기 때문에 자연스럽게 정렬이 되어,
+  N번째 값을 찾기가 쉽다.
+
+※ 달리기
+- 주어진 달리기 실력을 저장한 배열을 두고(3 1 2 4)
+  실력 중복제거 및 오름차순으로 정렬된 자료구조에서, 저장된 배열의 값들이
+  트리의 리프노드에 몇 번째인지를 찾아서, 본인과 부모까지 값을 ++ 해주고
+  1번부터 본인의 -1 왼쪽까지 구간합을 구해본다
+
+※ K-heap 슈퍼이벤트
+- N이 10만까지 올 수 있으니, 큰 트리(S=2^17)를 만들어놓고
+  카드를 뽑을 때 마다, 해당 카드 번호를 카운팅 한 다음,
+  K번째 카드를 뽑으라고 하면, root부터 왼쪽,오른쪽을 탐색하면서
+  leaf까지 와서, 해당하는 카드번호를 리턴하고 반납(--)한다. 
+  root에서 leaf까지 오는 동안 지나온 노드의 카운팅도 반납(--) 한다
+
+
+※ 소수경로
+1)
+                   int[] power = {curr/1000, curr%1000/100, curr%100/10, curr%10};
+ 
+                    for(int j=0 ; j<4; j++){
+                        for(int k=j==0?1:0; k<=9; k++){
+                            int org = power[j];
+                            power[j]=k;
+                            int change = power[0]*1000+power[1]*100+power[2]*10+power[3];
+                            power[j] = org;
+ 
+                            if(visit[change] || isNonPrime[change]) continue;
+                            visit[change] = true;
+                            queue.add(change);
+                        }
+                    }
+
+2)
+ int curr, next;
+      while(!pq.isEmpty()) {
+          curr = pq.poll();
+          for(int i=0; i<=9; i++) {   //매 자리마다 바꿀 수 있는 숫자
+              for(int j=1; j<=minA; j*=10) {  //자리마다 체크 예) x의 1000 자리의 숫자 체크는 x/1000%10
+                  //ABCD -> EBCD 로 바꾸면, 값에서 -A*1000-E*1000 처리하면 됨
+                  if(i==0 && j==minA) continue;
+                  next = curr - (curr/j%10)*j + i*j;  //각 자리(j)를 i로 바꿔주면서 체크
+                  if(isPrime[next]&&!visited[next]) {
+                      //System.out.println(next + " " + isPrime[next]);
+                      visited[next] = true;
+                      dist[next] = dist[curr] + 1;
+                      pq.add(next);
+                  }
+              }
+          }
+      }
