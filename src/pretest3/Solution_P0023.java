@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/*
+ * (중상) [교육P-0023] 의미있는 문장 찾기 
+ */
 public class Solution_P0023 {
 
 	static int T, K, N, Sum;

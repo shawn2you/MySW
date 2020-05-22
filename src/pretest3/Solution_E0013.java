@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/*
+ * (중상) [교육P-0013] 나무 
+ */
 public class Solution_E0013 {
 
 	static int T, M, N, Sum;
