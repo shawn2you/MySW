@@ -9,13 +9,15 @@ import java.util.StringTokenizer;
 /*
  * 1일차 2번 문제
  * (중) [기출A-0013] 숫자 배치하기 
+ * 알고리즘 : 수열
  */
 public class Solution_P0013 {
 	
 	static int T, M, N, Sum;
 	
 	static int[][] map = new int[11][11]; // N(2 ≤ N ≤ 10)
-	static int[] visited = new int[11]; 
+	static int[] visited = new int[11];
+	static int[] order;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -32,11 +34,12 @@ public class Solution_P0013 {
 			Sum = 0;
 
 			// 순열 N
-			N = Integer.parseInt(br.readLine());	
+			N = Integer.parseInt(br.readLine());
+			order = new int[N+1];
 			int[] arr = new int[N+1];
 			for(int i=1; i<=N; i++) {
 				visited[i] = 0; // 초기
-				arr[i] = i;
+				arr[i] = i; // 수열 생성을 위한 값 셋팅
 				StringTokenizer st = new StringTokenizer(br.readLine());
 				
 				for(int j=1; j<=N; j++) {
@@ -45,6 +48,7 @@ public class Solution_P0013 {
 			}
 			
 			find(arr, 1, N);
+//			backtrack(0, N);
 			System.out.println("#"+t+" " + Sum);
 			
 			// dfs 로 구현해보기(backtrack)
@@ -53,23 +57,30 @@ public class Solution_P0013 {
 	} // end main
 	
 	
-	static void backtrack(int pos, int depth, int sc) {	
+	static void backtrack(int pos, int depth) {	
 		if(pos == depth) {
-			if (Sum < sc) {
-				Sum = sc;
+			int Sum_sub = 0;
+			for (int i = 0; i < N; i++) { // 위치
+				Sum_sub += map[i+1][order[i]+1];	
+//				System.out.print(order[i] + ","); 
 			}
+//			System.out.println(Sum_sub);
+			Sum = Math.max(Sum, Sum_sub);
+			return;
 		}
 		
-		for(int i = 1; i <= depth; i++) {
-//			if
-		}
-		
-	}
+		for(int i = 0; i < depth; i++) {
+			if(visited[i] == 0){
+				order[pos] = i;
+				visited[i] = 1;
+				backtrack(pos + 1, depth);
+				visited[i] = 0;
+			}		
+		}		
+	}	
 	
-	
-	// 순열로직
-	static void find(int[] arr, int depth, int n) {
-		
+	// 순열로직(재귀)
+	static void find(int[] arr, int depth, int n) {		
 		if(depth == N) {
 			// 순열 생성완료
 			int Sum_sub = 0;
@@ -77,8 +88,7 @@ public class Solution_P0013 {
 //				if (i == N - 1) System.out.print(arr[i]); 
 //				else System.out.print(arr[i] + ","); 
 //				System.out.print(arr[i] + ","); 
-				Sum_sub += map[i][arr[i]];
-				
+				Sum_sub += map[i][arr[i]];				
 			}
 //			System.out.println(Sum_sub); 
 			Sum = Math.max(Sum, Sum_sub);
