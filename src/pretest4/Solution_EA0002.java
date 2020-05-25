@@ -10,17 +10,17 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Solution_EA002 {
+public class Solution_EA0002 {
 
-static int T, M, N, Sum;
-static int[] inDegree = new int[501];
-static int[] visited = new int[501];
-
-static ArrayList[] stu = new ArrayList[501];
+	static int T, M, N, Sum;
+	static int[] inDegree = new int[501];
+	static int[] visited = new int[501];
+	
+	static ArrayList[] stu = new ArrayList[501];
 	
 	public static void main(String[] args) throws Exception {
 		
-		FileInputStream fi = new FileInputStream(new File(Solution_EA002.class.getResource("").getPath() + "Solution_EA002.txt"));
+		FileInputStream fi = new FileInputStream(new File(Solution_EA0002.class.getResource("").getPath() + "Solution_EA0002.txt"));
 		System.setIn(fi);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
