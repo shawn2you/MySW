@@ -43,15 +43,16 @@ static int T, K, N;
 			
 			char[] cnum = num.toCharArray();
 					
-			LinkedList<Character> sta = new LinkedList<>();			
-			int selIdx = 0;
+			LinkedList<Character> sta = new LinkedList<>();	// statck 구조(LIFO)
+			int selIdx = 0; // 지운수
 			int maxIdx = 0;
 			
 			for(int i=0; i<N; i++) {
+				// 선택할 대상중에 최대숫자를 선택한다. (다음숫자와 비교하여 크면 선택)
 				while(K > 0 && !sta.isEmpty() && sta.getFirst() < cnum[i]) {
 					if(selIdx == K) break; // 모두 선택 완료 함
-					sta.poll();
-					selIdx++;
+					sta.poll(); // stack에서 제거한다. 
+					selIdx++;   // 지운수 1 증가
 				}
 				sta.push(cnum[i]);
 			}

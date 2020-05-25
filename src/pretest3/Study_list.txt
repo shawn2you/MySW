@@ -3,13 +3,13 @@
 
 Solution_A0028.java 1일차 1번 문제 - (중) [연습A-0028] 나누기 : 재귀호출
 Solution_P0013.java 1일차 2번 문제 - (중) [기출A-0013] 숫자 배치하기 : 순열(재귀 - DFS)
-Solution_A0013.java 1일차 3번 문제 - (중) [연습A-0013] 피크닉
-Solution_P0029.java 1일차 4번 문제 - (중) [기출A-0029] 퍼즐 게임
+Solution_A0013.java 1일차 3번 문제 - (중) [연습A-0013] 피크닉 : 그래프(BFS - 경로찾기)
+Solution_P0029.java 1일차 4번 문제 - (중) [기출A-0029] 퍼즐 게임 / 풀어봐야 함
 
-Solution_P0001.java 1일차 과제     - (중상) [연습P-0001] 큰수만들기
+Solution_P0001_T.java 1일차 과제     - (중상) [연습P-0001] 큰수만들기 (stack : LinkedList https://www.holaxprogramming.com/2014/02/12/java-list-interface/)
 
 
-2일차 교육
+2일차 교육 (자료구조)
 
 Solution_E0013.java - 2일차 1번 문제  - (중상) [교육P-0013] 나무 
 Solution_P0023.java - 2일차 2번 문제  - (중상) [교육P-0023] 의미있는 문장 찾기 
@@ -47,10 +47,10 @@ Solution_A0005.java - (중) [교육A-0005] 조합
 Solution_P0006.java - (중상) [기출P-0006] 아름다운 비트문자열 
 Solution_P0028.java - (중상) [기출P-0053] 공주의 결혼식 
 
-Solution_A0028.java - 과제 : (중) [기출A-0028] 제품의 일련번호 2 
+Solution_P0028.java - 과제 : (중) [기출A-0028] 제품의 일련번호 2 
 
 
-
+Solution_TEST2.java - 모의고사        -  
 
 
 
@@ -107,6 +107,10 @@ static int lowerBound(int left, int right, int h, int type){
         Queue <Integer> que = new LinkedList<Integer>();
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        
+        
+        
+        
 
 ※ 지은이가 지은집
 - 정렬 후 left(0), right(N-1) 먼저 더해보고, 찾고자 하는 X값과 비교하여, left++ 또는 right-- 한다.
