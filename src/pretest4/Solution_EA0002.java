@@ -4,19 +4,20 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
+/*
+ * (중) [연습A-0002] 키순서
+ */
 public class Solution_EA0002 {
 
 	static int T, M, N, Sum;
-	static int[] inDegree = new int[501];
-	static int[] visited = new int[501];
-	
-	static ArrayList[] stu = new ArrayList[501];
+	static int[][] visited = new int[501][501];
+	static ArrayList<Integer>[] emp = new ArrayList[501];
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -30,46 +31,83 @@ public class Solution_EA0002 {
 		for (int t=1; t<=T; t++) {
 			// 초기화 
 			Sum = 0;
-			Arrays.fill(inDegree, 0);
-			Arrays.fill(visited, 0);
 			
 			//  사원들의 수 N(2 ≤ N ≤ 500), 두 사원 키를 비교한 횟수 (0 ≤ M ≤ N(N-1)/2)
 			N = Integer.parseInt(br.readLine());	
 			M = Integer.parseInt(br.readLine());
 			
-			
-			for(int i=0; i<N; i++) {
-				stu[i] = new ArrayList<Integer>();
+			for(int i=1; i<=N; i++){
+				Arrays.fill(visited[i], 0);
+				emp[i] = new ArrayList<Integer>();
 			}
 			
-			
-			StringTokenizer st;		
-			
-			int a, b;
-			for(int i=0; i<M; i++) {
+			StringTokenizer st;
+			int s, e;
+			// 키가 몇번째인지 알수 있는 방법은 해당 Node를 모두 경유하는지 확인 필요
+			for(int i=0; i<M; i++){
 				st = new StringTokenizer(br.readLine());
-				// 번호가 a인 사원이 번호가 b인 사원보다 키가 작은 것을 의미한다
-				a = Integer.parseInt(st.nextToken());
-				b = Integer.parseInt(st.nextToken());
-				inDegree[b]++;
-				stu[a].add(b);
+				s = Integer.parseInt(st.nextToken());
+				e = Integer.parseInt(st.nextToken());
+				emp[s].add(e); // 방향 그래프
+			}		
+			for(int i=1; i<=N; i++){
+				bfsR(i);
+//				bfs(i); // 각 직원기준으로 이동 경로여부를 체크
 			}
-			// 최초(가장 작은 키로 판단되는 사람은 위상이 0인 경우)
-	        Queue <Integer> que = new LinkedList<Integer>();
-
-			for(int i=0; i<N; i++) {
-				if(inDegree[i] == 0) {
-					que.add(i);
-					visited[i] = 1;
-					
-				}else{
-					
+			
+			int check;
+			for(int i=1; i<=N; i++){
+				check = 1;
+				for(int j=1; j<=N; j++){
+					if(visited[i][j] == 1 || visited[j][i] == 1){
+						check++;
+					}
+				}
+				if(check == N){
+					Sum++;
 				}
 			}
+
+			System.out.println("#"+t+" "+ Sum);
 			
 		} // end test case		
 	} // end main
 	
+	public static void bfs(int start){
+		LinkedList<Integer> sta = new LinkedList<Integer>();	
+		sta.push(start);
+		
+		int curr, next;
+		while(!sta.isEmpty()){
+			curr = sta.poll();
+//			System.out.print(curr+", ");
+			for(int i=0; i<emp[curr].size(); i++){
+				next = emp[curr].get(i);
+				if(visited[start][next] == 0){
+					visited[start][next] = 1; // 방문처리
+					sta.push(next);
+				}
+			}
+		}
+//		System.out.println();
+	}
 	
-	
+	public static void bfsR(int start){
+		ArrayDeque<Integer> q = new ArrayDeque<Integer>();
+		
+		q.addLast(start);
+		
+		while(!q.isEmpty()){
+			int curr = q.pollFirst();
+//			System.out.print(curr+", ");
+			for(int i=0; i<emp[curr].size(); i++){
+				int next = emp[curr].get(i);
+				if(visited[start][next] == 0){
+					visited[start][next] = 1; // 방문처리
+					q.addLast(next);
+				}
+			}
+		}
+//		System.out.println();
+	}
 }
