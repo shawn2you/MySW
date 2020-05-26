@@ -17,7 +17,7 @@ Solution_SP0026.java - (중상) [교육P-0026] 최저 공통 조상
 Solution_TA0037.java - (중) [기출A-0037] 핵심도시1 
 Solution_EA0006.java - (중) [연습A-0006] 집으로 
 
-과제 - (중상) [기출P-0051] 조상이 키컸으면
+Solution_TP0051.java - 과제 - (중상) [기출P-0051] 조상이 키컸으면
 
 
 
