@@ -1,22 +1,23 @@
-6일차 교육 (그래프)
+6일차 교육 (그래프-기초, 크루스칼, 프림)
 - 트리그래프 : 순환하지않는다, 두정점간 1개의 단순경로만 존재, 하나의 간선 제거시 연결되지 않는다.
 - 간선리스트(E*2), 인접행렬(V*V), 인접리스트(V + E, ArrayList V) 
 
 Solution_EP0023.java - (중상) [연습P-0023] 동맹의 동맹은 동맹 (Union-Find)
-(중상) [교육P-0008] 임계 경로 
-(중상) [교육P-0007] 군사 도로망
+Solution_SP0008.java - (중상) [교육P-0008] 임계 경로 
+Solution_EP0007.java - (중상) [교육P-0007] 군사 도로망
 
-과제 - (중) [연습A-0002] 키순서 
-
-
-
-
-7일차 교육 (그래프)
+Solution_EA0002.java - 과제 - (중) [연습A-0002] 키순서 
 
 
 
 
+7일차 교육 (그래프-LCA)
 
+Solution_SP0026.java - (중상) [교육P-0026] 최저 공통 조상 
+Solution_TA0037.java - (중) [기출A-0037] 핵심도시1 
+Solution_EA0006.java - (중) [연습A-0006] 집으로 
+
+과제 - (중상) [기출P-0051] 조상이 키컸으면
 
 
 
@@ -76,4 +77,32 @@ union-find
    해당 간선은 Pass 한다.
    같은 집합이 아니라면, 두 정점을 연결하고, union 한다. 
 - 정점갯수 - 1 개 만큼 간선을 소비했다면 (union 했다면) 종료.
+                   
+
+
+           
+DFS
+// 일반적인 dfs
+function dfs(int s)
+{
+   visit[s]=true;
+   for(int e : s 의 인접리스트){
+      if(visit[e]==false){
+          dfs(e)
+      }   
+   }
+}
+// inorder 와 outorder 구하는 dfs
+function dfs(int s)
+{
+   seq++;
+   visit[s]=true;
+   inorders[s]=seq
+   for(int e : s 의 인접리스트){
+      if(visit[e]==false){
+          dfs(e)
+      }   
+   }
+   outorders[s]=seq
+}
                    

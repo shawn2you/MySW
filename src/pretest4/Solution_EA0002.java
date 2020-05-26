@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 /*
- * (중) [연습A-0002] 키순서
+ * (중) [연습A-0002] 키순서(BFS, DFS)
  */
 public class Solution_EA0002 {
 
@@ -51,14 +51,15 @@ public class Solution_EA0002 {
 				emp[s].add(e); // 방향 그래프
 			}		
 			for(int i=1; i<=N; i++){
-				bfsR(i);
-//				bfs(i); // 각 직원기준으로 이동 경로여부를 체크
+				bfs(i);
+//				dfs(i); // 각 직원기준으로 이동 경로여부를 체크
 			}
 			
 			int check;
 			for(int i=1; i<=N; i++){
 				check = 1;
 				for(int j=1; j<=N; j++){
+					// 방문한 곳은 순서가 존재 한다.
 					if(visited[i][j] == 1 || visited[j][i] == 1){
 						check++;
 					}
@@ -73,7 +74,7 @@ public class Solution_EA0002 {
 		} // end test case		
 	} // end main
 	
-	public static void bfs(int start){
+	public static void dfs(int start){
 		LinkedList<Integer> sta = new LinkedList<Integer>();	
 		sta.push(start);
 		
@@ -92,7 +93,7 @@ public class Solution_EA0002 {
 //		System.out.println();
 	}
 	
-	public static void bfsR(int start){
+	public static void bfs(int start){
 		ArrayDeque<Integer> q = new ArrayDeque<Integer>();
 		
 		q.addLast(start);
