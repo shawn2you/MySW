@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+/*
+ * (중) [기출A-0037] 핵심도시1 
+ */
 public class Solution_TA0037 {
 
 	static int T, V, E, Sum, Seq, RootTree;

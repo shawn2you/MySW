@@ -35,7 +35,7 @@ public class Solution_TP0051 {
 			Q = Integer.parseInt(st.nextToken()); // 구성원의 모임수
 			
 			int S = 2;
-			Dep = 1;
+			Dep = 2;
 			while(S<N){
 				S *= 2;
 				Dep++; // 총 깊이
@@ -62,15 +62,15 @@ public class Solution_TP0051 {
 				Parent[0][i] = p;
 			}
 			
+			// bfs or dfs 탐색하여 각 정점의 깊이를 계산한다. 
+			dfs(1);
+			
 			// Parent table 생성 Parent[k][v] = Parent[k-1][Parent[k-1][v]]
-			for(int v=1; v<=N; v++){
-				for(int k=1; k<=Dep; k++){
+			for(int k=1; k<=Dep; k++){
+				for(int v=1; v<=N; v++){				
 					Parent[k][v] = Parent[k-1][Parent[k-1][v]];
 				}
 			}
-			
-			// bfs or dfs 탐색하여 각 정점의 깊이를 계산한다. 
-			dfs(1);
 			
 			// LCA
 			int K, P;
@@ -84,6 +84,11 @@ public class Solution_TP0051 {
 					P = Integer.parseInt(st.nextToken());
 					if(a == 0){
 						a = P;
+//						if(K == 1) {
+//							System.out.print("LCA =" + a + "," + P);
+//							a = Parent[0][a];
+//							System.out.println(" = " + a);
+//						}
 					}else{
 //						System.out.print("LCA =" + a + "," + P);
 						a = getLCA(a, P);
@@ -116,7 +121,7 @@ public class Solution_TP0051 {
 		if(a == b){
 			return a;
 		}
-		// 조상이 달라지는 첫 지점의 a의 조상 찾기
+		// 조상이 달라지는 첫 지점의 a의 조상 찾기(같아지기 직전의 값과 동일)
 		for(int i = Dep; i >=0; i--) {
 			if(Parent[i][a] != Parent[i][b]) {
 				a = Parent[i][a];

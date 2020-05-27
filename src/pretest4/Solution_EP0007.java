@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 
 /*
  * (중상) [교육P-0007] 군사 도로망 
+ * 기건설된 도로는 음수처리 하는 아이디어 필요
  */
 public class Solution_EP0007 {
 
@@ -81,7 +82,7 @@ public class Solution_EP0007 {
 					roadList[i].add(new City(x, y, c));
 				}
 			}
-			
+			// 음수(건살한), 양수(건설할) 순으로 정렬
 			Collections.sort(road, new Comparator<City>() {
 				@Override
 				public int compare(City o1, City o2) {

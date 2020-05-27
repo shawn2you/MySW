@@ -63,9 +63,9 @@ public class Solution_SP0026 {
 				tree[e].add(i);
 			}
 			
-			// 1. Parent table 구성 parent[k][v] = parent[k-1][ parent[k-1][v] ]
-			for(int v=1; v<=N; v++) {
-				for(int k=1; k<=dep; k++) {
+			// 1. Parent table 구성 parent[k][v] = parent[k-1][ parent[k-1][v] ]			
+			for(int k=1; k<=dep; k++) {
+				for(int v=1; v<=N; v++) {
 					parent[k][v] = parent[k-1][parent[k-1][v]];
 				}
 			}
@@ -92,12 +92,31 @@ public class Solution_SP0026 {
 			return getLCA(b, a);
 		}
 		
+		// case 1 : 깊이의 차를 작은값에서 큰값으로 가는 구조
 		for(int i=0; i<=dep; i++) {
 			// bit 1(1), 10(2), 100(4), 1000(8)
 			if( ((1 << i) & (depth[a] - depth[b])) != 0 ) {
 				a = parent[i][a];
 			}
 		}
+		
+		// case 2 : 깊이의 차를 큰값에서 작은값으로 가는 구조
+		/*
+		int[] pows = new int[dep + 1];
+		for(int i=0; i>=dep; i++) {
+			pows[i] = (int)Math.pow(2, i);
+		}
+		int diff = depth[a] - depth[b];
+		if(diff > 0) {
+			for(int k=dep; k>=0; k--) {
+				if(diff > pows[k]) {
+					a = parent[k][a];
+					diff = diff - pows[k];
+					if(diff == 0) break;
+				}
+			}
+		}		
+		*/
 		
 		if(a == b) return a;
 		
