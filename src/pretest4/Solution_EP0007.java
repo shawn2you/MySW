@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -16,7 +13,8 @@ import java.util.StringTokenizer;
  */
 public class Solution_EP0007 {
 
-	static int T, M, N, K, Sum;
+	static int T, M, N, K;
+	static long Sum;
 	
 	static class City implements Comparable<City>{
 		int x, y, c;
@@ -36,11 +34,7 @@ public class Solution_EP0007 {
 	}
 	
 	static int[] parent = new int[100001];
-//	static City[] road;
-    static ArrayList<City> road = new ArrayList<City>();
-    static ArrayList<City>[] roadList = new ArrayList[100001];
-
-
+    static City[] roadList;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -63,8 +57,9 @@ public class Solution_EP0007 {
 			
 			for(int i=0; i<=N; i++) {
 				parent[i] = i;
-				roadList[i] = new ArrayList<City>();
 			}
+			
+			roadList = new City[M+K];
 			
 			int x, y, c;
 			for(int i=0; i<M+K; i++) {
@@ -75,27 +70,49 @@ public class Solution_EP0007 {
 				
 				if(i<M) {
 					// 간선 List 형태(간선수 만큼 담는다)
-					road.add(new City(x, y, -c));
-					roadList[i].add(new City(x, y, -c));
+					roadList[i] = new City(x, y, -c);
 				}else {
-					road.add(new City(x, y, c));
-					roadList[i].add(new City(x, y, c));
+					roadList[i] = new City(x, y, c);
 				}
 			}
-			// 음수(건살한), 양수(건설할) 순으로 정렬
-			Collections.sort(road, new Comparator<City>() {
-				@Override
-				public int compare(City o1, City o2) {
-					// TODO Auto-generated method stub
-					return o1.c - o2.c;
-				}
-			});
+			// 음수(건설한), 양수(건설할) 순으로 정렬
+			Arrays.sort(roadList, 0, M + K);
 			
-			PriorityQueue<Integer> pq = new PriorityQueue<>();
+			Sum = findLowCost();
 			
+			System.out.println("#"+t+" "+Sum);
 			
 		} // end test case		
 	} // end main
+	
+	static long findLowCost() {
+		long rtn = 0;
+		int roadCnt = 0;
+		// 건설한 다리 처리
+		for(int i=0; i<M; i++) {
+			if( find(roadList[i].x) != find(roadList[i].y) ){
+				union(roadList[i].x, roadList[i].y);
+				roadCnt++;
+			}else {
+				rtn += (-1) * roadList[i].c;
+			}
+		}
+		
+		if(roadCnt == N - 1) {
+			return rtn;
+		}
+		
+		for(int i=M; i<=M + K ; i++) {
+			if( find(roadList[i].x) != find(roadList[i].y) ){
+				union(roadList[i].x, roadList[i].y);
+				roadCnt++;
+				rtn += roadList[i].c;
+			}
+			if(roadCnt == N - 1) 
+				return rtn;
+		}
+		return rtn;
+	}
 	
 	static int find(int a) {
 		if(a == parent[a]) return a;
