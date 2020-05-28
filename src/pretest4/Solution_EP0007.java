@@ -101,7 +101,7 @@ public class Solution_EP0007 {
 		if(roadCnt == N - 1) {
 			return rtn;
 		}
-		
+		// 건설할 다리 처리
 		for(int i=M; i<=M + K ; i++) {
 			if( find(roadList[i].x) != find(roadList[i].y) ){
 				union(roadList[i].x, roadList[i].y);

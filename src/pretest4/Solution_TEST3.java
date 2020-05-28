@@ -10,6 +10,7 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 /*
+ * (중상) [연습P-0012] 파티 참석하기
  * 모의고사 3번째
  * http://182.193.11.65/common/practice/problem/view.do?problemId=AXJTgwDwIbCojUHh&_menuId=AVUU732mAAHBC0c9&_menuF=true
  */
