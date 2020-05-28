@@ -48,8 +48,12 @@ public class Solution_SA0011 {
 			for(int i=1; i<=N; i++){
 				for(int j=1; j<=W; j++){
 					if(i == 1){
-						if(j - C[i] >= 0){
-							D[i][j] = D[i][j - C[i]] + 1;
+						if(j - C[i] >= 0 && D[i][j - C[i]] != -1){
+							if(j%(D[i][j - C[i]] + 1) != 0){
+								D[i][j] = -1;
+							}else{
+								D[i][j] = D[i][j - C[i]] + 1;
+							}							
 						}else{
 							D[i][j] = -1;
 						}
