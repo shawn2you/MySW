@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+/*
+ * (중) [교육A-0011] 동전 교환 
+ */
 public class Solution_SA0011 {
 
 	static int T, W, N, Sum;
@@ -36,13 +39,32 @@ public class Solution_SA0011 {
 				C[i] = Integer.parseInt(st.nextToken());
 			}
 			// 잔돈 W (1 ≤ W ≤ 64,000)
-			W = Integer.parseInt(br.readLine());
+			W = Integer.parseInt(br.readLine());			
 			
+			// 동전 1(C[1]), 4(C[2]), 6(C[3])원
+			// D[i][j] : C[1] ~ C[i]까지의 동전을 사용하고, 잔돈 J원을 채우기 위한 최소 동전갯수
+			// min ( D[i-1][j],  D[i][j - C[i]] + 1 )
+			D = new int[N+1][W+1];
+			for(int i=1; i<=N; i++){
+				for(int j=1; j<=W; j++){
+					if(i == 1){
+						if(j - C[i] >= 0){
+							D[i][j] = D[i][j - C[i]] + 1;
+						}else{
+							D[i][j] = -1;
+						}
+					}else{
+						if(j - C[i] >= 0){
+							D[i][j] = Math.min(D[i-1][j], D[i][j - C[i]] + 1);
+						}else{
+							D[i][j] = D[i-1][j];
+						}					
+					}
+				
+				}
+			}
 			
-			// 1(1), 4(2), 6(3)원
-			// D[1][1] = 1;
-			
-			System.out.println("#"+t+" "+Sum);
+			System.out.println("#"+t+" "+D[N][W]);
 		} // end test case		
 	} // end main
 
