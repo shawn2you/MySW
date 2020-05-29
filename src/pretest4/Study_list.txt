@@ -38,18 +38,17 @@ Solution_TEST3.java - 모의고사 - (중상) [연습P-0012] 파티 참석하기
 Solution_SA0012.java - (중) [교육A-0012] 보석 털이 (DP)
 Solution_EP0022.java - (중상) [연습P-0022] LIS 2 (LIS - DP 성능개선)
 Solution_SA0003.java - (중) [교육A-0003] 폐지 줍기 
-Solution_SA0011.java - (중) [교육A-0011] 동전 교환 
+Solution_SA0011.java - (중) [교육A-0011] 동전 교환 (재귀방식은 스터디 필요)
 
 Solution_SA0010.java - 과제 - (중) [교육A-0010] 가장 큰 정사각형 
 
 
 
-
-
 10일차 교육 (DP)
-(중상) [교육P-0028] LCS 
-(중상) [기출P-0007] 팀 구성 
 
+Solution_SP0028.java - (중상) [교육P-0028] LCS 
+(중상) [기출P-0007] 팀 구성
+(중상) [교육P-0019] Matrix Chain Multiplication
 
 
 
