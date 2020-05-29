@@ -1,3 +1,5 @@
+강사 : 박 성 철 (S C M C I 그 룹)
+
 6일차 교육 (그래프-기초, 크루스칼, 프림)
 - 트리그래프 : 순환하지않는다, 두정점간 1개의 단순경로만 존재, 하나의 간선 제거시 연결되지 않는다.
 - 간선리스트(E*2), 인접행렬(V*V), 인접리스트(V + E, ArrayList V) 
@@ -5,7 +7,6 @@
 Solution_EP0023.java - (중상) [연습P-0023] 동맹의 동맹은 동맹 (Union-Find) : OK
 Solution_SP0008.java - (중상) [교육P-0008] 임계 경로 (위상)
 Solution_EP0007.java - (중상) [교육P-0007] 군사 도로망 (크루스칼)
-
 Solution_EA0002.java - 과제 - (중) [연습A-0002] 키순서 (BFS, DFS)
 
 
@@ -15,10 +16,8 @@ Solution_EA0002.java - 과제 - (중) [연습A-0002] 키순서 (BFS, DFS)
 Solution_SP0026.java - (중상) [교육P-0026] 최저 공통 조상 (LCA)
 Solution_TA0037.java - (중) [기출A-0037] 핵심도시1 
 Solution_EA0006.java - (중) [연습A-0006] 집으로 (다익스트라)
-
 Solution_TP0051.java - 과제 - (중상) [기출P-0051] 조상이 키컸으면 (LCA)
-
-(중상) [연습P-0010] 상인 (LCA)
+Solution_EP0010.java - (중상) [연습P-0010] 상인 (LCA)
 
 
 
@@ -26,9 +25,7 @@ Solution_TP0051.java - 과제 - (중상) [기출P-0051] 조상이 키컸으면 (
 
 Solution_EP0008.java - (중상) [연습P-0008] 웜홀 (밸만-포워드)
 Solution_SP0006.java - (중상) [교육P-0006] 가장 먼 두 도시 (플로이드-워셜)
-
 Solution_SP0009.java - 과제 - (중상) [교육P-0009] 최단 경로 (다익스트라)
-
 Solution_TEST3.java - 모의고사 - (중상) [연습P-0012] 파티 참석하기 (다익스트라)
 
 
@@ -39,7 +36,6 @@ Solution_SA0012.java - (중) [교육A-0012] 보석 털이 (DP)
 Solution_EP0022.java - (중상) [연습P-0022] LIS 2 (LIS - DP 성능개선)
 Solution_SA0003.java - (중) [교육A-0003] 폐지 줍기 
 Solution_SA0011.java - (중) [교육A-0011] 동전 교환 (재귀방식은 스터디 필요)
-
 Solution_SA0010.java - 과제 - (중) [교육A-0010] 가장 큰 정사각형 
 
 
@@ -47,10 +43,10 @@ Solution_SA0010.java - 과제 - (중) [교육A-0010] 가장 큰 정사각형
 10일차 교육 (DP)
 
 Solution_SP0028.java - (중상) [교육P-0028] LCS 
-(중상) [기출P-0007] 팀 구성
-(중상) [교육P-0019] Matrix Chain Multiplication
+Solution_TP0007.java - (중상) [기출P-0007] 팀 구성
+Solution_SP0019.java - (중상) [교육P-0019] Matrix Chain Multiplication
 
-
+Solution_TEST4.java - 모의고사 -  (중상) [기출P-0018] 종이컵 전화기  (사선 DP)
 
 
 
@@ -262,5 +258,27 @@ for문의 순서를 변형하여 for문의 중첩을 줄일 수 있는지 확인
 DP식을 확인하여 꼭 모든 공간이 필요한지 확인 
   (예 DP[i] = DP[i-1] + α => DP i번째를 구할 때 i-1번째 정보만 있으면 됨 즉 2개의 공간만 필요)
   (N ^ 2 공간이 필요한데, N 으로 할수 없을지?)
+   
+   
+   
+   
+   
+LCS
+N 은 A 문자열 길이, M 은 B 문자열 길이
+D[i][j] = 문자열 A[1~i] 와 문자열 B[1~j] 의 LCS 길이
+D[i][j] = A[i] 와 B[j] 가 같다면,  max(D[i-1][j], D[i][j-1], D[i-1][j-1]+1 )
+          다르다면  max(D[i-1][j], D[i][j-1])
+초기값 D[i][0] = 0 D[j][0] = 0
+답 D[N][M]       
+
+LCS 출력을 위한 역추적
+최초 i = N , j = M
+L(남은길이) = D[N][M] 의 값만큼 수행한다.
+  A[i] = B[j] (같은 문자열을 만난경우, 왼쪽 위로 간다.)
+     A[i] 문자열을 LCS 의 L 번째 자리에 추가     
+     L--, i--, j-- 
+  A[i] != B[j] (같은 문자열이 아닌 경우, 왼쪽이나 위로 간다.)
+     D[i][j] == D[i-1][j] 이면 i--
+     D[i][j] == D[i][j-1] 이면 j--
    
                    

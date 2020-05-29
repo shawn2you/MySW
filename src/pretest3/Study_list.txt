@@ -50,7 +50,7 @@ Solution_P0028.java - (중상) [기출P-0053] 공주의 결혼식
 Solution_P0028.java - 과제 : (중) [기출A-0028] 제품의 일련번호 2 
 
 
-Solution_TEST2.java - 모의고사        -  
+Solution_TEST2.java - 모의고사        -  [교육P-0031] 최대와 최소
 
 
 
