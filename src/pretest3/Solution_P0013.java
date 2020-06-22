@@ -47,7 +47,8 @@ public class Solution_P0013 {
 				}
 			}
 			
-			find(arr, 1, N);
+//			find(arr, 1, N);
+			find2(arr, 1, N);
 //			backtrack(0, N);
 			System.out.println("#"+t+" " + Sum);
 			
@@ -87,9 +88,10 @@ public class Solution_P0013 {
 			for (int i = 1; i <= N; i++) { // 위치
 //				if (i == N - 1) System.out.print(arr[i]); 
 //				else System.out.print(arr[i] + ","); 
-//				System.out.print(arr[i] + ","); 
+				System.out.print(arr[i] + ","); 
 				Sum_sub += map[i][arr[i]];				
 			}
+			System.out.println();
 //			System.out.println(Sum_sub); 
 			Sum = Math.max(Sum, Sum_sub);
 			return;
@@ -107,4 +109,41 @@ public class Solution_P0013 {
 		arr[i] = arr[j];
 		arr[j] = temp;
 	}
+	
+	
+	
+	
+	// 순열 만들기 연습
+	static void find2(int[] arr, int start, int depth){
+		
+		if(N == start) {
+//			for(int e : arr){
+//				System.out.print(e + ", ");
+//			}
+//			System.out.println("");
+			
+			return;
+		}
+		
+		for(int i=start; i<=N; i++){
+			swap(arr, i, start);
+			find2(arr, start+1, depth);
+			swap(arr, i, start);
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
