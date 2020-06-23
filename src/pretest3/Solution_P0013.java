@@ -114,23 +114,26 @@ public class Solution_P0013 {
 	
 	
 	// 순열 만들기 연습
-	static void find2(int[] arr, int start, int depth){
-		
+	static void find2(int[] arr, int start, int depth){		
 		if(N == start) {
-//			for(int e : arr){
-//				System.out.print(e + ", ");
-//			}
-//			System.out.println("");
-			
+			for(int e : arr){
+				System.out.print(e + ", ");
+			}
+			System.out.println("");			
 			return;
 		}
 		
 		for(int i=start; i<=N; i++){
-			swap(arr, i, start);
+			swap2(arr, i, start);
 			find2(arr, start+1, depth);
-			swap(arr, i, start);
-		}
-		
+			swap2(arr, i, start);
+		}		
+	}
+	
+	static void swap2(int[] arr, int i, int j ){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 	
 	
