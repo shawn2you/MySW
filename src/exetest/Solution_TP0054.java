@@ -83,9 +83,6 @@ public class Solution_TP0054 {
 				for(int j=0; j<=N; j++) {
 					D[i][j] = B;
 				}
-//				if(road[i].size() == 0) continue;
-//				D[1][i] = B; //road[i].get(0).c;
-//				D[0][i] = B;
 			}
 			
 			D[0][1] = 0; // 초기값(최초위치)
@@ -94,16 +91,22 @@ public class Solution_TP0054 {
 				// 최대 이동할 간선수 만큼 수행하다가 금액이 초과되면 종료 시켜야 한다. 
 				// 이동할 모든 정점을 비교한다. 
 				for(int k=1; k<=N; k++) {
-					if(road[k].size() == 0) continue;
-					int ts = road[k].get(0).s;
-					int te = road[k].get(0).e;
-					int tc = road[k].get(0).c;
+					int len = road[k].size();					
+					if(len == 0) continue;
 					
-					
-					if(D[i-1][ts] + tc <= D[i-1][te]) {
-						D[i][te] = D[i-1][ts] + tc;
-						if(D[i][te] <= B) {
-							Sum = i;
+					for(int s=0; s<len; s++) {
+						int ts = road[k].get(s).s;
+						int te = road[k].get(s).e;
+						int tc = road[k].get(s).c;
+						
+//	if(t == 5) {
+//		System.out.println();
+//	}
+						if(D[i-1][ts] + tc <= D[i][te]) {
+							D[i][te] = D[i-1][ts] + tc;
+							if(D[i][te] <= B) {
+								Sum = i;
+							}
 						}
 					}
 				}
