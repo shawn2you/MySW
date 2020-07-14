@@ -57,15 +57,11 @@ public class Solution_TP0017 {
 //					}					 
 				}
 			}
-			
-			
-//			ArrayList<Integer> list = new ArrayList<>();
-//			LinkedList<Integer> list = new LinkedList<>();
-//			Queue<Integer> list = new LinkedList<Integer>(); // queus
+			// 강사 설명 기준
 	        Deque<Integer> list = new ArrayDeque<>(); // stack
 			int temps=0, temp;
-			for(int i=1; i<=N; i++) {
-				for(int j=1; j<=M; j++) {
+			for(int i=0; i<=N; i++) {
+				for(int j=0; j<=M; j++) {
 					if(map[i][j] == 0) {
 						Dc[i][j] = 0;
 						list.clear();
@@ -96,7 +92,7 @@ public class Solution_TP0017 {
 			
 			
 			
-			// 직사각형 개수(넓이) 구하기
+			// 직사각형 개수(넓이) 구하기 (값이 안나옴)
 //			for(int i=1; i<=N; i++) {
 //				for(int j=1; j<=M; j++) {
 //					calcCnt(i, j);
