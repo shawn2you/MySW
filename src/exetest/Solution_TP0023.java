@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 public class Solution_TP0023 {
 
 	static int T, M, N, Sum;
+	static int[][] Distance; // 최단경로, 인접행렬
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -26,12 +27,19 @@ public class Solution_TP0023 {
 			// 초기화 
 			Sum = 0;
 
-			// 한변의 길이 N
+			// 교차로(N)와 도로(M)의 개수 (2 ≤ N ≤ 500, 1 ≤ M ≤ 100,000)
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			N = Integer.parseInt(st.nextToken());
-			N = Integer.parseInt(br.readLine());	
+			M = Integer.parseInt(st.nextToken());
 			
+			Distance = new int[N+1][N+1];
 			
+			for(int i=1; i<=M; i++) {
+				st = new StringTokenizer(br.readLine());
+				for(int j=1; j<=N; j++) {
+					Distance[i][j] = Integer.parseInt(st.nextToken());
+				}
+			}
 			
 			
 			
