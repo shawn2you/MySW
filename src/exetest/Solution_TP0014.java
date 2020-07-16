@@ -41,7 +41,9 @@ public class Solution_TP0014 {
 			for(int i=1; i<=N; i++){
 				if(visit[i] == 0) find(i);
 			}
-			
+			for(int i=1; i<=N; i++){
+				ans += Math.min(vcnt[i], K);
+			}
 			System.out.println("#" + t + " " + ans);
 			
 		} // end test case
