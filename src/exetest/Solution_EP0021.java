@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Solution_EP0021 {
 
 	static int T, M, N, Sum;
-	
+	static int INF = 100000007;
 	static char[] badook = new char[401];
 	static int[][] D ; 
 	static int[][] H ; 
@@ -36,15 +37,18 @@ public class Solution_EP0021 {
 			
 			D = new int[N+1][N+1]; 
 			H = new int[N+1][N+1]; 
-//			for(int j=0; j<N; j++) {
+			for(int i=1; i<=N; i++) {
+				Arrays.fill(D[i], INF);
+				Arrays.fill(H[i], INF);
+			}
 				int j = 0;
 				for(int len=1; len<=N; len+=2) {
-					for(int i=0; i<N-len; i++) {
+					for(int i=1; i<=N-len; i++) {
 						j = i + len; // len 길이만큼 비교
-						if(len==1 && badook[i] != badook[j]) {
+						if(len==1 && badook[i-1] != badook[j-1]) {
 							H[i][j] = 1;
 							D[i][j] = 3;
-						}else if(badook[i] != badook[j]) {
+						}else if(badook[i-1] != badook[j-1]) {
 							H[i][j] = H[i+1][j-1] + 1;
 							D[i][j] = D[i+1][j-1] + len + H[i][j] + H[i][j];
 						}
@@ -62,7 +66,7 @@ public class Solution_EP0021 {
 			
 			
 			
-			System.out.println("#"+t+" "+D[0][N-1]);
+			System.out.println("#"+t+" "+D[1][N]);
 		} // end test case		
 	} // end main
 
