@@ -27,11 +27,15 @@ public class Solution_basic {
 			sb.append("#").append(t).append(" ");
 			
 			// 경우의 수 구성하기 (순열)
-			int[] arr = {1, 2, 3};				
-			order(arr, 0, arr.length);
+			int[] arr = {1, 2, 3};		
+//			order(arr, 0, arr.length);
 			
+			// Unio-find 함수
 			
+			// 이분 탐색 (오름차순으로 정렬된 수열에서 특정수를 찾는 경우)
+			int[] arr2 = {1, 2, 3, 4, 5, 6, 7, 8};
 			
+			System.out.println(binarySearch(arr2, 9));
 			
 			
 			sb.append(Res);
@@ -59,6 +63,26 @@ public class Solution_basic {
 		int temp = arr[x];
 		arr[x] = arr[y];
 		arr[y]= temp;
+	}
+	
+	// 이분 탐색
+	static int binarySearch(int[] arr, int a){
+		int left  = 0;
+		int right = arr.length-1;
+		int mid, midValue;
+
+		while(left <= right){
+			mid = (right + left)/2;
+			midValue = arr[mid];
+			if(midValue == a) return mid;
+			
+			if(midValue > a){
+				right = mid - 1;
+			}else{
+				left = mid + 1;
+			}
+		}
+		return -1;
 	}
 	
 	
