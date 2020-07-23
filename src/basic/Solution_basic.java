@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Solution_basic {
@@ -34,8 +35,22 @@ public class Solution_basic {
 			
 			// 이분 탐색 (오름차순으로 정렬된 수열에서 특정수를 찾는 경우)
 			int[] arr2 = {1, 2, 3, 4, 5, 6, 7, 8};
+			int[] arr3 = {1, 4, 3, 5, 9, 2, 7, 6};
+			int[] arr4 = {8, 7, 6, 5, 4, 3, 2, 1};
 			
-			System.out.println(binarySearch(arr2, 9));
+//			System.out.println(binarySearch(arr2, 0, arr4.length, 8));
+//			Arrays.sort(arr3, 0, 8);
+//			System.out.println(Arrays.binarySearch(arr3, 0, 8, 9));
+			
+			
+			// 최대공약수
+			int a = 72;
+			int b = 30;
+			System.out.println(GCD(a, b));
+			
+			
+			
+			
 			
 			
 			sb.append(Res);
@@ -66,24 +81,40 @@ public class Solution_basic {
 	}
 	
 	// 이분 탐색
-	static int binarySearch(int[] arr, int a){
-		int left  = 0;
-		int right = arr.length-1;
+	static int binarySearch(int[] arr, int leftidx, int rigthidx, int key){
+		int left  = leftidx;  // low
+		int right = rigthidx - 1; // high
 		int mid, midValue;
 
 		while(left <= right){
-			mid = (right + left)/2;
+//			mid = (right + left)/2;
+			mid = (right + left) >>> 1;
 			midValue = arr[mid];
-			if(midValue == a) return mid;
+			if(midValue == key) return mid;
 			
-			if(midValue > a){
+			if(midValue > key){ // 오름 차순일 경우 (반대로 하면 내림 차순)
 				right = mid - 1;
 			}else{
 				left = mid + 1;
 			}
 		}
-		return -1;
+		return -(left + 1);
 	}
 	
-	
+	// 최대공약수
+	static int GCD(int a, int b){
+		int temp;
+		if(a < b){
+			temp = a;
+			a = b;
+			b = temp;
+		}
+		// GCD(a, b) = GCD(b, r)
+		while(b != 0){
+			temp = a%b; // a를 b로 나눈 나머지
+			a = b;
+			b = temp;
+		}
+		return a;
+	}
 }
