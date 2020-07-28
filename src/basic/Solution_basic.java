@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Solution_basic {
@@ -14,6 +15,20 @@ public class Solution_basic {
 	// union-find by rank
 	static int[] parent;
 	static int[] rank;
+	
+	// 그래프 구조 설계
+	static class Node{
+		int x, y;
+		Node(){
+			
+		}
+		Node(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+	}
+	
+	static int[] visited;
 	
 	public static void main(String[] args) throws Exception {
 		// 파일 처리 
@@ -60,7 +75,13 @@ public class Solution_basic {
 			// 최소공배수 
 			System.out.println(a*b/GCD(a, b));
 			
-			// 
+			// DFS 
+			int V = 5;
+			LinkedList<Node> nl[] = new LinkedList[V];
+			for(int i=0; i<V; i++){
+				nl[i] = new LinkedList<Node>();
+			}
+			nl[0].add(new Node(1, 2));
 			
 			
 			
@@ -151,5 +172,12 @@ public class Solution_basic {
 			b = temp;
 		}
 		return a;
+	}
+	
+	// DFS
+	static void DFS(Node root){
+		if(root == null) return;
+		
+		
 	}
 }
