@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Solution_basic {
@@ -71,17 +72,28 @@ public class Solution_basic {
 			// 최대공약수
 			int a = 72;
 			int b = 30;
-			System.out.println(GCD(a, b));
+			System.out.println(a + ", " + b + "=최대공약수" + GCD(a, b));
 			// 최소공배수 
-			System.out.println(a*b/GCD(a, b));
+			System.out.println("최소공배수="+a*b/GCD(a, b));
 			
-			// DFS 
-			int V = 5;
-			LinkedList<Node> nl[] = new LinkedList[V];
-			for(int i=0; i<V; i++){
+			// BFS/DFS 구현해보기 
+			int V = 7;
+			LinkedList<Node> nl[] = new LinkedList[V+1];
+			visited = new int[V+1];
+			for(int i=0; i<=V; i++){
 				nl[i] = new LinkedList<Node>();
+				visited[i] = 0;
 			}
-			nl[0].add(new Node(1, 2));
+			nl[1].add(new Node(1, 2));
+			nl[1].add(new Node(1, 3));
+			nl[2].add(new Node(2, 4));
+			nl[4].add(new Node(4, 7));
+			nl[3].add(new Node(3, 5));
+			nl[3].add(new Node(3, 6));
+			nl[5].add(new Node(5, 7));
+			
+//			BFS(nl, 1);
+			DFS(nl, 1);
 			
 			
 			
@@ -174,10 +186,57 @@ public class Solution_basic {
 		return a;
 	}
 	
-	// DFS
-	static void DFS(Node root){
-		if(root == null) return;
-		
-		
+	// BFS - Queue
+	static void BFS(LinkedList<Node>[] nl, int start){
+		Queue <Node> que = new LinkedList<Node>();
+		que.add(new Node(0, start)); // 시작점 
+		visited[start] = 1;
+		System.out.println("방문=" + start);
+		Node curr, next;
+		int nextY;
+		while(!que.isEmpty()){
+			curr = que.poll();
+			nextY = curr.y;
+			// 인접 노드로 이동
+			for(int i=0; i<nl[nextY].size(); i++){
+				next = nl[nextY].get(i);
+				if(visited[next.y] == 0){
+					que.add(nl[nextY].get(i));
+					visited[next.y] = 1; // 방문처리
+					// 로직 구현
+					System.out.println("방문=" + next.y);
+				}
+			}
+		}			
 	}
+	
+	// DFS - Stack
+	static void DFS(LinkedList<Node>[] nl, int start){
+		LinkedList<Node> stack = new LinkedList<>();
+
+		stack.push(new Node(0, start)); // 시작점 
+//		visited[start] = 1;
+//		System.out.println("방문=" + start);
+		Node curr, next;
+		int nextY;
+		while(!stack.isEmpty()){
+			curr = stack.pop();
+			nextY = curr.y;
+			
+			if(visited[nextY] == 0){
+				visited[nextY] = 1; // 방문처리
+				System.out.println("방문=" + nextY);
+			}
+			// 인접 노드로 이동		
+			for(int i=0; i<nl[nextY].size(); i++){
+				next = nl[nextY].get(i);
+				if(visited[next.y] == 0){
+					stack.push(nl[nextY].get(i));
+				}
+			}
+		}			
+	}
+	
+	
+	
 }
