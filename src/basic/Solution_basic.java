@@ -4,13 +4,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Solution_basic {
 	// 변수 처리 
-	static int T;
+	static int T, N;
 	static long Res;
 
 	// union-find by rank
@@ -46,15 +48,94 @@ public class Solution_basic {
 			sb.setLength(0);
 			sb.append("#").append(t).append(" ");
 			
+			// 자료구조
+			// array
+			ArrayList<Integer> al = new ArrayList<>();
+			al.add(1);
+			al.add(2);
+			al.add(4);
+			al.add(5);
+			al.add(3);
+			al.add(1);
+			// stack
+			LinkedList<Integer> ll = new LinkedList<>();
+			ll.addFirst(1);
+			ll.addFirst(2);
+			ll.addFirst(4);
+			ll.addFirst(5);
+			ll.addFirst(3);
+			ll.addFirst(1);
+			ll.add(2, 3);			
+			ll.push(9);
+			System.out.println(ll.pop()); // LIFO
+			// queue
+			Queue<Integer> aq = new LinkedList<Integer>();
+			aq.add(1);
+			aq.add(2);
+			aq.add(4);
+			aq.add(3);
+			aq.add(5);
+			System.out.println(aq.poll()); // FIFO
+						
+			// Priority Queue
+			PriorityQueue<Integer> pq = new PriorityQueue<>();
+			pq.add(1);
+			pq.add(3);
+			pq.add(8);
+			pq.add(4);
+			while(!pq.isEmpty()){
+				System.out.println(pq.poll());		
+			}
+			
+			// Indexed tree
+			N = 7;
+			int S = 2;
+			while(S <= N){
+				S *= 2;
+			}
+			System.out.println("배열크기 S=" + S);
+			int[] tree = new int[S+N+1];
+			for(int i=S; i<=S+N; i++){
+				tree[i] = i;
+			}
+			int i = S-1;
+			while(i>0){
+				tree[i] = Math.min(tree[2*i], tree[2*i+1]);
+				i--;				
+			}
+			// 쿼리 수행 (5~8 최소 숫자)
+			int x = 5 + S-1, y = 8 + S-1;
+			int minValue = Integer.MAX_VALUE;
+			while(x<y){
+				if(x%2 == 0){
+					x = x/2;
+					minValue = Math.min(minValue, tree[x]);
+				}else{
+					minValue = Math.min(minValue, tree[x]);
+					x++;
+				}
+				if(y%2 == 1){
+					y = y/2;
+					minValue = Math.min(minValue, tree[y]);
+				}else{
+					minValue = Math.min(minValue, tree[y]);
+					y--;
+				}
+			}
+			System.out.println(minValue);
+			
+			// 데이터 갱신 수행
+						
+						
 			// 경우의 수 구성하기 (순열)
 			int[] arr = {1, 2, 3};		
 //			order(arr, 0, arr.length);
 			
 			// Union-find 함수
-			int N=10;
+			N=10;
 			rank   = new int[N];
 			parent = new int[N];
-			for(int i=0; i<N; i++){
+			for(i=0; i<N; i++){
 				parent[i] = i;
 				rank[i] = 0; // 높이, 순위 등 우선순위
 			}
@@ -80,7 +161,7 @@ public class Solution_basic {
 			int V = 7;
 			LinkedList<Node> nl[] = new LinkedList[V+1];
 			visited = new int[V+1];
-			for(int i=0; i<=V; i++){
+			for(i=0; i<=V; i++){
 				nl[i] = new LinkedList<Node>();
 				visited[i] = 0;
 			}
