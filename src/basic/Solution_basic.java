@@ -103,6 +103,14 @@ public class Solution_basic {
 				tree[i] = Math.min(tree[2*i], tree[2*i+1]);
 				i--;				
 			}
+			// 데이터 갱신 수행 (8번째를 11로 업데이트)
+			int idx = 8 + S-1, update = 11;
+			tree[idx] = update;
+			while(idx != 0){
+				idx /= 2;
+				tree[idx] = Math.min(tree[2*idx], tree[2*idx+1]);
+			}
+			
 			// 쿼리 수행 (5~8 최소 숫자)
 			int x = 5 + S-1, y = 8 + S-1;
 			int minValue = Integer.MAX_VALUE;
@@ -124,7 +132,7 @@ public class Solution_basic {
 			}
 			System.out.println(minValue);
 			
-			// 데이터 갱신 수행
+			
 						
 						
 			// 경우의 수 구성하기 (순열)
