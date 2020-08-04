@@ -132,7 +132,6 @@ public class Solution_basic {
 			}
 			System.out.println(minValue);
 			
-			
 						
 						
 			// 경우의 수 구성하기 (순열)
@@ -158,12 +157,27 @@ public class Solution_basic {
 //			System.out.println(Arrays.binarySearch(arr3, 0, 8, 9));
 			
 			
-			// 최대공약수
-			int a = 72;
-			int b = 30;
+			// 최대공약수 (유클리드 호제법)
+			int a = 8;
+			int b = 15;
 			System.out.println(a + ", " + b + "=최대공약수" + GCD(a, b));
+			// 기약분수 형태로 출력시 두수의 최대공약수로 각각 나누면 됨
+			
 			// 최소공배수 
 			System.out.println("최소공배수="+a*b/GCD(a, b));
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			// BFS/DFS 구현해보기 
 			int V = 7;
@@ -274,6 +288,30 @@ public class Solution_basic {
 		}
 		return a;
 	}
+	
+	// 확장유클리드 
+	static void EEA(int a, int b){
+		int r0 = a, r1 = b;
+		int s0 = 1, s1 = 0;
+		int t0 = 0, t1 = 1;
+		int temp = 0, q = 0;
+		
+		while(r1 != 0){
+			q = r0/r1;
+			temp = r0;
+			r0 = r1;
+			r1 = temp - r1*q;
+			temp = s0;
+			s0 = s1;
+			s1 = temp = s1*q;
+			temp = t0;
+			t0 = t1;
+			t1 = temp - t1*q;
+		}
+		
+		System.out.println("s1 = " + s1 + ", t1 = " + t1);
+	}
+	
 	
 	// BFS - Queue
 	static void BFS(LinkedList<Node>[] nl, int start){
