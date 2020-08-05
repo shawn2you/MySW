@@ -166,13 +166,47 @@ public class Solution_basic {
 			// 최소공배수 
 			System.out.println("최소공배수="+a*b/GCD(a, b));
 			
+			// 확장유클리드(해결 못함)
+			EEA(a, b);
 			
+			// 소수판별
+			a = 100;
+			int[] isPrime = new int[a+1]; // 캐싱
+			isPrime[2] = 1;
+			isPrime[3] = 1;
 			
-			
-			
-			
-			
-			
+			System.out.println(Math.sqrt(a));
+			double sqrtA = Math.sqrt(a);
+			// root a = x * y : a가 소수가 아니면 x, y로 나누어 떨어진다. x, y중 더 큰 수는 무조건 a의 제곱근보다 크다 . 
+			loops : while(true){
+				if(isPrime[a] == 1) {
+					System.out.println(a + " is prime");
+					break loops;
+				}
+				for(i = 2; i<sqrtA; i++){
+					if(a%i == 0){
+						System.out.println(a + " is not prime");
+						break loops;
+					}
+				}
+				System.out.println(a + " is prime");
+				break loops;
+			}
+			System.out.println("=================================================");
+			// 소수판별(에라토네스의 체, N까지의 소수합이 더 적합함)
+			a = 100;
+			isPrime = new int[a+1]; // 캐싱
+			while(true){
+				for(i=2; i<=a; i++){
+					if(isPrime[i] == 0){
+						System.out.println(i + " is prime");
+					}
+					for(int j=i; j<=a; j+=i){
+						isPrime[j] = 1;
+					}
+				}
+				break;
+			}
 			
 			
 			
