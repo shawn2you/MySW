@@ -97,8 +97,9 @@ public class Solution_EP0002 {
 				if(happy[citem.e] < happy[citem.s] + citem.f){
 					// 비용 계산 d[i] = d[i-1] + c[i]
 					cost[citem.e] = cost[citem.s] + citem.c;
-					if(cost[citem.e] > B) continue;
-					happy[citem.e] = happy[citem.s] + citem.f;
+					if(cost[citem.e] <= B){
+						happy[citem.e] = happy[citem.s] + citem.f;
+					}
 				}
 				
 				if(--indegree[citem.e] == 0){
