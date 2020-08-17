@@ -74,8 +74,13 @@ public class Solution_EP0002 {
 			}
 			// 위상정렬
 			topological();
+			if(happy[L] == 0){
+				System.out.println("#" + t + " -1");
+			}else{
+				System.out.println("#" + t + " " + happy[L]);
+			}
+
 			
-			System.out.println("#" + t + " " + happy[L]);
 		} // end test case
 		
 	} // end main
