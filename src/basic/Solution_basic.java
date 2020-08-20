@@ -398,6 +398,19 @@ public class Solution_basic {
 		}			
 	}
 	
+	public static long factorial(long value) {
+		if(value == 0) {
+			return 1;
+		}
+		return value * factorial(value -1);
+	}
 	
+	public static long factorial2(int n) {
+		long rval = 1;
+		for(int i=1; i<=n; i++) {
+			rval *= i;
+		}
+		return rval;
+	}
 	
 }
