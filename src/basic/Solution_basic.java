@@ -158,10 +158,11 @@ public class Solution_basic {
 			
 			
 			// 최대공약수 (유클리드 호제법)
+			// 두개의 자연수 a, b에 대하여 a를 b로 나눈 나머지를 r이라고 하면, a와 b의 최대공약수는 b와 r의 최대공약수와 같다. 
 			int a = 8;
 			int b = 15;
 			System.out.println(a + ", " + b + "=최대공약수" + GCD(a, b));
-			// 기약분수 형태로 출력시 두수의 최대공약수로 각각 나누면 됨
+			// 기약분수 형태로 출력 요구시 두수의 최대공약수로 분자/분모 각각 나누면 됨
 			
 			// 최소공배수 
 			System.out.println("최소공배수="+a*b/GCD(a, b));
@@ -193,6 +194,7 @@ public class Solution_basic {
 				break loops;
 			}
 			System.out.println("=================================================");
+			
 			// 소수판별(에라토네스의 체, N까지의 소수합이 더 적합함)
 			a = 100;
 			isPrime = new int[a+1]; // 캐싱
@@ -206,13 +208,31 @@ public class Solution_basic {
 					}
 				}
 				break;
+			}			
+			
+			sb.setLength(0);
+			// 소인수 분해 : N을 소인수분해하기 위해서는 2부터 N제곱근까지 숫자로 나누어 떨어지는지 검사
+			a = 24;
+			int k = 2;
+			while(true) {
+				if(a % k == 0) {
+					a = a/k;
+					sb.append(k);
+				}else {
+					k++;
+					continue;
+				}
+				if(a == 1) {
+					break;
+				}else {
+					sb.append(",");
+				}
 			}
 			
+			System.out.println(sb.toString());
 			
 			
-			
-			
-			
+			sb.setLength(0);
 			// BFS/DFS 구현해보기 
 			int V = 7;
 			LinkedList<Node> nl[] = new LinkedList[V+1];
@@ -236,7 +256,17 @@ public class Solution_basic {
 			
 			sb.append(Res);
 			System.out.println(sb.toString());
-		}		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		} // end test case
 	} // end main
 	
 	// 경우의 수 구성하기 (순열)
