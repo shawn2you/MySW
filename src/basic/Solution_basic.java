@@ -210,6 +210,11 @@ public class Solution_basic {
 				break;
 			}			
 			
+			// 오일러 피 함수 (암기)
+			// N이 6일때 서로소의 개수는 2(1, 5)가 됨 (소수 2, 3)
+			// 서로소의 개수 = 6*(1 - 1/2)*(1 - 1/3) = 2
+			
+			
 			sb.setLength(0);
 			// 소인수 분해 : N을 소인수분해하기 위해서는 2부터 N제곱근까지 숫자로 나누어 떨어지는지 검사
 			a = 24;
@@ -259,7 +264,11 @@ public class Solution_basic {
 			
 			
 			
-			
+			// 순열        nPk = n! / (n-k)! 
+			// 중복순열  nΠk = n^k
+			// 다중집합순열 n개중 p, q, r개일때  n! / p!q!r!
+			// 원순열                   nPk / k
+			// 조합        nCk = nPk / k! = n! / k!*(n-k)!
 			
 			
 			
