@@ -67,8 +67,9 @@ static long I3 = 10000003;
 						if(num[i] == j) {
 							dp[i][j] = 1;
 						}else if(dp[i-1][j] != 0) {
-							dp[i][j] += dp[i-1][j]%I3;
-							dp[i][GCD(num[i], j)] = (dp[i][GCD(num[i], j)] + dp[i-1][j])%I3;
+//							dp[i][j] += dp[i-1][j]%I3;
+							dp[i][j] = dp[i][j]%I3 + dp[i-1][j]%I3;
+							dp[i][GCD(num[i], j)] = (dp[i][GCD(num[i], j)]%I3 + dp[i-1][j]%I3)%I3;
 						}
 					}
 				}
