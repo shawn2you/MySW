@@ -12,7 +12,8 @@ import java.util.PriorityQueue;
  */
 public class Solution_EP0004 {
 
-	static int T, M, N, Sum;
+	static int T, M, N;
+	static long Sum;
 	static int I7 = 1000000007;
 	
 	public static void main(String[] args) throws Exception {
@@ -77,7 +78,7 @@ public class Solution_EP0004 {
 				// 홀수일때만 계산
 				if(i%2 == 1) {
 //					System.out.println(midValue);
-					Sum += midValue%I7;
+					Sum = (Sum + midValue)%I7;
 				}
 			}
 			
