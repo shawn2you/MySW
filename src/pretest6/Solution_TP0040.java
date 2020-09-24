@@ -17,7 +17,7 @@ public class Solution_TP0040 {
 	static int[] indegree;
 	static int[] salary;
 	
-	public class Job{
+	public class Job implements Comparable<Job>{
 		int s;
 		int e;
 		int c;
@@ -26,10 +26,20 @@ public class Solution_TP0040 {
 			this.e = e;
 			this.c = c;
 		}
-		
+		@Override
+		public int compareTo(Job o) {
+			if(c > o.c) {
+				return 1;
+			}else if(c < o.c){
+				return -1;
+			}else {
+				return 0;
+			}
+		}
 	}
 	
 	static ArrayList<Integer>[] al;
+	static ArrayList<Job> ll = new ArrayList<>();
 	
 	public static void main(String[] args) throws Exception {
 		FileInputStream fi = new FileInputStream(new File(Solution_TP0040.class.getResource("").getPath() + "Solution_TP0040"));
@@ -60,10 +70,17 @@ public class Solution_TP0040 {
 			// dp[i] i 직장에서 시작되는 경력 개수(가능)
 			// 월급이 가장 높은 직장은 이동이 불가 (초기값 구성이 됨)
 			
+			// Case1. DP[ 직장번호 ] = 직장번호로 시작하는 경력의 수
+			// Case2. DP[ 직장번호 ] = 직장번호로 끝나는 경력의 수
+			
+			// 인접리스트
 			al = new ArrayList[N + 1];
 			for(int i=0; i<=N; i++) {
 				al[i] = new ArrayList<Integer>();
 			}
+			
+			// 간선리스트
+			
 			
 			for(int i=1; i<=M; i++) {
 				st = new StringTokenizer(br.readLine());
@@ -72,8 +89,9 @@ public class Solution_TP0040 {
 				// 방향 설정(월급이 낮은데서 높은곳으로만 이동 가능)
 //				if(salary[e] > salary[s]) {
 				if(salary[e] < salary[s]) { // 반대로 구성하여 그래프 생성
-					al[s].add(e);
+					al[s].add(e);					
 					indegree[e]++;
+//					ll.add(new Job(e, s, ))
 				}else {
 					if(salary[s] != salary[e]) {
 						al[e].add(s);
