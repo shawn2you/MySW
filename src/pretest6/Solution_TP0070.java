@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class Solution_TP0070 {
 	
-	static int T, M, N, K;
+	static int T, M, N, K, SumK;
 	static long Sum;
 	
 //	static public class Badook{
@@ -81,7 +81,7 @@ public class Solution_TP0070 {
 			// 탐색 시작
 			find();
 			
-			System.out.println("#"+t+" "+Sum);
+			System.out.println("#"+t+" "+Sum + " " + SumK);
 		} // end test case
 
 	}  // end main
@@ -93,8 +93,11 @@ public class Solution_TP0070 {
 			if(indegree[i] == 0) pq.add(i);
 		}
 		int curr, next;
+		int idx = 0;
 		while(!pq.isEmpty()) {
 			curr = pq.poll();
+			idx++;
+			if(idx == K) SumK = curr;
 			// 다음 이동 점이 있으면 바둑을 취한다. 
 			if(al[curr].size() > 0) Sum += score[curr];
 			
