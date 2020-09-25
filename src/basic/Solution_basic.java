@@ -94,7 +94,7 @@ public class Solution_basic {
 				S *= 2;
 			}
 			System.out.println("배열크기 S=" + S);
-			int[] tree = new int[S+N+1];
+			int[] tree = new int[2*S+1];
 			for(int i=S; i<=S+N; i++){
 				tree[i] = i;
 			}
@@ -121,6 +121,7 @@ public class Solution_basic {
 				}else{
 					minValue = Math.min(minValue, tree[x]);
 					x++;
+					x = x/2;
 				}
 				if(y%2 == 1){
 					y = y/2;
@@ -128,6 +129,7 @@ public class Solution_basic {
 				}else{
 					minValue = Math.min(minValue, tree[y]);
 					y--;
+					y = y/2;
 				}
 			}
 			System.out.println(minValue);
