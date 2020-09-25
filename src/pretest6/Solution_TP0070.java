@@ -25,6 +25,7 @@ public class Solution_TP0070 {
 	static ArrayList<Integer>[] al;
 	static long[] score;
 	static int[] indegree;
+	static int[] visited;
 
 	public static void main(String[] args) throws Exception {
 		
@@ -51,6 +52,7 @@ public class Solution_TP0070 {
 			al = new ArrayList[N + 1];
 			score = new long[N + 1];
 			indegree = new int[N + 1];
+			visited = new int[N + 1];
 			
 			for(int i=0; i<=N; i++) {
 				al[i] = new ArrayList<>();
@@ -70,13 +72,30 @@ public class Solution_TP0070 {
 					// a가 b보다 점수가 크므로 간선의 방향은 a -> b
 					al[a].add(b);
 					indegree[b]++;
-				}else {
-					if(p != q) {
+				}else {					
+					// 점수가 같으면 간선만 생성한다. 
+					if(p == q) {
+//						if(a > b) {
+							al[b].add(a);
+//						}else {
+							al[a].add(b);
+//						}												
+					}else {
 						al[b].add(a);
 						indegree[a]++;
 					}
 				}				
 			}
+			
+			// 동점을 고려하여 그래프 재구축(양방향 간선을 단반향으로 변경)
+			// 위상이 0인 점들은 모두 체크
+//			for(int i=1; i<=N; i++) {				
+//				if(indegree[i] == 0) {
+//					
+//				}
+//			}
+			
+			
 			
 			// 탐색 시작
 			find();
@@ -96,10 +115,16 @@ public class Solution_TP0070 {
 		int idx = 0;
 		while(!pq.isEmpty()) {
 			curr = pq.poll();
-			idx++;
+			if(visited[curr] == 0) {
+				idx++;
+			}
+			
 			if(idx == K) SumK = curr;
 			// 다음 이동 점이 있으면 바둑을 취한다. 
-			if(al[curr].size() > 0) Sum += score[curr];
+			if(al[curr].size() > 0) {
+				visited[curr] = 1; 
+				Sum += score[curr];
+			}
 			
 			for(int i=0; i<al[curr].size(); i++) {
 				next = al[curr].get(i);
