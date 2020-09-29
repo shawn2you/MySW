@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -48,7 +50,9 @@ public class Solution_basic {
 			sb.setLength(0);
 			sb.append("#").append(t).append(" ");
 			
-			// 자료구조
+			/*
+			 * 자료구조
+			 */			
 			// array
 			ArrayList<Integer> al = new ArrayList<>();
 			al.add(1);
@@ -75,8 +79,7 @@ public class Solution_basic {
 			aq.add(4);
 			aq.add(3);
 			aq.add(5);
-			System.out.println(aq.poll()); // FIFO
-						
+			System.out.println(aq.poll()); // FIFO						
 			// Priority Queue
 			PriorityQueue<Integer> pq = new PriorityQueue<>();
 			pq.add(1);
@@ -84,56 +87,107 @@ public class Solution_basic {
 			pq.add(8);
 			pq.add(4);
 			while(!pq.isEmpty()){
-				System.out.println(pq.poll());		
+				System.out.print(pq.poll());		
 			}
+			System.out.println(" : pq 기본 정렬");
+			
+			
+			PriorityQueue<Integer> pq_self = new PriorityQueue<Integer>(new Comparator<Integer>() {
+				@Override
+				public int compare(Integer o1, Integer o2) {
+					return (o1 - o2 > 0) ? -1 : 1;
+				}				
+			});
+			
+			pq_self.add(1);
+			pq_self.add(3);
+			pq_self.add(8);
+			pq_self.add(4);
+			while(!pq_self.isEmpty()){
+				System.out.print(pq_self.poll());		
+			}
+			System.out.println(" : pq 기본 정렬(내림차순)");
+			
+			// sort (기본적으로 오름차순)
+			Collections.sort(al);
+			for(int i=0; i<al.size(); i++) System.out.print(al.get(i));
+			System.out.println(" : 기본 정렬");
+
+			Collections.sort(al, new Comparator<Integer>() {
+				@Override
+				public int compare(Integer o1, Integer o2) {
+					if(o1 - o2 > 0) {
+						return -1;
+					}else {
+						return 1;
+					}
+				}
+			});
+			for(int i=0; i<al.size(); i++) System.out.print(al.get(i));
+			System.out.println(" : 기본 정렬(내림차순으로)");
+
+			
 			
 			// Indexed tree
-			N = 7;
+			N = 8; // 정점의 개수
 			int S = 2;
-			while(S <= N){
-				S *= 2;
+			while(S < N){
+				S *= 2; // 포화이진트리 특성상 자식노드가 2개씩 증가한다. (점점의 개수를 모두 담을 수 있는 만큼 배열을 생성해야 한다. )
 			}
+			// 정점의 개수가 7개 이므로 8개의 공간이 필요하며, 시작점은 S - 1, 끝점은 2S
 			System.out.println("배열크기 S=" + S);
-			int[] tree = new int[2*S+1];
-			for(int i=S; i<=S+N; i++){
-				tree[i] = i;
+			int[] tree_hap = new int[2*S];
+			int[] tree_min = new int[2*S];
+			// 값 셋팅
+			for(int i=1; i<=N; i++){
+				tree_min[(S-1) + i] = i;
+				tree_hap[(S-1) + i] = i;
 			}
-			int i = S-1;
+			// bottom-up 방식으로 초기값 구성
+			int i = S-1; // 시작점에서 계사 시작하면서 위로 올라가기
 			while(i>0){
-				tree[i] = Math.min(tree[2*i], tree[2*i+1]);
+				tree_min[i] = Math.min(tree_min[2*i], tree_min[2*i+1]);
+				tree_hap[i] = tree_hap[2*i] + tree_hap[2*i+1];
 				i--;				
 			}
-			// 데이터 갱신 수행 (8번째를 11로 업데이트)
-			int idx = 8 + S-1, update = 11;
-			tree[idx] = update;
+			// 데이터 갱신 수행 (8번째를 3로 업데이트)
+			int idx = 8 + S-1, update = 3;
+			tree_min[idx] = update;
+			tree_hap[idx] = update;
 			while(idx != 0){
 				idx /= 2;
-				tree[idx] = Math.min(tree[2*idx], tree[2*idx+1]);
+				tree_min[idx] = Math.min(tree_min[2*idx], tree_min[2*idx+1]);
+				tree_hap[idx] = tree_hap[2*idx] + tree_hap[2*idx+1];
 			}
 			
-			// 쿼리 수행 (5~8 최소 숫자)
-			int x = 5 + S-1, y = 8 + S-1;
+			// 구간 쿼리 수행 (5~8 최소 숫자)
+			int start = S -1;
+			int x = 5, y = 8;
+			
 			int minValue = Integer.MAX_VALUE;
+			int hapValue = 0;
+			System.out.print(x + "~" + y);			
+			x = 5 + start;
+			y = 8 + start;
 			while(x<y){
-				if(x%2 == 0){
-					x = x/2;
-					minValue = Math.min(minValue, tree[x]);
-				}else{
-					minValue = Math.min(minValue, tree[x]);
+				if(x%2 == 1){
+					minValue = Math.min(tree_min[2*x+1], minValue);
+					hapValue += tree_hap[2*x+1];
 					x++;
-					x = x/2;
 				}
-				if(y%2 == 1){
-					y = y/2;
-					minValue = Math.min(minValue, tree[y]);
-				}else{
-					minValue = Math.min(minValue, tree[y]);
+				if(y%2 == 0){
+					minValue = Math.min(tree_min[2*x], minValue);
+					hapValue += tree_hap[2*x];
 					y--;
-					y = y/2;
 				}
+				x = x/2;
+				y = y/2;
+
 			}
-			System.out.println(minValue);
-			
+			System.out.print(": minvalue: " + minValue);
+			System.out.println(": 합: " + hapValue);
+			System.out.println("-----------------------------------------");
+
 						
 						
 			// 경우의 수 구성하기 (순열)
