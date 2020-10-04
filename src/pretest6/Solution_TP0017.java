@@ -59,7 +59,6 @@ public class Solution_TP0017 {
 			
 			Deque<Integer> list = new ArrayDeque<>(); // stack(이전 위치)
 			int left = 0;
-			int temp;
 			
 			for(int i=0; i<=N; i++) {
 				for(int j=0; j<=M; j++) {
@@ -73,11 +72,10 @@ public class Solution_TP0017 {
 					}else {						
 						// 높이 구하기(이전 높이 + 1)
 						ht[i][j] = ht[i-1][j] + 1;
-						temp = -1; // 직전위치 정보
 						
 						// 이전 높이와 비교하여 높이가 낮아지면 같아질때까지 위치 찾기
 						while(!list.isEmpty() && ht[i][list.peek()] > ht[i][j]) {
-							temp = list.pop(); // 직전 위치 찾기
+							list.pop(); // 직전 위치 찾기
 						}
 						
 						if(list.isEmpty()) { // 직전위치가 최초 시작점인 경우 처리
