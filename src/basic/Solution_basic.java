@@ -169,7 +169,7 @@ public class Solution_basic {
 			System.out.print(x + "~" + y);			
 			x = 5 + start;
 			y = 8 + start;
-			while(x<y){
+			while(x<=y){
 				if(x%2 == 1){
 					minValue = Math.min(tree_min[2*x+1], minValue);
 					hapValue += tree_hap[2*x+1];
