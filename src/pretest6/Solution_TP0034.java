@@ -61,6 +61,7 @@ public class Solution_TP0034 {
 		int size = numList[n].size();
 		int cnt = 0;
 		int left=0, right=0;
+		// 최대길이까지 순차적으로 탐색하면서, 같은 번호를 선택한(cnt 값) 수의 최대값을 저장한다. 
 		
 		while(right < size) {
 			if((int)numList[n].get(right) - (int)numList[n].get(left) - cnt <= K) {
