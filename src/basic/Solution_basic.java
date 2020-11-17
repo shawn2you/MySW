@@ -329,7 +329,31 @@ public class Solution_basic {
 			
 			
 			
+			// map 형태의 정보 담아서 (서버교체) 해당 망 연결하기
+			st = new StringTokenizer(br.readLine());
 			
+			int N = Integer.parseInt(st.nextToken());
+			int M = Integer.parseInt(st.nextToken());
+			int Q = Integer.parseInt(st.nextToken());
+			
+			int[][] map = new int[N][M];
+
+			for(int ii=0; ii<N; ii++) {
+				String line = br.readLine();
+				for(int jj=0; jj<M; jj++) {
+					if(line.charAt(jj) == 'A') {
+						map[ii][jj] = 1;
+					}else {
+						map[ii][jj] = 2;
+					}
+				}
+			}
+			
+			// 탐색하면서 합치기
+			
+			
+			System.out.println("---------");
+
 			
 		} // end test case
 	} // end main
