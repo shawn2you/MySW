@@ -155,6 +155,7 @@ public class Solution_basic {
 			tree_min[idx] = update;
 			tree_hap[idx] = update;
 			while(idx != 0){
+				
 				idx /= 2;
 				tree_min[idx] = Math.min(tree_min[2*idx], tree_min[2*idx+1]);
 				tree_hap[idx] = tree_hap[2*idx] + tree_hap[2*idx+1];
@@ -162,6 +163,7 @@ public class Solution_basic {
 			
 			// 구간 쿼리 수행 (5~8 최소 숫자)
 			int start = S -1;
+			
 			int x = 5, y = 8;
 			
 			int minValue = Integer.MAX_VALUE;
@@ -208,9 +210,21 @@ public class Solution_basic {
 			int[] arr3 = {1, 4, 3, 5, 9, 2, 7, 6};
 			int[] arr4 = {8, 7, 6, 5, 4, 3, 2, 1};
 			
-//			System.out.println(binarySearch(arr2, 0, arr4.length, 8));
+			System.out.println(binarySearch(arr2, 0, arr4.length, 8));
 //			Arrays.sort(arr3, 0, 8);
 //			System.out.println(Arrays.binarySearch(arr3, 0, 8, 9));
+			
+			
+			// LIS(이분탐색으로 진행)
+			// 오름차순으로 되어 있을 경우 이분탐색으로 가장 우측값과 비교하여 위치를 지정한다. 
+			int[] lis = new int[arr2.length + 1];
+			lis[0] = arr2[0]; // 최초 위치 셋팅
+			
+			for(i=1; i<arr2.length; i++) {
+				lis[binarySearch(lis, 0, 1, arr[i])] = arr[i];
+			}
+			
+			
 			
 			
 			// 최대공약수 (유클리드 호제법)
@@ -409,19 +423,21 @@ public class Solution_basic {
 		int right = rigthidx - 1; // high
 		int mid, midValue;
 
-		while(left <= right){
-//			mid = (right + left)/2;
-			mid = (right + left) >>> 1;
+		while(left < right){
+			mid = (right + left)/2;
+//			mid = (right + left) >>> 1;
 			midValue = arr[mid];
 			if(midValue == key) return mid;
 			
-			if(midValue > key){ // 오름 차순일 경우 (반대로 하면 내림 차순)
-				right = mid - 1;
-			}else{
+			if(midValue < key){ // 오름 차순일 경우 (반대로 하면 내림 차순)
 				left = mid + 1;
+			}else{
+				right = mid;
+				
 			}
 		}
-		return -(left + 1);
+		return right;
+//		return -(left + 1);
 	}
 	
 	
