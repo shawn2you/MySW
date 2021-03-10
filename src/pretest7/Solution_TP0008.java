@@ -18,6 +18,7 @@ public class Solution_TP0008 {
 	
 	static int[] tree;
 	static int[] power;
+	static int[] point;
 	
 	public static class BD implements Comparable<BD>{
 		int no;
@@ -65,6 +66,7 @@ public class Solution_TP0008 {
 			
 			tree = new int[S+1];
 			power = new int[N+1];
+			point = new int[N+1];
 			build = new BD[N+1];
 			
 			st1 = new StringTokenizer(br.readLine());
@@ -81,10 +83,14 @@ public class Solution_TP0008 {
 						
 			Arrays.sort(build, 1, N+1);
 			
-//			for(int i=1; i<=N; i++) {
+			for(int i=1; i<=N; i++) {
 //				System.out.print(build[i].no + " : ");
 //				System.out.println(build[i].he);				
-//			}
+				// 높은 빌딩 순서로 탐색하면서 전체 통과점수를 계산한다. 
+				// 탐색빌딩 기준으로 ( 낮은 건물 수 + 힘 + 1(자기자신))로 위치를 계산하면 점수가 되는 빌딩이 된다.
+				// 낮은 건물수를 검색은 높은 건물기준으로 정렬하였고, 해당 정렬기준으로 indexed tree에 셋팅하면, 
+				// 1번 건물에서 찾는 위치이전까지의 수를 구간합으로 구한다. 
+			}
 			
 			for(int i=0; i<N; i++) {
 				power[i] =  Integer.parseInt(st2.nextToken());
