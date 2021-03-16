@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 /*
  * (중상) [기출P-0087] 그룹의 수 
  * 알고리즘 : DFS(단절점)
+ * https://blog.naver.com/lastingchild/140187693114
  */
 public class Solution_TP0087 {
 	
@@ -29,9 +30,12 @@ public class Solution_TP0087 {
 	// 인접리스트 생성 
 	static ArrayList<Grp>[] al = new ArrayList[25001];
 	static int[] gcnt = new int[25001];
-	
+	// 단절점 기본 변수
 	static int[][] cntCut = new int[501][501]; // 단절점 개수 셋팅
-	static int[] visited = new int[501];
+	static int[] visited = new int[501]; // 방문여부
+	static int[] order = new int[501]; // 방문순서
+	static int[] lowOrder = new int[501]; // 정점 방문 이후(자식) 정점을 거치지 않고 방문 가능한 정점중 가장 낮은 순서
+	static int[] child = new int[501]; // 정점의 자식 트리수
 
 	public static void main(String[] args) throws Exception {
 		FileInputStream fi = new FileInputStream(new File(Solution_TP0087.class.getResource("").getPath() + "Solution_TP0087"));
