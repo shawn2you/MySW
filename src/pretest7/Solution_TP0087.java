@@ -29,6 +29,9 @@ public class Solution_TP0087 {
 	// 인접리스트 생성 
 	static ArrayList<Grp>[] al = new ArrayList[25001];
 	static int[] gcnt = new int[25001];
+	
+	static int[][] cntCut = new int[501][501]; // 단절점 개수 셋팅
+	static int[] visited = new int[501];
 
 	public static void main(String[] args) throws Exception {
 		FileInputStream fi = new FileInputStream(new File(Solution_TP0087.class.getResource("").getPath() + "Solution_TP0087"));
@@ -55,6 +58,7 @@ public class Solution_TP0087 {
 				
 				for(int m=1; m<=M; m++) {
 					map[n][m] = Integer.parseInt(st.nextToken());
+					cntCut[n][m] = 0; // 초기화
 				}
 			}
 			int idx = 1;
@@ -85,10 +89,24 @@ public class Solution_TP0087 {
 				}
 			}
 			
+			// 정점을 순회하면서 각 정점을 시작점으로 DFS 탐색을 진행한다. 
+			// 시작점은 방문한 자식이 2개 이상이면 단절점이 된다. 
+			// 정점의 방문순서를 기록해야 한다. 
+			// 현재 방문순서와 탐색된 방문 순서중 min 값으로 찾는다.
+			idx = 1;
+			for(int n=1; n<=N; n++) {
+				for(int m=1; m<=M; m++) {
+					// dfs (1, true)
+				}
+			}
+			
 			
 			System.out.println("#" + t + " " + "");
 			
 		} // end case
 	} // end main
 
+	static void dfs(int start, boolean isRoot) {
+		
+	}
 }
