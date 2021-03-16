@@ -9,14 +9,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
 
-public class Solutioni_TP0029 {
+public class Solution_TP0029 {
 
 	static int T, M, N, Sum;
 	
 	static ArrayList<int[]> al;
 	public static void main(String[] args) throws Exception {
 		
-		FileInputStream fi = new FileInputStream(new File(Solutioni_TP0029.class.getResource("").getPath() + "Solutioni_TP0029"));
+		FileInputStream fi = new FileInputStream(new File(Solution_TP0029.class.getResource("").getPath() + "Solution_TP0029"));
 		System.setIn(fi);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
@@ -39,17 +39,18 @@ public class Solutioni_TP0029 {
 			al = new ArrayList<>();
 			
 			for(int i=0; i<N; i++) {
-				// 실력 값(슈팅, 드리블 능력) 각각의 범위는 감독과 선수 모두 최소 1 최대 1,000,000,000 인 자연수이다. 
+				// 실력 값(a 슈팅, b 드리블 능력) 각각의 범위는 감독과 선수 모두 최소 1 최대 1,000,000,000 인 자연수이다. 
 				st = new StringTokenizer(br.readLine());
 				int a = Integer.parseInt(st.nextToken());
 				int b = Integer.parseInt(st.nextToken());
 				
 				al.add(new int[] {a, b});
 			}
-			// a(슈팅) 오름차순으로 정렬
-			
-			al.add(new int[] {1, 1000000001});
-			al.add(new int[] {1000000001, 1});
+			// 새감독은 팀내 어떤 선수와 비교해도 슈팅능력과 드리블 능력중 적어도 하나는 더 좋아야(숫자는 작아야 한다) 한다. 
+			// 예시) (1, 2), (2, 1) 이라면 감독은 (1, 1) 인경우만 가능
+			// a(슈팅) 오름차순으로 정렬			
+			al.add(new int[] {1, 1000000001}); // 초기값과 최대값 셋팅
+			al.add(new int[] {1000000001, 1}); // 최대값과 초기값 셋팅
 			
 			Collections.sort(al, new Comparator<int[]>(){
 				@Override
@@ -58,13 +59,15 @@ public class Solutioni_TP0029 {
 						return 1;
 					}else {
 						return -1;
-					}					
-				}				
+					}
+				}
 			});
 			
 			for(int i=0; i<=N+1; i++) {
-				System.out.println(al.get(i)[0]);
+				System.out.println(al.get(i)[0] + " " + al.get(i)[1]);
 			}
+			
+			// 슈팅을 기준으로 드리블 비교하여 최대 최소를 찾는다. 
 			
 			
 			System.out.println("#"+t+" "+Sum);
