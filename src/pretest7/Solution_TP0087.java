@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
  * (중상) [기출P-0087] 그룹의 수 
  * 알고리즘 : DFS(단절점)
  * https://blog.naver.com/lastingchild/140187693114
+ * https://justicehui.github.io/hard-algorithm/2019/01/06/ArticulationPoint/
  */
 public class Solution_TP0087 {
 	
