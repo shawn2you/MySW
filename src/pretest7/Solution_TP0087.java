@@ -53,41 +53,54 @@ public class Solution_TP0087 {
 			
 			Arrays.fill(al, null);
 			Arrays.fill(gcnt, 0);
+			Arrays.fill(visited, 0);
 			
 			// 상하좌우를 인접리스트로 구성한다. ((1≤N≤500, 1≤M≤ 500))
 			map = new int[N+1][M+1];
-			
+			int idx = 1;
 			for(int n=1; n<=N; n++) {
 				st = new StringTokenizer(br.readLine());
 				
 				for(int m=1; m<=M; m++) {
 					map[n][m] = Integer.parseInt(st.nextToken());
 					cntCut[n][m] = 0; // 초기화
+					al[idx] = new ArrayList<Grp>();
+					idx++;
 				}
 			}
-			int idx = 1;
+			// 무방향이며 같은 번호일때 연결한다. (전체 탐색하면 양방향 연결이 된다.)
+			idx = 1;
+			int currV;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
-					al[idx] = new ArrayList<Grp>();
+					currV = map[n][m];
 					// 좌
 					if(m>1) {
-						al[idx].add(new Grp(idx - 1, map[n][m-1]));
-//						System.out.println(n + ", " + (m-1));
+						if(currV == map[n][m-1]){
+							al[idx].add(new Grp(idx - 1, map[n][m-1]));
+//							System.out.println(n + ", " + (m-1));
+						}
 					}
 					// 우
 					if(m<M) {
-						al[idx].add(new Grp(idx + 1, map[n][m+1]));
-//						System.out.println(n + ", " + (m+1));
+						if(currV == map[n][m+1]){
+							al[idx].add(new Grp(idx + 1, map[n][m+1]));
+//							System.out.println(n + ", " + (m+1));							
+						}
 					}					
 					// 상
 					if(n>1) {
-						al[idx].add(new Grp(idx - M, map[n-1][m]));
-//						System.out.println((n-1) + ", " + (m));
+						if(currV == map[n-1][m]){
+							al[idx].add(new Grp(idx - M, map[n-1][m]));
+//							System.out.println((n-1) + ", " + (m));							
+						}
 					}
 					// 하
 					if(n<N) {
-						al[idx].add(new Grp(idx + M, map[n+1][m]));
-//						System.out.println((n+1) + ", " + (m));
+						if(currV == map[n+1][m]){
+							al[idx].add(new Grp(idx + M, map[n+1][m]));
+//							System.out.println((n+1) + ", " + (m));		
+						}
 					}
 					idx++;
 				}
@@ -100,7 +113,7 @@ public class Solution_TP0087 {
 			idx = 1;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
-					// dfs (1, true)
+					// dfs (idx, 0)
 				}
 			}
 			
@@ -110,7 +123,32 @@ public class Solution_TP0087 {
 		} // end case
 	} // end main
 
-	static void dfs(int start, boolean isRoot) {
+	static void dfs(int startNo, int parentNo) {
+		int vOrder = 0;
+		if(visited[startNo] == 1) {
+			return; // 이미 방문했다면 종료
+		}else {
+			// 방문처리
+			visited[startNo] = 1; // 방문 처리
+			// 부모가 없으므로 root
+			if(parentNo == 0) {
+				vOrder = 1;
+			}
+		}		
+		
+		// 인접 리스트를 방문한다.
+		int nextNo;
+		for(int i=0; i<al[startNo].size(); i++) {
+			nextNo = al[startNo].get(i).no;
+			if(visited[nextNo] == 0) {
+				dfs(nextNo, startNo);
+				visited[nextNo] = 1; // 방문 처리		
+			}
+		}
+		// 시작점이면 자식의 수가 2개 이상이면 단절점이며, 노드의 개수만큼 단절점 개수가 된다. 
+		if(parentNo == 0) {			
+			
+		}
 		
 	}
 }
