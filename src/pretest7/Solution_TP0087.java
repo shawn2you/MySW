@@ -16,15 +16,19 @@ import java.util.StringTokenizer;
  */
 public class Solution_TP0087 {
 	
-	static int T, N, M;
+	static int T, N, M, od;
 	static int[][] map;
 	
 	static class Grp{
 		int no;
 		int gno;
-		Grp(int no, int gno){
+		int n;
+		int m;
+		Grp(int no, int gno, int n, int m){
 			this.no  = no;
 			this.gno = gno;
+			this.n = n;
+			this.m = m;
 		}
 	}
 	
@@ -78,28 +82,28 @@ public class Solution_TP0087 {
 					// 좌
 					if(m>1) {
 						if(currV == map[n][m-1]){
-							al[idx].add(new Grp(idx - 1, map[n][m-1]));
+							al[idx].add(new Grp(idx - 1, map[n][m-1], n, m));
 //							System.out.println(n + ", " + (m-1));
 						}
 					}
 					// 우
 					if(m<M) {
 						if(currV == map[n][m+1]){
-							al[idx].add(new Grp(idx + 1, map[n][m+1]));
+							al[idx].add(new Grp(idx + 1, map[n][m+1], n, m));
 //							System.out.println(n + ", " + (m+1));							
 						}
 					}					
 					// 상
 					if(n>1) {
 						if(currV == map[n-1][m]){
-							al[idx].add(new Grp(idx - M, map[n-1][m]));
+							al[idx].add(new Grp(idx - M, map[n-1][m], n, m));
 //							System.out.println((n-1) + ", " + (m));							
 						}
 					}
 					// 하
 					if(n<N) {
 						if(currV == map[n+1][m]){
-							al[idx].add(new Grp(idx + M, map[n+1][m]));
+							al[idx].add(new Grp(idx + M, map[n+1][m], n, m));
 //							System.out.println((n+1) + ", " + (m));		
 						}
 					}
@@ -114,7 +118,8 @@ public class Solution_TP0087 {
 			idx = 1;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
-					// dfs (idx, 0)
+					od = 0;
+					// dfs (idx, -1)
 				}
 			}
 			
@@ -125,20 +130,28 @@ public class Solution_TP0087 {
 	} // end main
 
 	static void dfs(int startNo, int parentNo) {
-		int vOrder = 0;
-		if(visited[startNo] == 1) {
-			return; // 이미 방문했다면 종료
-		}else {
-			// 방문처리
-			visited[startNo] = 1; // 방문 처리
-			// 부모가 없으므로 root
-			if(parentNo == 0) {
-				vOrder = 1;
-			}
-		}		
+		od++;
+		order[startNo] = od;
+		visited[startNo] = 1;
 		
+		int child = 0;		
 		// 인접 리스트를 방문한다.
 		int nextNo;
+		for(Grp grp:al[startNo]) {
+			nextNo = grp.no;
+			
+			// 방문하지 않았다면 계속 진행
+			if(visited[nextNo] == 0) {
+				child++;
+				dfs(nextNo, startNo);
+			}
+			// root 라면
+			if(parentNo == -1 && child > 1) {
+				
+			}
+		}
+		
+
 		for(int i=0; i<al[startNo].size(); i++) {
 			nextNo = al[startNo].get(i).no;
 			if(visited[nextNo] == 0) {
