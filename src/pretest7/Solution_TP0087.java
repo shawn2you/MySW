@@ -72,6 +72,7 @@ public class Solution_TP0087 {
 			// 상하좌우를 인접리스트로 구성한다. ((1≤N≤500, 1≤M≤ 500))
 			map = new int[N+1][M+1];
 			int idx = 1;
+			int maxIdx = 0;
 			for(int n=1; n<=N; n++) {
 				st = new StringTokenizer(br.readLine());
 				
@@ -82,8 +83,10 @@ public class Solution_TP0087 {
 					idx++;
 				}
 			}
+			maxIdx = idx; // 최대 개수
 			// 무방향이며 같은 번호일때 연결한다. (전체 탐색하면 양방향 연결이 된다.)
 			idx = 1;
+			
 			int currV;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
@@ -125,15 +128,29 @@ public class Solution_TP0087 {
 			// 정점의 방문순서를 기록해야 한다. 
 			// 현재 방문순서와 탐색된 방문 순서중 min 값으로 찾는다.
 			idx = 1;
+			od = 0;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
-					od = 0;
-					// dfs (idx, -1)
+					if(visited[idx] == 0) {
+						od = 0;
+					}
+					dfs (idx, od);
+				}
+			}
+			int cnt2 = 0;
+			int cnt3 = 0;
+			int cnt4 = 0;
+			for(int i=1; i<=maxIdx; i++) {
+				if(cntCut[i] == 2) {
+					cnt2++;
+				}else if(cntCut[i] == 3) {
+					cnt3++;
+				}else {
+					cnt4++;
 				}
 			}
 			
-			
-			System.out.println("#" + t + " " + "");
+			System.out.println("#" + t + " " + cnt2 + " " + cnt3 + " " + cnt4);
 			
 		} // end case
 	} // end main
@@ -155,6 +172,7 @@ public class Solution_TP0087 {
 	static void dfs(int startNo, int parentNo) {
 		od++;
 		order[startNo] = od;
+		lowOrder[startNo] = od;
 		visited[startNo] = 1;
 		
 		int child = 0;		
@@ -165,21 +183,29 @@ public class Solution_TP0087 {
 			
 			// 방문하지 않았다면 계속 진행
 			if(visited[nextNo] == 0) {
-				child++;
+				child++;				
 				dfs(nextNo, startNo);
-			}else {
 				
+				// 단절점 계산하기(후퇴하면서~~~)
+				if(lowOrder[startNo] > lowOrder[parentNo] ) {
+					cntCut[startNo] ++;
+				}
+				
+//				// 시작점이면 자식의 수가 2개 이상이면 단절점이며, 노드의 개수만큼 단절점 개수가 된다. 
+//				if(parentNo == -1 && child > 1) {
+//					cntCut[startNo] = child;
+//				}
+				
+			}else {
+				// 이미 방문했다면, 부모를 제외하고 가장 낮은 순서를 찾아 반영(Low 값을 담으면서 이동)
+				lowOrder[startNo] = Math.min(lowOrder[nextNo], order[startNo]);
 			}
-			
-			// 단절점 계산하기
-			// 
-			
 		}
 		
 		// 시작점이면 자식의 수가 2개 이상이면 단절점이며, 노드의 개수만큼 단절점 개수가 된다. 
-		if(parentNo == -1 && child > 1) {
+		if(parentNo == 0 && child > 1) {
 			cntCut[startNo] = child;
-		}		
+		}
 
 //		for(int i=0; i<al[startNo].size(); i++) {
 //			nextNo = al[startNo].get(i).no;
