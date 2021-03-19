@@ -144,12 +144,16 @@ public class Solution_basic {
 				tree_hap[(S-1) + i] = i;
 			}
 			// bottom-up 방식으로 초기값 구성
-			int i = S-1; // 시작점에서 계사 시작하면서 위로 올라가기
+			int i = S-1; // 시작점에서 계산시작하면서 위로 올라가기
 			while(i>0){
 				tree_min[i] = Math.min(tree_min[2*i], tree_min[2*i+1]);
 				tree_hap[i] = tree_hap[2*i] + tree_hap[2*i+1];
 				i--;				
 			}
+			
+			// top-down 방식으로 해당위치 찾기
+			
+			
 			// 데이터 갱신 수행 (8번째를 3로 업데이트)
 			int idx = 8 + S-1, update = 3;
 			tree_min[idx] = update;
@@ -362,9 +366,10 @@ public class Solution_basic {
 					}
 				}
 			}
-			
-			// 탐색하면서 합치기
-			
+			// 탐색하면서 합치기(BFS 탐색)
+			int[][] visited = new int[N][M];
+			Queue<Integer> que = new LinkedList<>();
+			que.add(1);
 			
 			System.out.println("---------");
 
@@ -547,5 +552,6 @@ public class Solution_basic {
 		}
 		return rval;
 	}
+	
 	
 }

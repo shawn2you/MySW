@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 /*
  * (중상) [연습P-0008] 웜홀
- * 플로이드-워셜 알고리즘
+ * bellmanFord 알고리즘
  */
 public class Solution_EP0008 {
 
