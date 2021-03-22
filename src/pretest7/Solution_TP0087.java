@@ -94,28 +94,28 @@ public class Solution_TP0087 {
 					// 좌
 					if(m>1) {
 						if(currV == map[n][m-1]){
-							al[idx].add(new Grp(idx - 1, map[n][m-1]));
+							al[idx].add(new Grp(idx - 1, map[n][m-1], n, m-1));
 //							System.out.println(n + ", " + (m-1));
 						}
 					}
 					// 우
 					if(m<M) {
 						if(currV == map[n][m+1]){
-							al[idx].add(new Grp(idx + 1, map[n][m+1]));
+							al[idx].add(new Grp(idx + 1, map[n][m+1], n, m+1));
 //							System.out.println(n + ", " + (m+1));							
 						}
 					}					
 					// 상
 					if(n>1) {
 						if(currV == map[n-1][m]){
-							al[idx].add(new Grp(idx - M, map[n-1][m]));
+							al[idx].add(new Grp(idx - M, map[n-1][m], n-1, m));
 //							System.out.println((n-1) + ", " + (m));							
 						}
 					}
 					// 하
 					if(n<N) {
 						if(currV == map[n+1][m]){
-							al[idx].add(new Grp(idx + M, map[n+1][m]));
+							al[idx].add(new Grp(idx + M, map[n+1][m], n+1, m));
 //							System.out.println((n+1) + ", " + (m));		
 						}
 					}
@@ -131,10 +131,13 @@ public class Solution_TP0087 {
 			od = 0;
 			for(int n=1; n<=N; n++) {
 				for(int m=1; m<=M; m++) {
+					// 방문 안했다면~~ 단절점 탐색
+					// 단절점이면~~ 해당 위치에서 그룹이 나눠지는 개수를 확인
 					if(visited[idx] == 0) {
 						od = 0;
+						dfs (4, od);
 					}
-					dfs (idx, od);
+					idx++;
 				}
 			}
 			int cnt2 = 0;
@@ -145,7 +148,7 @@ public class Solution_TP0087 {
 					cnt2++;
 				}else if(cntCut[i] == 3) {
 					cnt3++;
-				}else {
+				}else if(cntCut[i] == 4){
 					cnt4++;
 				}
 			}
@@ -169,42 +172,56 @@ public class Solution_TP0087 {
        (시작점이라면 dfs 를 호출한 횟수를 체크해서 단절점인지 파악)
 - 해당 dfs 가 종료되면서 low 값 리턴	
  */
-	static void dfs(int startNo, int parentNo) {
+	static int dfs(int startNo, int parentNo) {
+		int lowOd;
 		od++;
 		order[startNo] = od;
 		lowOrder[startNo] = od;
 		visited[startNo] = 1;
+		lowOd = lowOrder[startNo];
 		
 		int child = 0;		
 		// 인접 리스트를 방문한다.
-		int nextNo;
+		int nextNo, n, m;
 		for(Grp grp:al[startNo]) {
 			nextNo = grp.no;
+			n = grp.n;
+			m = grp.m;
 			
 			// 방문하지 않았다면 계속 진행
 			if(visited[nextNo] == 0) {
-				child++;				
-				dfs(nextNo, startNo);
+				child++;
 				
+				lowOrder[nextNo] = Math.max(lowOrder[nextNo], dfs(nextNo, startNo));				
+				lowOd = lowOrder[nextNo];
 				// 단절점 계산하기(후퇴하면서~~~)
-				if(lowOrder[startNo] > lowOrder[parentNo] ) {
-					cntCut[startNo] ++;
-				}
-				
-//				// 시작점이면 자식의 수가 2개 이상이면 단절점이며, 노드의 개수만큼 단절점 개수가 된다. 
-//				if(parentNo == -1 && child > 1) {
-//					cntCut[startNo] = child;
-//				}
+				// 부모의 최저순서가 자식의 최저 순서보다 크면 부모는 단절점이 아니다. (자식이 더 상위 조상을 갈수 있으니)
+				// 처리는 반대로 해서 단절을 구한다.
+				// 시작점인 경우 자식이 2개 이상이면 단절점이다. 
+				if((lowOrder[startNo] <= lowOrder[nextNo]) || (startNo == 0 && child > 1) ) {
+					System.out.println("단절점==" + n + ", " + m );
+					// 단절점 주변의 Group 번호를 체크하여 몇개인지 계산한다. (최대 4개이다.)
+					// 좌표를 가지고 있으면 편하겠네요~~~ (아니면 번호를 기준으로 계산해서 처리)
+					// 좌/우/상/하 비교 (같을때만 그룹의 수가 나눠지고 다른 경우는 이미 나눠있어서 의미가 없다)
+					if(m<M && grp.gno == map[n][m+1]) {
+						cntCut[startNo] ++;
+					}
+					if(m>1 && grp.gno == map[n][m-1]) {
+						cntCut[startNo] ++;
+					}
+					if(n<N && grp.gno == map[n+1][m]) {
+						cntCut[startNo] ++;
+					}
+					if(n>1 && grp.gno == map[n-1][m]) {
+						cntCut[startNo] ++;
+					}
+				}				
 				
 			}else {
 				// 이미 방문했다면, 부모를 제외하고 가장 낮은 순서를 찾아 반영(Low 값을 담으면서 이동)
-				lowOrder[startNo] = Math.min(lowOrder[nextNo], order[startNo]);
+				lowOrder[nextNo] = Math.min(lowOrder[nextNo], lowOrder[startNo]);
+				lowOd = lowOrder[nextNo];
 			}
-		}
-		
-		// 시작점이면 자식의 수가 2개 이상이면 단절점이며, 노드의 개수만큼 단절점 개수가 된다. 
-		if(parentNo == 0 && child > 1) {
-			cntCut[startNo] = child;
 		}
 
 //		for(int i=0; i<al[startNo].size(); i++) {
@@ -215,5 +232,7 @@ public class Solution_TP0087 {
 //			}
 //		}
 
+		
+		return lowOd;
 	}
 }
