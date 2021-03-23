@@ -135,6 +135,7 @@ function dfs(int s)
           dfs(e)
       }   
    }
+   
    outorders[s]=seq
 }
 
