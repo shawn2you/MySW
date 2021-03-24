@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
  * 알고리즘 : DFS(단절점)
  * https://blog.naver.com/lastingchild/140187693114
  * https://justicehui.github.io/hard-algorithm/2019/01/06/ArticulationPoint/
+ * https://m.blog.naver.com/PostView.nhn?blogId=zoqdlekt&logNo=221589199600&proxyReferer=https:%2F%2Fwww.google.com%2F
  */
 public class Solution_TP0087 {
 	
@@ -46,9 +47,9 @@ public class Solution_TP0087 {
 	static int[] cntCut = new int[25001]; // 단절점 개수 셋팅
 	static int[] visited = new int[25001]; // 방문여부
 	static int[] order = new int[25001]; // 방문순서
-	static int[] lowOrder = new int[25001]; // 정점 방문 이후(자식) 정점을 거치지 않고 방문 가능한 정점중 가장 낮은 순서
-	static int[] para = new int[25001]; // 정점의 자식 트리수
-	static int[] child = new int[25001]; // 정점의 자식 트리수
+//	static int[] lowOrder = new int[25001]; // 정점 방문 이후(자식) 정점을 거치지 않고 방문 가능한 정점중 가장 낮은 순서
+	static int[] orderNo = new int[25001]; // 정점의 번호
+//	static int[] child = new int[25001]; // 정점의 자식 트리수
 
 	public static void main(String[] args) throws Exception {
 		FileInputStream fi = new FileInputStream(new File(Solution_TP0087.class.getResource("").getPath() + "Solution_TP0087"));
@@ -68,6 +69,7 @@ public class Solution_TP0087 {
 			Arrays.fill(gcnt, 0);
 			Arrays.fill(visited, 0);
 			Arrays.fill(cntCut, 0);
+			Arrays.fill(orderNo, 0);
 			
 			// 상하좌우를 인접리스트로 구성한다. ((1≤N≤500, 1≤M≤ 500))
 			map = new int[N+1][M+1];
@@ -78,7 +80,7 @@ public class Solution_TP0087 {
 				
 				for(int m=1; m<=M; m++) {
 					map[n][m] = Integer.parseInt(st.nextToken());
-//					cntCut[n][m] = 0; // 초기화
+					orderNo[idx] = map[n][m]; // 정점의 번호 (Map이 필요 없어질수도 있네)
 					al[idx] = new ArrayList<Grp>();
 					idx++;
 				}
@@ -172,13 +174,11 @@ public class Solution_TP0087 {
        (시작점이라면 dfs 를 호출한 횟수를 체크해서 단절점인지 파악)
 - 해당 dfs 가 종료되면서 low 값 리턴	
  */
-	static int dfs(int startNo, int parentNo) {
-		int lowOd;
+	static int dfs(int startNo, int parentNo) {		
 		od++;
 		order[startNo] = od;
-		lowOrder[startNo] = od;
 		visited[startNo] = 1;
-		lowOd = lowOrder[startNo];
+		int lowOd = od;
 		
 		int child = 0;		
 		// 인접 리스트를 방문한다.
@@ -191,58 +191,37 @@ public class Solution_TP0087 {
 			// 방문하지 않았다면 계속 진행
 			if(visited[nextNo] == 0) {
 				child++;
+				// 자식의 최저순서 
+				int relowOd = dfs(nextNo, startNo);
 				
-				lowOrder[nextNo] = Math.max(lowOrder[nextNo], dfs(nextNo, startNo));				
-				lowOd = lowOrder[nextNo];
-				// 단절점 계산하기(후퇴하면서~~~)
-				// 부모의 최저순서가 자식의 최저 순서보다 크면 부모는 단절점이 아니다. (자식이 더 상위 조상을 갈수 있으니)
-				// 처리는 반대로 해서 단절을 구한다.
-				// 시작점인 경우 자식이 2개 이상이면 단절점이다. 
-				// 시작점과 연결된 자식이 2개 이상이라도, 다른 경로를 통해서 탐색되어 방문이 되면 시작노드에서 호출은 1번만 실행(단절점이 아니다.) 
-//				if((lowOrder[startNo] <= lowOrder[nextNo]) || (startNo == 0 && child > 1) ) {
-				if( lowOrder[startNo] <= lowOrder[nextNo] ) {
-					// 단절점 주변의 Group 번호를 체크하여 몇개인지 계산한다. (최대 4개이다.)
-					// 좌표를 가지고 있으면 편하겠네요~~~ (아니면 번호를 기준으로 계산해서 처리)					
-					if(startNo == 0 && child > 1) {
-						System.out.println("시작 단절점==" + n + ", " + m );
-						
-
-					}else {
-						System.out.println("단절점==" + n + ", " + m );											
-					}
-					// 좌/우/상/하 비교 (같을때만 그룹의 수가 나눠지고 다른 경우는 이미 나눠있어서 의미가 없다)
-					if(m<M && grp.gno == map[n][m+1]) {
-						cntCut[startNo] ++;
-					}
-					if(m>1 && grp.gno == map[n][m-1]) {
-						cntCut[startNo] ++;
-					}
-					if(n<N && grp.gno == map[n+1][m]) {
-						cntCut[startNo] ++;
-					}
-					if(n>1 && grp.gno == map[n-1][m]) {
-						cntCut[startNo] ++;
-					}
-				}				
+				// 자식의 최저순서(relowOd)가 부모의 순서랑 비교하여 자식이 더 낮은 순서가 있다면 부모를 경유하지 않고 탐색이 가능하다. (단절점이 아니다)
+				if(relowOd >= lowOd) {
+					// 부모가 더 앞이니 단절점이다.(자식이 순위가 낮다, 값은 크다)
+					System.out.println("단절점==" + n + ", " + m  + " :: 자식 " + nextNo + "==> 부모 " + startNo + " :: " + relowOd+ " :: " +lowOd );
+					cntCut[startNo] = 1;					
+				}
+				// 최저순서를 갱신한다.				
+				lowOd =  Math.min(lowOd, relowOd);
 				
 			}else {
-				// 이미 방문했다면, 부모를 제외하고 가장 낮은 순서를 찾아 반영(Low 값을 담으면서 이동)
-				if(nextNo != parentNo) {
-					lowOrder[nextNo] = Math.min(lowOrder[nextNo], lowOrder[startNo]);
-				}
-				
-				lowOd = lowOrder[nextNo];
+				// 이미 방문했다면 해당 노드의 최소값을 리턴한다.
+				lowOd = Math.min(lowOd, order[startNo]);
 			}
 		}
+		
+		// 최초(root) 처리를 한다. 
+		if(parentNo == 0 && child > 1) {
+			// 자식이 2개 이상이면 단절점이다.
+			cntCut[startNo] = 1;
+//			for(int i=0; i<al[startNo].size(); i++) {
+//				
+//				if(al[startNo].get(i).gno == orderNo[startNo]) {
+//					cntCut[startNo] ++;
+//				}
+//			}	
 
-//		for(int i=0; i<al[startNo].size(); i++) {
-//			nextNo = al[startNo].get(i).no;
-//			if(visited[nextNo] == 0) {
-//				dfs(nextNo, startNo);
-//				visited[nextNo] = 1; // 방문 처리		
-//			}
-//		}
-
+		}
+		
 		
 		return lowOd;
 	}
