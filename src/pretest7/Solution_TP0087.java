@@ -198,10 +198,18 @@ public class Solution_TP0087 {
 				// 부모의 최저순서가 자식의 최저 순서보다 크면 부모는 단절점이 아니다. (자식이 더 상위 조상을 갈수 있으니)
 				// 처리는 반대로 해서 단절을 구한다.
 				// 시작점인 경우 자식이 2개 이상이면 단절점이다. 
-				if((lowOrder[startNo] <= lowOrder[nextNo]) || (startNo == 0 && child > 1) ) {
-					System.out.println("단절점==" + n + ", " + m );
+				// 시작점과 연결된 자식이 2개 이상이라도, 다른 경로를 통해서 탐색되어 방문이 되면 시작노드에서 호출은 1번만 실행(단절점이 아니다.) 
+//				if((lowOrder[startNo] <= lowOrder[nextNo]) || (startNo == 0 && child > 1) ) {
+				if( lowOrder[startNo] <= lowOrder[nextNo] ) {
 					// 단절점 주변의 Group 번호를 체크하여 몇개인지 계산한다. (최대 4개이다.)
-					// 좌표를 가지고 있으면 편하겠네요~~~ (아니면 번호를 기준으로 계산해서 처리)
+					// 좌표를 가지고 있으면 편하겠네요~~~ (아니면 번호를 기준으로 계산해서 처리)					
+					if(startNo == 0 && child > 1) {
+						System.out.println("시작 단절점==" + n + ", " + m );
+						
+
+					}else {
+						System.out.println("단절점==" + n + ", " + m );											
+					}
 					// 좌/우/상/하 비교 (같을때만 그룹의 수가 나눠지고 다른 경우는 이미 나눠있어서 의미가 없다)
 					if(m<M && grp.gno == map[n][m+1]) {
 						cntCut[startNo] ++;
@@ -219,7 +227,10 @@ public class Solution_TP0087 {
 				
 			}else {
 				// 이미 방문했다면, 부모를 제외하고 가장 낮은 순서를 찾아 반영(Low 값을 담으면서 이동)
-				lowOrder[nextNo] = Math.min(lowOrder[nextNo], lowOrder[startNo]);
+				if(nextNo != parentNo) {
+					lowOrder[nextNo] = Math.min(lowOrder[nextNo], lowOrder[startNo]);
+				}
+				
 				lowOd = lowOrder[nextNo];
 			}
 		}
