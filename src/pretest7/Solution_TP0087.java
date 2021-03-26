@@ -31,6 +31,7 @@ public class Solution_TP0087 {
 			this.gno = gno;
 		}
 		
+		
 		Grp(int no, int gno, int n, int m){
 			this.no  = no;
 			this.gno = gno;
